@@ -1,4 +1,5 @@
-const kBaseURL = "https://comics-api.vercel.app";
+const subPath = "";
+const kBaseURL = "https://nettruyenapi-c3aqye70q-tran-trung-tiens-projects.vercel.app/api$subPath";
 // https://comics-api.vercel.app/trending-comics?page=1
 //Popular Comics
 //page: number; // option
