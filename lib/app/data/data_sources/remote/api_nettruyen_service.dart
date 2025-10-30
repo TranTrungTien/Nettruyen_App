@@ -37,7 +37,7 @@ abstract class ApiNettruyenService {
   Future<HttpResponse<List<ComicEntity>>> getComicsSearchSuggest(
       {required String query});
 
-  @GET("/recommend-comics")
+  @GET(kUrlRecommendComics)
   Future<HttpResponse<List<ComicEntity>>> getRecommendComics();
 
   @GET("/new-comics?page={page}&status={status}")

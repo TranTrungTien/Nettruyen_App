@@ -145,7 +145,7 @@ class _ApiNettruyenService implements ApiNettruyenService {
   @override
   Future<HttpResponse<List<ComicEntity>>> getRecommendComics() async {
     // pass
-    final result = await dio.get("$kBaseURL/recommend-comics");
+    final result = await dio.get("$kBaseURL$kUrlRecommendComics");
     List<ComicEntity> value = [];
     for (var element in result.data) {
       value.add(ComicModel.fromMap(element));

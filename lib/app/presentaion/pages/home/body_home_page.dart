@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/boy_comic_bloc.dart';
@@ -11,10 +9,8 @@ import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/trending_comi
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_state.dart';
 import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
-import 'package:nettruyen/app/presentaion/widgets/grid_view_comics.dart';
 import 'package:nettruyen/app/presentaion/widgets/comic/item_comic_1.dart';
 import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
-import 'package:nettruyen/config/routes/routes_name.dart';
 
 class BodyHomePage extends StatefulWidget {
   const BodyHomePage({super.key});
@@ -66,6 +62,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
                     height: 160,
                     margin: const EdgeInsets.only(bottom: 20),
                     child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: state.listComic!.comics!.length,
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
@@ -89,105 +86,105 @@ class _BodyHomePageState extends State<BodyHomePage> {
             }
             return const LoadingWidget();
           }),
-          BlocBuilder<TrendingComicsBloc, ComicState>(
-              builder: (context, state) {
-            log(state.toString());
-            if (state is ComicSuccesfull) {
-              int itemCount = 0;
-              if (state.listComic != null && state.listComic?.comics != null) {
-                if (state.listComic!.comics!.length > 20) {
-                  itemCount = 20;
-                } else {
-                  itemCount = state.listComic!.comics!.length;
-                }
-              }
-              return GridViewComics(
-                itemCount: itemCount,
-                listValue: state.listComic?.comics ?? [],
-                icon: Icons.local_fire_department_outlined,
-                iconColor: Colors.red,
-                onPressedShowAll: () {
-                  Navigator.pushNamed(context, RoutesName.kPopular);
-                },
-                title: "Truyện nổi bật",
-              );
-            }
-            if (state is ComicFailed) {
-              return FailedWidet(
-                  error: state.error!,
-                  onReset: () {
-                    context
-                        .read<TrendingComicsBloc>()
-                        .add(GetTrendingComicsEvent());
-                  });
-            }
-            return const LoadingWidget();
-          }),
-          BlocBuilder<CompletedComicBloc, ComicState>(
-              builder: (context, state) {
-            if (state is ComicSuccesfull) {
-              int itemCount = 0;
-              if (state.listComic != null && state.listComic?.comics != null) {
-                if (state.listComic!.comics!.length > 20) {
-                  itemCount = 20;
-                } else {
-                  itemCount = state.listComic!.comics!.length;
-                }
-              }
-              return GridViewComics(
-                itemCount: itemCount,
-                listValue: state.listComic?.comics ?? [],
-                icon: Icons.verified,
-                onPressedShowAll: () {
-                  Navigator.pushNamed(context, RoutesName.kCompleted);
-                },
-                title: "Truyện đã hoàn thành",
-              );
-            }
-            if (state is ComicFailed) {
-              return FailedWidet(
-                  error: state.error!,
-                  onReset: () {
-                    context
-                        .read<CompletedComicBloc>()
-                        .add(GetCompletedComicsEvent());
-                  });
-            }
-            return const LoadingWidget();
-          }),
-          BlocBuilder<RecentUpdateComicsBloc, ComicState>(
-              builder: (context, state) {
-            if (state is ComicSuccesfull) {
-              int itemCount = 0;
-              if (state.listComic != null && state.listComic?.comics != null) {
-                if (state.listComic!.comics!.length > 20) {
-                  itemCount = 20;
-                } else {
-                  itemCount = state.listComic!.comics!.length;
-                }
-              }
-              return GridViewComics(
-                itemCount: itemCount,
-                listValue: state.listComic?.comics ?? [],
-                icon: Icons.access_time,
-                iconColor: const Color.fromARGB(255, 255, 200, 0),
-                onPressedShowAll: () {
-                  Navigator.pushNamed(context, RoutesName.kRecentUpdate);
-                },
-                title: "Truyện mới cập nhật",
-              );
-            }
-            if (state is ComicFailed) {
-              return FailedWidet(
-                  error: state.error!,
-                  onReset: () {
-                    context
-                        .read<RecentUpdateComicsBloc>()
-                        .add(GetRecentUpdateComicsEvent());
-                  });
-            }
-            return const LoadingWidget();
-          }),
+          // BlocBuilder<TrendingComicsBloc, ComicState>(
+          //     builder: (context, state) {
+          //   log(state.toString());
+          //   if (state is ComicSuccesfull) {
+          //     int itemCount = 0;
+          //     if (state.listComic != null && state.listComic?.comics != null) {
+          //       if (state.listComic!.comics!.length > 20) {
+          //         itemCount = 20;
+          //       } else {
+          //         itemCount = state.listComic!.comics!.length;
+          //       }
+          //     }
+          //     return GridViewComics(
+          //       itemCount: itemCount,
+          //       listValue: state.listComic?.comics ?? [],
+          //       icon: Icons.local_fire_department_outlined,
+          //       iconColor: Colors.red,
+          //       onPressedShowAll: () {
+          //         Navigator.pushNamed(context, RoutesName.kPopular);
+          //       },
+          //       title: "Truyện nổi bật",
+          //     );
+          //   }
+          //   if (state is ComicFailed) {
+          //     return FailedWidet(
+          //         error: state.error!,
+          //         onReset: () {
+          //           context
+          //               .read<TrendingComicsBloc>()
+          //               .add(GetTrendingComicsEvent());
+          //         });
+          //   }
+          //   return const LoadingWidget();
+          // }),
+          // BlocBuilder<CompletedComicBloc, ComicState>(
+          //     builder: (context, state) {
+          //   if (state is ComicSuccesfull) {
+          //     int itemCount = 0;
+          //     if (state.listComic != null && state.listComic?.comics != null) {
+          //       if (state.listComic!.comics!.length > 20) {
+          //         itemCount = 20;
+          //       } else {
+          //         itemCount = state.listComic!.comics!.length;
+          //       }
+          //     }
+          //     return GridViewComics(
+          //       itemCount: itemCount,
+          //       listValue: state.listComic?.comics ?? [],
+          //       icon: Icons.verified,
+          //       onPressedShowAll: () {
+          //         Navigator.pushNamed(context, RoutesName.kCompleted);
+          //       },
+          //       title: "Truyện đã hoàn thành",
+          //     );
+          //   }
+          //   if (state is ComicFailed) {
+          //     return FailedWidet(
+          //         error: state.error!,
+          //         onReset: () {
+          //           context
+          //               .read<CompletedComicBloc>()
+          //               .add(GetCompletedComicsEvent());
+          //         });
+          //   }
+          //   return const LoadingWidget();
+          // }),
+          // BlocBuilder<RecentUpdateComicsBloc, ComicState>(
+          //     builder: (context, state) {
+          //   if (state is ComicSuccesfull) {
+          //     int itemCount = 0;
+          //     if (state.listComic != null && state.listComic?.comics != null) {
+          //       if (state.listComic!.comics!.length > 20) {
+          //         itemCount = 20;
+          //       } else {
+          //         itemCount = state.listComic!.comics!.length;
+          //       }
+          //     }
+          //     return GridViewComics(
+          //       itemCount: itemCount,
+          //       listValue: state.listComic?.comics ?? [],
+          //       icon: Icons.access_time,
+          //       iconColor: const Color.fromARGB(255, 255, 200, 0),
+          //       onPressedShowAll: () {
+          //         Navigator.pushNamed(context, RoutesName.kRecentUpdate);
+          //       },
+          //       title: "Truyện mới cập nhật",
+          //     );
+          //   }
+          //   if (state is ComicFailed) {
+          //     return FailedWidet(
+          //         error: state.error!,
+          //         onReset: () {
+          //           context
+          //               .read<RecentUpdateComicsBloc>()
+          //               .add(GetRecentUpdateComicsEvent());
+          //         });
+          //   }
+          //   return const LoadingWidget();
+          // }),
           // BlocBuilder<BoyComicBloc, ComicState>(builder: (context, state) {
           //   if (state is ComicSuccesfull) {
           //     int itemCount = 0;
@@ -256,4 +253,5 @@ class _BodyHomePageState extends State<BodyHomePage> {
       ),
     );
   }
+
 }

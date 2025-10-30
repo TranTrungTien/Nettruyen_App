@@ -1,10 +1,11 @@
 const subPath = "";
-const kBaseURL = "https://nettruyenapi-c3aqye70q-tran-trung-tiens-projects.vercel.app/api$subPath";
+const kBaseURL =
+    "https://nettruyenapi-kxuzrz5d1-tran-trung-tiens-projects.vercel.app/api$subPath";
 // https://comics-api.vercel.app/trending-comics?page=1
 //Popular Comics
 //page: number; // option
 // path: `/trending-comics?page=${page}`;
-const kUrlTrending = "/trending-comics";
+const kUrlTrending = "/top-view-stories";
 
 // get all genres
 const kUrlGenres = "/genres";
@@ -25,7 +26,7 @@ const kUrlGenres = "/genres";
 // path: `/search-suggest?q=${query}`;
 
 // recommend comics
-const kUrlRecommendComics = "/recommend-comics";
+const kUrlRecommendComics = "/comics?type=recommend";
 
 //new comics
 // page: number; // option

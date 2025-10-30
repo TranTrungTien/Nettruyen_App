@@ -14,7 +14,7 @@ class FailedWidet extends StatefulWidget {
 class _FailedWidetState extends State<FailedWidet> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
