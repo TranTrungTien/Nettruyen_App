@@ -69,48 +69,22 @@ class ComicModel extends ComicEntity {
   }
 
   factory ComicModel.fromMap(Map<String, dynamic> map) {
-    List<dynamic>? chapterListMap = map['chapters'];
-    List<dynamic>? genresListMap = map['genres'];
-    List<GenreEntity>? listGenres;
-    try {
-      listGenres = genresListMap?.map((e) => GenreModel.fromMap(e)).toList();
-    } catch (e) {
-      listGenres =
-          genresListMap?.map((e) => GenreModel(name: e.toString())).toList();
-    }
-
-    String? authorMap;
-    if (map['authors'] is List) {
-      authorMap = List.from(map['authors']).toString();
-      authorMap = authorMap.replaceAll('[', '');
-      authorMap = authorMap.replaceAll(']', '');
-    } else {
-      authorMap = map["authors"];
-    }
-    ChapterModel? lastChapter;
-    if (map['last_chapter'] != null) {
-      lastChapter = ChapterModel.fromMap(map['last_chapter']);
-    } else if (map['lastest_chapter'] != null) {
-      lastChapter = ChapterModel.fromMap(map['lastest_chapter']);
-    }
     return ComicModel(
       id: map["id"],
       title: map["title"],
       thumbnail: map['thumbnail'],
       description: map['description'],
-      authors: authorMap,
+      authors: map['authors'],
       status: map['status'],
-      other_names: map['other_names'] != null
-          ? List<String>.from(map['other_names'])
-          : null,
+      other_names: List.empty(),
       total_views: map['total_views'].toString(),
       followers: map['followers'].toString(),
       is_trending: map['is_trending'],
-      last_chapter: lastChapter,
+      last_chapter: null,
       short_description: map['short_description'],
       updated_at: map['updated_at'],
-      chapters: chapterListMap?.map((e) => ChapterModel.fromMap(e)).toList(),
-      genres: listGenres,
+      chapters: List.empty(),
+      genres: List.empty(),
     );
   }
 

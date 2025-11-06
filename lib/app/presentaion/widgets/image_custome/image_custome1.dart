@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
 class ImageCustome extends StatelessWidget {
@@ -7,51 +6,61 @@ class ImageCustome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (url != null) {
-      return Image.network(
-        url!,
-        fit: BoxFit.fill,
-        height: double.infinity,
-        width: double.infinity,
-        loadingBuilder: (BuildContext context, Widget child,
-            ImageChunkEvent? loadingProgress) {
-          if (loadingProgress == null) {
-            // Đã tải xong
-            return child;
-          } else if (loadingProgress.expectedTotalBytes != null &&
-              loadingProgress.expectedTotalBytes! > 0) {
-            // Đang tải
-            return Center(
-              child: CircularProgressIndicator(
-                color: Colors.blue,
-                value: loadingProgress.cumulativeBytesLoaded /
-                    (loadingProgress.expectedTotalBytes ?? 1),
-              ),
-            );
-          } else {
-            // Xử lý lỗi
-            throw Exception(
-                'Failed to load image: ${loadingProgress.toString()}');
-          }
-        },
-        errorBuilder: (context, error, stackTrace) {
-          // print("errorBuilder: $error");
-          return const Center(
-            child: CircularProgressIndicator(
-              color: Colors.red,
-            ),
-          );
-        },
-      );
-    } else {
-      return Container(
-          color: Colors.white,
-          child: Image.asset(
-            "assets/images/reading.png",
+    return url != null
+        ? Image.network(
+            url!,
             fit: BoxFit.fill,
             height: double.infinity,
             width: double.infinity,
-          ));
-    }
+            loadingBuilder: (BuildContext context, Widget child,
+                ImageChunkEvent? loadingProgress) {
+              if (loadingProgress == null) {
+                // Đã tải xong
+                return child;
+              } else if (loadingProgress.expectedTotalBytes != null &&
+                  loadingProgress.expectedTotalBytes! > 0) {
+                // Đang tải
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.blue,
+                    value: loadingProgress.cumulativeBytesLoaded /
+                        (loadingProgress.expectedTotalBytes ?? 1),
+                  ),
+                );
+              } else {
+                // Xử lý lỗi khi không tải được ảnh
+                return _buildErrorWidget();
+              }
+            },
+            errorBuilder: (context, error, stackTrace) {
+              // Nếu có lỗi trong việc tải ảnh, hiển thị ảnh mặc định
+              return _buildErrorWidget();
+            },
+          )
+        : _buildDefaultImage(); // Nếu không có URL, hiển thị ảnh mặc định
+  }
+
+  Widget _buildErrorWidget() {
+    // Trả về ảnh mặc định khi xảy ra lỗi
+    return const Center(
+      child: Image(
+        image: AssetImage("assets/images/error_image.png"),
+        fit: BoxFit.fill,
+        height: double.infinity,
+        width: double.infinity,
+      ),
+    );
+  }
+
+  Widget _buildDefaultImage() {
+    // Trả về ảnh mặc định nếu không có URL
+    return const Center(
+      child: Image(
+        image: AssetImage("assets/images/error_image.png"),
+        fit: BoxFit.fill,
+        height: double.infinity,
+        width: double.infinity,
+      ),
+    );
   }
 }

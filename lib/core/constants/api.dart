@@ -1,6 +1,6 @@
 const subPath = "";
 const kBaseURL =
-    "https://nettruyenapi-kxuzrz5d1-tran-trung-tiens-projects.vercel.app/api$subPath";
+    "https://nettruyenapi-58dr5iz8q-tran-trung-tiens-projects.vercel.app/api$subPath";
 // https://comics-api.vercel.app/trending-comics?page=1
 //Popular Comics
 //page: number; // option

@@ -147,7 +147,7 @@ class _ApiNettruyenService implements ApiNettruyenService {
     // pass
     final result = await dio.get("$kBaseURL$kUrlRecommendComics");
     List<ComicEntity> value = [];
-    for (var element in result.data) {
+    for (var element in result.data['comics']) {
       value.add(ComicModel.fromMap(element));
     }
     return HttpResponse(value, result);
