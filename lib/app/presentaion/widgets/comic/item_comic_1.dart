@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:nettruyen/app/domain/models/comic.dart';
 import 'package:nettruyen/app/presentaion/widgets/image_custome/image_custome.dart';
 import 'package:nettruyen/config/routes/routes_name.dart';
+import 'package:nettruyen/core/constants/api.dart';
 
 class ItemComic1 extends StatefulWidget {
   ItemComic1({super.key, required this.comic});
   ComicEntity comic;
-
   @override
   State<ItemComic1> createState() => _ItemComic1State();
 }
@@ -29,7 +29,7 @@ class _ItemComic1State extends State<ItemComic1> {
           alignment: AlignmentDirectional.bottomCenter,
           children: [
             ImageCustome(
-              url: widget.comic.thumbnail,
+              url: widget.comic.thumbnail != '' ? "$kBaseURL/images?src=${Uri.encodeComponent(widget.comic.thumbnail ?? '')}" : "",
             ),
             Container(
               width: double.infinity,

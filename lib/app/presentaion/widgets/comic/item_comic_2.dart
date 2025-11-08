@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nettruyen/app/domain/models/comic.dart';
 import 'package:nettruyen/app/presentaion/widgets/image_custome/image_custome.dart';
 import 'package:nettruyen/config/routes/routes_name.dart';
+import 'package:nettruyen/core/constants/api.dart';
 import 'package:nettruyen/core/unit/unit.dart';
 
 class ItemComic2 extends StatefulWidget {
@@ -30,7 +31,7 @@ class _ItemComic2State extends State<ItemComic2> {
           alignment: AlignmentDirectional.bottomCenter,
           children: [
             ImageCustome(
-              url: widget.comic.thumbnail,
+              url: widget.comic.thumbnail != '' ? "$kBaseURL/images?src=${Uri.encodeComponent(widget.comic.thumbnail ?? '')}" : "",
             ),
             Container(
               width: double.infinity,
