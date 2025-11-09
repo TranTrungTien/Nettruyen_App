@@ -49,6 +49,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
               return Column(
                 children: [
                   const ListTile(
+                    contentPadding: EdgeInsets.only(left: 10),
                     leading: Icon(
                       Icons.local_fire_department,
                       size: 30,
@@ -92,16 +93,17 @@ class _BodyHomePageState extends State<BodyHomePage> {
               builder: (context, state) {
             if (state is ComicSuccesfull) {
               int itemCount = 0;
-              if (state.listComic != null && state.listComic?.comics != null) {
-                if (state.listComic!.comics!.length > 20) {
+              var comicList = state.listComic;
+              if (comicList != null && comicList.comics != null) {
+                if (comicList.comics!.length > 20) {
                   itemCount = 20;
                 } else {
-                  itemCount = state.listComic!.comics!.length;
+                  itemCount = comicList.comics!.length;
                 }
               }
               return GridViewComics(
                 itemCount: itemCount,
-                listValue: state.listComic?.comics ?? [],
+                listValue: comicList?.comics ?? [],
                 icon: Icons.local_fire_department_outlined,
                 iconColor: Colors.red,
                 onPressedShowAll: () {
@@ -121,38 +123,6 @@ class _BodyHomePageState extends State<BodyHomePage> {
             }
             return const LoadingWidget();
           }),
-          // BlocBuilder<CompletedComicBloc, ComicState>(
-          //     builder: (context, state) {
-          //   if (state is ComicSuccesfull) {
-          //     int itemCount = 0;
-          //     if (state.listComic != null && state.listComic?.comics != null) {
-          //       if (state.listComic!.comics!.length > 20) {
-          //         itemCount = 20;
-          //       } else {
-          //         itemCount = state.listComic!.comics!.length;
-          //       }
-          //     }
-          //     return GridViewComics(
-          //       itemCount: itemCount,
-          //       listValue: state.listComic?.comics ?? [],
-          //       icon: Icons.verified,
-          //       onPressedShowAll: () {
-          //         Navigator.pushNamed(context, RoutesName.kCompleted);
-          //       },
-          //       title: "Truyện đã hoàn thành",
-          //     );
-          //   }
-          //   if (state is ComicFailed) {
-          //     return FailedWidet(
-          //         error: state.error!,
-          //         onReset: () {
-          //           context
-          //               .read<CompletedComicBloc>()
-          //               .add(GetCompletedComicsEvent());
-          //         });
-          //   }
-          //   return const LoadingWidget();
-          // }),
           BlocBuilder<RecentUpdateComicsBloc, ComicState>(
               builder: (context, state) {
             if (state is ComicSuccesfull) {
@@ -182,6 +152,38 @@ class _BodyHomePageState extends State<BodyHomePage> {
                     context
                         .read<RecentUpdateComicsBloc>()
                         .add(GetRecentUpdateComicsEvent());
+                  });
+            }
+            return const LoadingWidget();
+          }),
+          BlocBuilder<CompletedComicBloc, ComicState>(
+              builder: (context, state) {
+            if (state is ComicSuccesfull) {
+              int itemCount = 0;
+              if (state.listComic != null && state.listComic?.comics != null) {
+                if (state.listComic!.comics!.length > 20) {
+                  itemCount = 20;
+                } else {
+                  itemCount = state.listComic!.comics!.length;
+                }
+              }
+              return GridViewComics(
+                itemCount: itemCount,
+                listValue: state.listComic?.comics ?? [],
+                icon: Icons.verified,
+                onPressedShowAll: () {
+                  Navigator.pushNamed(context, RoutesName.kCompleted);
+                },
+                title: "Truyện đã hoàn thành",
+              );
+            }
+            if (state is ComicFailed) {
+              return FailedWidet(
+                  error: state.error!,
+                  onReset: () {
+                    context
+                        .read<CompletedComicBloc>()
+                        .add(GetCompletedComicsEvent());
                   });
             }
             return const LoadingWidget();

@@ -18,34 +18,39 @@ class CustomeRoute {
   static PageRoute generate(RouteSettings settings) {
     print("route: ${settings.name}");
     print("arguments: ${settings.arguments}");
-    if (settings.name == RoutesName.kComicById) {
+
+    if (settings.name != null &&
+        settings.name!.startsWith(RoutesName.kComics)) {
       try {
-        String data = settings.arguments as String;
-        return MaterialPageRoute(
-            builder: (context) => ComicPage(
-                  comicId: data,
-                ),
-            settings: settings);
-      } catch (e) {
-        print("Error route: $settings");
-      }
-    }
-    if (settings.name == RoutesName.kChapterById) {
-      try {
-        var data = settings.arguments as Map<String, dynamic>;
-        ComicEntity? comic = data["comic"];
-        ChapterEntity? chapter = data["chapter"];
-        if (comic != null && chapter != null) {
+        final uri = Uri.parse(settings.name!);
+        final segments = uri.pathSegments;
+        // /comics/:comicSlug
+        if (segments.length == 2) {
+          final comicSlug = segments[1];
           return MaterialPageRoute(
-              builder: (context) =>
-                  ChapterComicPage(comic: comic, chapter: chapter),
-              settings: settings);
+            builder: (context) => ComicPage(comicId: comicSlug),
+            settings: settings,
+          );
+        }
+
+        // /comics/:comicSlug/:chapterId
+        if (segments.length == 3) {
+          var data = settings.arguments as Map<String, dynamic>;
+          ComicEntity? comic = data["comic"];
+          ChapterEntity? chapter = data["chapter"];
+          if (comic != null && chapter != null) {
+            return MaterialPageRoute(
+                builder: (context) =>
+                    ChapterComicPage(comic: comic, chapter: chapter),
+                settings: settings);
+          }
         }
       } catch (e) {
-        print("Error route: $settings");
+        print("Error route: $settings, $e");
       }
     }
 
+    // Các route còn lại
     if (settings.name == RoutesName.kHomePage) {
       return MaterialPageRoute(
           builder: (context) => const HomePage(), settings: settings);

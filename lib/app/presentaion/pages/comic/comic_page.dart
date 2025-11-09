@@ -21,7 +21,6 @@ class ComicPage extends StatefulWidget {
 class _ComicPageState extends State<ComicPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context
         .read<ComicByIdBloc>()

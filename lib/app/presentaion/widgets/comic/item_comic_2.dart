@@ -20,7 +20,7 @@ class _ItemComic2State extends State<ItemComic2> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, RoutesName.kComicById,
+        Navigator.pushNamed(context, '${RoutesName.kComics}/${widget.comic.id}',
             arguments: widget.comic.id);
       },
       child: Container(
@@ -31,7 +31,9 @@ class _ItemComic2State extends State<ItemComic2> {
           alignment: AlignmentDirectional.bottomCenter,
           children: [
             ImageCustome(
-              url: widget.comic.thumbnail != '' ? "$kBaseURL/images?src=${Uri.encodeComponent(widget.comic.thumbnail ?? '')}" : "",
+              url: widget.comic.thumbnail != ''
+                  ? "$kBaseURL/images?src=${Uri.encodeComponent(widget.comic.thumbnail ?? '')}"
+                  : "",
             ),
             Container(
               width: double.infinity,

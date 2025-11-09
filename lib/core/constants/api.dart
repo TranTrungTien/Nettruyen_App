@@ -1,6 +1,5 @@
 const subPath = "v2";
-const kBaseURL =
-    "http://localhost:8080/api/$subPath";
+const kBaseURL = "http://localhost:8080/api/$subPath";
 // https://comics-api.vercel.app/trending-comics?page=1
 //Popular Comics
 //page: number; // option
@@ -28,24 +27,11 @@ const kUrlGenres = "/genres";
 // recommend comics
 const kUrlRecommendComics = "/recommend-comics";
 
-//new comics
-// page: number; // option
-// status: 'all' | 'completed' | 'ongoing'; // option
-// path: `/new-comics?page=${page}&status=${status}`;
-const kUrlNewComics = "/new-comics";
-
 // recent-update-comics
 // page: number; // option
 // status: 'all' | 'completed' | 'ongoing'; // option
 // path: `/recent-update-comics?page=${page}&status=${status}`;
 const kUrlRecentUpdateComics = "/recent-update-comics";
-
-// boy and girl comics
-// page: number; // option
-// path: `/boy-comics?page=${page}`;
-const kUrlBoyComics = "/boy-comics";
-//path: `/girl-comics?page=${page}`;
-const kUrlGirlComics = "/girl-comics";
 
 //completed comics
 // page: number; // option

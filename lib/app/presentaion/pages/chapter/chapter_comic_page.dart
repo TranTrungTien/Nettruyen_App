@@ -129,40 +129,24 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
 
   Widget buildBody(ChapterState state) {
     if (state is ChapterSuccessfull) {
-      return ListView.separated(
+      final content = state.contentChapter?.content ?? '';
+      return SingleChildScrollView(
         controller: _scrollController,
-        separatorBuilder: (context, index) {
-          return const SizedBox();
-        },
-        shrinkWrap: true,
-        itemCount: state.contentChapter?.images?.length ?? 0,
-        itemBuilder: (context, index) {
-          return Row(
-            children: [
-              Expanded(
-                child: Image.network(
-                  state.contentChapter!.images![index].src!,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Image.network(
-                      state.contentChapter!.images![index].backup_src!,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Center(
-                            child: CircularProgressIndicator(
-                          color: Colors.red,
-                        ));
-                      },
-                    );
-                  },
-                ),
-              ),
-            ],
-          );
-        },
+        padding: const EdgeInsets.all(16),
+        child: Text(
+          content,
+          style: const TextStyle(
+            fontSize: 16,
+            height: 1.5, // Khoảng cách dòng
+          ),
+        ),
       );
     }
+
     if (state is ChapterFailed) {
       return FailedWidet(error: state.error!);
     }
+
     return const LoadingWidget();
   }
 }

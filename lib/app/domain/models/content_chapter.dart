@@ -6,12 +6,12 @@ import 'package:nettruyen/app/domain/models/image_chapter.dart';
 // ignore: must_be_immutable
 class ContentChapterEntity {
   List<ChapterEntity>? chapters;
-  List<ImageChapterEntity>? images;
+  String? content;
   String? chapter_name;
   String? comic_name;
   ContentChapterEntity({
     this.chapters,
-    this.images,
+    this.content,
     this.chapter_name,
     this.comic_name,
   });
@@ -24,7 +24,7 @@ class ContentChapterEntity {
   }) {
     return ContentChapterEntity(
       chapters: chapters ?? this.chapters,
-      images: images ?? this.images,
+      content: content ?? this.content,
       chapter_name: chapter_name ?? this.chapter_name,
       comic_name: comic_name ?? this.comic_name,
     );
@@ -32,6 +32,6 @@ class ContentChapterEntity {
 
   @override
   String toString() {
-    return 'ContentChapterEntity(chapters: $chapters, images: $images, chapter_name: $chapter_name, comic_name: $comic_name)';
+    return 'ContentChapterEntity(chapters: $chapters, content: $content, chapter_name: $chapter_name, comic_name: $comic_name)';
   }
 }

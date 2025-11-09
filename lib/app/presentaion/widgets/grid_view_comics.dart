@@ -27,6 +27,7 @@ class GridViewComics extends StatelessWidget {
     return Column(
       children: [
         ListTile(
+          contentPadding: const EdgeInsets.only(left: 10),
           leading: Icon(
             icon,
             size: 30,
@@ -34,13 +35,7 @@ class GridViewComics extends StatelessWidget {
           ),
           trailing: TextButton(
             onPressed: () => onPressedShowAll(),
-            child: const Text(
-              "More",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green),
-            ),
+            child: const Icon(Icons.chevron_right, size: 30),
           ),
           title: Text(
             title,

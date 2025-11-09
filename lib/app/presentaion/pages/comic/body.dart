@@ -68,7 +68,8 @@ class _BodyComicPageState extends State<BodyComicPage> {
 
               return InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, RoutesName.kChapterById,
+                  Navigator.pushNamed(context,
+                      '${RoutesName.kComics}/${widget.comic.id}/${widget.comic.chapters![indexChapter].id}',
                       arguments: <String, dynamic>{
                         "comic": widget.comic,
                         "chapter": widget.comic.chapters![indexChapter]

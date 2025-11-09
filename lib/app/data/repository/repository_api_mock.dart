@@ -1,4 +1,3 @@
-
 import 'package:nettruyen/app/domain/models/chapter.dart';
 import 'package:nettruyen/app/domain/models/comic.dart';
 import 'package:nettruyen/app/domain/models/comic_list.dart';
@@ -106,13 +105,7 @@ class RepositoryApiMock implements RepositoryApi {
   Future<DataState<ContentChapterEntity>> getContentOneChapter(
       {required String comicId, required int chapterId}) async {
     await Future.delayed(const Duration(seconds: 1));
-    final content = ContentChapterEntity(
-      images: [
-        ImageChapterEntity(page: 1, src: "https://via.placeholder.com/800x1200"),
-        ImageChapterEntity(page: 2, src: "https://via.placeholder.com/800x1200"),
-        ImageChapterEntity(page: 3, src: "https://via.placeholder.com/800x1200"),
-      ],
-    );
+    final content = ContentChapterEntity(content: "Test");
     return DataSuccess(content);
   }
 
@@ -216,27 +209,32 @@ class RepositoryApiMock implements RepositoryApi {
       ComicEntity(
           id: "trending1",
           title: "Trending Comic 1",
-          thumbnail: "https://i.pinimg.com/736x/c9/2c/a3/c92ca3e49e0c129202112d8a94b5c7f2.jpg",
+          thumbnail:
+              "https://i.pinimg.com/736x/c9/2c/a3/c92ca3e49e0c129202112d8a94b5c7f2.jpg",
           chapters: [ChapterEntity(id: 1, name: 'Chapter 10')]),
       ComicEntity(
           id: "trending2",
           title: "Trending Comic 2",
-          thumbnail: "https://i.pinimg.com/736x/f0/6a/b8/f06ab821b06822557a553f19154a3233.jpg",
+          thumbnail:
+              "https://i.pinimg.com/736x/f0/6a/b8/f06ab821b06822557a553f19154a3233.jpg",
           chapters: [ChapterEntity(id: 1, name: 'Chapter 25')]),
       ComicEntity(
           id: "trending3",
           title: "Trending Comic 3",
-          thumbnail: "https://i.pinimg.com/originals/91/9f/e4/919fe4b494d456455a5362e847c1b8f5.jpg",
+          thumbnail:
+              "https://i.pinimg.com/originals/91/9f/e4/919fe4b494d456455a5362e847c1b8f5.jpg",
           chapters: [ChapterEntity(id: 1, name: 'Chapter 1')]),
       ComicEntity(
           id: "trending4",
           title: "Trending Comic 4",
-          thumbnail: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+          thumbnail:
+              "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
           chapters: [ChapterEntity(id: 1, name: 'Chapter 12')]),
       ComicEntity(
           id: "trending5",
           title: "Trending Comic 5",
-          thumbnail: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+          thumbnail:
+              "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
           chapters: [ChapterEntity(id: 1, name: 'Chapter 112')]),
     ];
     return DataSuccess(ComicListEntity(comics: comics));

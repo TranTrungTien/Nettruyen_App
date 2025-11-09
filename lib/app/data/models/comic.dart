@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:nettruyen/app/data/models/chapter.dart';
 import 'package:nettruyen/app/data/models/genre.dart';
+import 'package:nettruyen/app/domain/models/chapter.dart';
 import 'package:nettruyen/app/domain/models/comic.dart';
 import 'package:nettruyen/app/domain/models/genre.dart';
 
@@ -69,12 +70,33 @@ class ComicModel extends ComicEntity {
   }
 
   factory ComicModel.fromMap(Map<String, dynamic> map) {
+    String authors = '';
+    if (map['authors'] != null && map['authors'].isNotEmpty) {
+      authors = List<String>.from(map['authors']).join(', ');
+    } else {
+      authors = '';
+    }
+
+    List<GenreEntity> genres = [];
+    if (map['genres'] != null && map['genres'].isNotEmpty) {
+      genres = (map['genres'] as List)
+          .map((g) => GenreModel.fromMap(g as Map<String, dynamic>))
+          .toList();
+    }
+
+    List<ChapterEntity> chapters = [];
+    if (map['chapters'] != null && map['chapters'].isNotEmpty) {
+      chapters = (map['chapters'] as List)
+          .map((g) => ChapterModel.fromMap(g as Map<String, dynamic>))
+          .toList();
+    }
+
     return ComicModel(
       id: map["id"],
       title: map["title"],
       thumbnail: map['thumbnail'],
       description: map['description'],
-      authors: map['authors'],
+      authors: authors,
       status: map['status'],
       other_names: List.empty(),
       total_views: map['total_views'].toString(),
@@ -83,8 +105,8 @@ class ComicModel extends ComicEntity {
       last_chapter: null,
       short_description: map['short_description'],
       updated_at: map['updated_at'],
-      chapters: List.empty(),
-      genres: List.empty(),
+      chapters: chapters,
+      genres: genres,
     );
   }
 

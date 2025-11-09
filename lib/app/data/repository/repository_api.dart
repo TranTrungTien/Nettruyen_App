@@ -91,15 +91,15 @@ class RepositoryApiImpl implements RepositoryApi {
   @override
   Future<DataState<ComicEntity>> getComicById({required String comicId}) async {
     try {
-      final httpReponse = await service.getComicById(comicId: comicId);
-      if (httpReponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpReponse.data);
+      final httpResponse = await service.getComicById(comicId: comicId);
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(DioException(
             message:
-                "Faild getComicById StatusCode = ${httpReponse.response.statusCode}",
-            error: httpReponse.response.statusCode,
-            requestOptions: httpReponse.response.requestOptions));
+                "Failed getComicById StatusCode = ${httpResponse.response.statusCode}",
+            error: httpResponse.response.statusCode,
+            requestOptions: httpResponse.response.requestOptions));
       }
     } on DioException catch (e) {
       return DataFailed(e);

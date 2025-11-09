@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:nettruyen/app/domain/models/comic.dart';
 import 'package:nettruyen/app/presentaion/widgets/image_custome/image_custome.dart';
 import 'package:nettruyen/config/routes/routes_name.dart';
+import 'package:nettruyen/core/constants/api.dart';
 
 class HeadingComic extends StatefulWidget {
   HeadingComic({super.key, required this.comic});
@@ -74,7 +75,9 @@ class _HeadingComicState extends State<HeadingComic> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ImageCustome2(
-                url: widget.comic.thumbnail,
+                url: widget.comic.thumbnail != ''
+                    ? "$kBaseURL/images?src=${Uri.encodeComponent(widget.comic.thumbnail ?? '')}"
+                    : "",
                 margin: const EdgeInsets.only(right: 10),
                 width: 150,
                 height: 200,
@@ -152,7 +155,7 @@ class _HeadingComicState extends State<HeadingComic> {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, RoutesName.kChapterById,
+                  Navigator.pushNamed(context, RoutesName.kComics,
                       arguments: <String, dynamic>{
                         "comic": widget.comic,
                         "chapter": widget.comic.chapters!.last
@@ -187,7 +190,7 @@ class _HeadingComicState extends State<HeadingComic> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, RoutesName.kChapterById,
+                  Navigator.pushNamed(context, RoutesName.kComics,
                       arguments: <String, dynamic>{
                         "comic": widget.comic,
                         "chapter": widget.comic.chapters!.first
