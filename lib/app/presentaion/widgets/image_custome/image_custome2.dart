@@ -33,16 +33,21 @@ class _ImageCustome2State extends State<ImageCustome2> {
   Status status = Status.loading;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     Future.delayed(const Duration(seconds: 1)).then(
       (value) {
-        if (status != Status.error) {
+        if (mounted && status != Status.error) {
           setState(() {
             status = Status.succesfull;
           });
         }
       },
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       width: widget.width,
       height: widget.height,
@@ -53,9 +58,11 @@ class _ImageCustome2State extends State<ImageCustome2> {
               ? NetworkImage(widget.url!)
               : const AssetImage("assets/images/error_image.png") as ImageProvider,
           onError: (exception, stackTrace) {
-            setState(() {
-              status = Status.error;
-            });
+            if (mounted) {
+              setState(() {
+                status = Status.error;
+              });
+            }
             if (widget.onError != null) {
               widget.onError!(exception.toString());
             }

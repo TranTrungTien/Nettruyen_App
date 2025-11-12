@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:nettruyen/app/domain/models/comic.dart';
 import 'package:nettruyen/app/presentaion/widgets/image_custome/image_custome.dart';
 import 'package:nettruyen/config/routes/routes_name.dart';
@@ -90,11 +89,14 @@ class _HeadingComicState extends State<HeadingComic> {
                     if (genres != null) genres,
                     Row(
                       children: [
-                        const Icon(
-                          Icons.remove_red_eye,
-                          color: Colors.blue,
-                          size: 15,
+                        const Text(
+                          "Lượt xem:",
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
+                        const SizedBox(width: 5),
                         Text(
                           widget.comic.total_views ?? "0",
                           style: const TextStyle(
@@ -104,13 +106,34 @@ class _HeadingComicState extends State<HeadingComic> {
                     ),
                     Row(
                       children: [
-                        const Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                          size: 15,
+                        const Text(
+                          "Yêu thích:",
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
+                        const SizedBox(width: 5),
                         Text(
                           widget.comic.followers ?? "0",
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontSize: 15, color: Colors.black),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Text(
+                          "Trạng thái:",
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          widget.comic.status ?? "Full",
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontSize: 15, color: Colors.black),
@@ -124,12 +147,15 @@ class _HeadingComicState extends State<HeadingComic> {
           ),
           Row(
             children: [
-              const Text(
-                "Tác giả:",
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Text(
+                  "Tác giả:",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
               ),
               Text(
                 widget.comic.authors ?? "Đang cập nhật",
@@ -138,27 +164,36 @@ class _HeadingComicState extends State<HeadingComic> {
             ],
           ),
           if (widget.comic.description != null)
-            InkWell(
-              onTap: () {
-                setState(() {
-                  isShowMore = !isShowMore;
-                });
-              },
-              child: Text(
-                widget.comic.description!,
-                overflow: TextOverflow.ellipsis,
-                maxLines: isShowMore ? 1000 : 3,
-                style: const TextStyle(fontSize: 15, color: Colors.black),
-              ),
+            Text(
+              widget.comic.description ?? '',
+              overflow: TextOverflow.ellipsis,
+              maxLines: isShowMore ? 1000 : 3,
+              style: const TextStyle(fontSize: 15, color: Colors.black),
             ),
+          if (widget.comic.description != null)
+            InkWell(
+                onTap: () {
+                  setState(() {
+                    isShowMore = !isShowMore;
+                  });
+                },
+                child: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(width: 1, color: Colors.grey),
+                      color: Colors.white,
+                    ),
+                    child: Text(!isShowMore ? "Xem thêm" : "Thu nhỏ"))),
           Wrap(
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, RoutesName.kComics,
+                  Navigator.pushNamed(context,
+                      '${RoutesName.kComics}/${widget.comic.id}/${widget.comic.chapters?.first.id}',
                       arguments: <String, dynamic>{
                         "comic": widget.comic,
-                        "chapter": widget.comic.chapters!.last
+                        "chapter": widget.comic.chapters!.first
                       });
                 },
                 child: Container(
@@ -190,10 +225,11 @@ class _HeadingComicState extends State<HeadingComic> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, RoutesName.kComics,
+                  Navigator.pushNamed(context,
+                      '${RoutesName.kComics}/${widget.comic.id}/${widget.comic.chapters?.last.id}',
                       arguments: <String, dynamic>{
                         "comic": widget.comic,
-                        "chapter": widget.comic.chapters!.first
+                        "chapter": widget.comic.chapters!.last
                       });
                 },
                 child: Container(

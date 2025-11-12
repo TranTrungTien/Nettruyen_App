@@ -57,71 +57,90 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
               ),
               body: buildBody(state),
               bottomNavigationBar: Hidable(
-                  controller: _scrollController,
-                  child: Row(
-                    children: [
-                      IconButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.redAccent),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5)))),
-                          onPressed: () {
-                            var value =
-                                state.contentChapter!.chapters!.indexWhere(
-                              (element) => element.id == chapter.id,
-                            );
-                            if (value >= 0 &&
-                                value <
-                                    state.contentChapter!.chapters!.length) {
-                              context.read<ChapterBloc>().add(
-                                  GetContentChapterEvent(
-                                      chapterId: state.contentChapter!
-                                          .chapters![value + 1].id,
-                                      comic: widget.comic));
-                              setState(() {
-                                chapter =
-                                    state.contentChapter!.chapters![value + 1];
-                              });
-                            } else {
-                              print("Không có tồn tại hoặc là giá trị cuối");
-                            }
-                          },
-                          icon: const Icon(Icons.arrow_back_ios,
-                              color: Colors.white)),
-                      IconButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.redAccent),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5)))),
-                          onPressed: () {
-                            var value =
-                                state.contentChapter!.chapters!.indexWhere(
-                              (element) => element.id == chapter.id,
-                            );
-                            if (value >= 0) {
-                              context.read<ChapterBloc>().add(
-                                  GetContentChapterEvent(
-                                      chapterId: state.contentChapter!
-                                          .chapters![value - 1].id,
-                                      comic: widget.comic));
-                              setState(() {
-                                chapter =
-                                    state.contentChapter!.chapters![value - 1];
-                              });
-                            } else {
-                              print("Không có tồn tại hoặc là giá trị đầu");
-                            }
-                          },
-                          icon: const Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.white,
-                          )),
-                    ],
-                  )));
+                controller: _scrollController,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: IconButton(
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStateProperty.all(
+                                Colors.redAccent,
+                              ),
+                              shape: WidgetStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
+                            onPressed: () {
+                              var chapters = state.contentChapter?.chapters;
+                              if (chapters == null) return;
+
+                              var index = chapters
+                                  .indexWhere((e) => e.id == chapter.id);
+
+                              if (index > 0) {
+                                final prevChapter = chapters[index - 1];
+
+                                context.read<ChapterBloc>().add(
+                                    GetContentChapterEvent(
+                                        chapterId: prevChapter.id,
+                                        comic: widget.comic));
+                                setState(() {
+                                  chapter = prevChapter;
+                                });
+                              }
+                            },
+                            icon: const Icon(
+                              Icons.arrow_back_ios,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: IconButton(
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStateProperty.all(
+                                Colors.redAccent,
+                              ),
+                              shape: WidgetStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
+                            onPressed: () {
+                              var chapters = state.contentChapter?.chapters;
+                              if (chapters == null) return;
+                              int index = chapters
+                                  .indexWhere((e) => e.id == chapter.id);
+                              var length = chapters.length;
+                              if (index < length - 1) {
+                                final nextChapter = chapters[index + 1];
+                                context.read<ChapterBloc>().add(
+                                    GetContentChapterEvent(
+                                        chapterId: nextChapter.id,
+                                        comic: widget.comic));
+                                setState(() {
+                                  chapter = nextChapter;
+                                });
+                              }
+                            },
+                            icon: const Icon(Icons.arrow_forward_ios,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ));
         },
       ),
     );

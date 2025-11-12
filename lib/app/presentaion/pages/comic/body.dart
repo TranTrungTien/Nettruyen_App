@@ -13,29 +13,25 @@ class BodyComicPage extends StatefulWidget {
 }
 
 class _BodyComicPageState extends State<BodyComicPage> {
-  int range = 0;
   int itemCount = 0;
+  int activePage = 1;
+  int lengthChapters = 0;
+
   List<Widget> listRanges = [];
   @override
   void initState() {
     super.initState();
     if (widget.comic.chapters != null) {
-      int lengthChapters = widget.comic.chapters!.length;
-      if (lengthChapters < 50) {
-        listRanges.add(_itemChapter(0, lengthChapters));
-        setState(() {
-          itemCount = lengthChapters;
-        });
-      } else {
-        for (int i = 1; i <= lengthChapters; i += 50) {
-          int end = i + 49;
-          end = (end < lengthChapters + 1) ? end : lengthChapters + 1;
-          listRanges.add(_itemChapter(i, end));
-        }
-        setState(() {
-          itemCount = 50;
-        });
+      int totalChapterPage = widget.comic.totalChapterPages ?? 0;
+      int length = widget.comic.chapters!.length;
+
+      for (var i = 1; i <= totalChapterPage; i++) {
+        listRanges.add(_itemChapter(i));
       }
+
+      setState(() {
+        itemCount = length;
+      });
     }
   }
 
@@ -64,7 +60,7 @@ class _BodyComicPageState extends State<BodyComicPage> {
               mainAxisSpacing: 0.0,
             ),
             itemBuilder: (context, index) {
-              int indexChapter = index + range;
+              int indexChapter = index;
 
               return InkWell(
                 onTap: () {
@@ -103,31 +99,26 @@ class _BodyComicPageState extends State<BodyComicPage> {
     );
   }
 
-  Widget _itemChapter(int start, int end) {
+  Widget _itemChapter(int page) {
     return InkWell(
       onTap: () {
         setState(() {
-          if (end > widget.comic.chapters!.length) {
-            itemCount = end - start - 2;
-            range = end - 1;
-            range = widget.comic.chapters!.length - range;
-          } else {
-            itemCount = end - start + 1;
-            range = widget.comic.chapters!.length - end;
-          }
+          activePage = page;
         });
       },
       child: Container(
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
         margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           border: Border.all(width: 1, color: Colors.grey),
-          color: Colors.white,
+          color: activePage == page ? Colors.green : Colors.white,
         ),
         child: Text(
-          "$start - $end",
-          style: const TextStyle(color: Colors.black, fontSize: 15),
+          "$page",
+          style: TextStyle(
+              color: activePage == page ? Colors.white : Colors.black,
+              fontSize: 15),
         ),
       ),
     );

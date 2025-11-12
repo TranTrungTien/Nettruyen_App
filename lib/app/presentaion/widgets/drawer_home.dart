@@ -33,13 +33,6 @@ class _DrawerHomeState extends State<DrawerHome> {
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
             ),
-            trailing: IconButton(
-                iconSize: 30,
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.search,
-                  color: Colors.white,
-                )),
           ),
           ListTile(
             onTap: () {

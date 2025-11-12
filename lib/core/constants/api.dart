@@ -1,5 +1,5 @@
 const subPath = "v2";
-const kBaseURL = "http://localhost:8080/api/$subPath";
+const kBaseURL = "https://nettruyenapi.vercel.app/api/$subPath";
 // https://comics-api.vercel.app/trending-comics?page=1
 //Popular Comics
 //page: number; // option
@@ -21,8 +21,7 @@ const kUrlGenres = "/genres";
 // query: string;
 // page: number; // option
 // path: `/search?q=${query}&page=${page}`;
-//search suggest
-// path: `/search-suggest?q=${query}`;
+const kUrlSearchComics = "/search";
 
 // recommend comics
 const kUrlRecommendComics = "/recommend-comics";

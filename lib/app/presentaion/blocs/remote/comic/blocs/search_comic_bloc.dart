@@ -8,7 +8,8 @@ import 'package:nettruyen/core/resources/data_state.dart';
 
 class SearchComicBloc extends Bloc<ComicEvent, ComicState> {
   GetComicsSearchUsecase usecase;
-  SearchComicBloc(this.usecase) : super(ComicLoading()) {
+
+  SearchComicBloc(this.usecase) : super(ComicInitial()) {
     on<GetComicsSearchEvent>(onSearch);
   }
 

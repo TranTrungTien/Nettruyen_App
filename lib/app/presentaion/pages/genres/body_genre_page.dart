@@ -87,7 +87,7 @@ class _BodyGenrePageState extends State<BodyGenrePage> {
                 List<DropdownMenuItem> listItemGenre = [];
                 for (var element in state.listGenre!) {
                   listItemGenre.add(DropdownMenuItem(
-                      value: element.name,
+                      value: element.id,
                       child: Text(
                         element.name ?? "",
                         maxLines: 1,
@@ -95,12 +95,14 @@ class _BodyGenrePageState extends State<BodyGenrePage> {
                       )));
                 }
                 return DropdownButton(
-                    value: genre.name,
+                    value: state.listGenre!.any((e) => e.id == genre.id)
+                        ? genre.id
+                        : null,
                     onChanged: (value) {
                       if (value != null) {
                         setState(() {
                           genre = state.listGenre!.firstWhere(
-                            (element) => element.name == value,
+                            (element) => element.id == value,
                             orElse: () => sl(),
                           );
                         });

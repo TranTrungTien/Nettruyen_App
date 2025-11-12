@@ -5,6 +5,7 @@ import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/boy_comic_blo
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/completed_comic_bloc.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/girl_comic_bloc.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/recent_update_comic_bloc.dart';
+import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/search_comic_bloc.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/trending_comics_bloc.dart';
 import 'package:nettruyen/app/presentaion/pages/chapter/chapter_comic_page.dart';
 import 'package:nettruyen/app/presentaion/pages/comic/comic_page.dart';
@@ -83,6 +84,13 @@ class CustomeRoute {
       return MaterialPageRoute(
           builder: (context) =>
               PageListComicByBloc(title: "Girl", bloc: sl<GirlComicBloc>()),
+          settings: settings);
+    }
+
+    if (settings.name == RoutesName.kSearch) {
+      return MaterialPageRoute(
+          builder: (context) => PageListComicByBloc(
+              title: "Tìm kiếm", bloc: sl<SearchComicBloc>()),
           settings: settings);
     }
 

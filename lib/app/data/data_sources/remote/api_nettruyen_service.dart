@@ -29,7 +29,7 @@ abstract class ApiNettruyenService {
   @GET("/trending-comics")
   Future<HttpResponse<ComicListEntity>> getTrendingComics({int? page});
 
-  @GET("/search?q={query}&page={page}")
+  @GET("$kUrlSearchComics?q={query}&page={page}")
   Future<HttpResponse<ComicListEntity>> getComicsSearch(
       {required String query, int? page});
 

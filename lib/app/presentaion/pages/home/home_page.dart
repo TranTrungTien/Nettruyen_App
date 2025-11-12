@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nettruyen/app/presentaion/pages/genres/body_genre_page.dart';
 import 'package:nettruyen/app/presentaion/pages/home/body_home_page.dart';
 import 'package:nettruyen/app/presentaion/pages/new_comic/body_newComic_page.dart';
-import 'package:nettruyen/app/presentaion/pages/top_comic/body_topcomic_page.dart';
+import 'package:nettruyen/app/presentaion/pages/search/search_page.dart';
 import 'package:nettruyen/app/presentaion/pages/page_not_found.dart';
 import 'package:nettruyen/app/presentaion/widgets/drawer_home.dart';
+import 'package:nettruyen/utils/index.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     BodyNewComicPage(
       key: UniqueKey(),
     ),
-    BodyTopComicPage(
+    SearchPage(
       key: UniqueKey(),
     )
   ];
@@ -63,14 +64,20 @@ class _HomePageState extends State<HomePage> {
                         _widgetBody = BodyNewComicPage(key: UniqueKey());
                       });
                       break;
-                    case BodyTopComicPage:
+                    case SearchPage():
                       setState(() {
-                        _widgetBody = BodyTopComicPage(key: UniqueKey());
+                        _widgetBody = SearchPage(key: UniqueKey());
                       });
                       break;
                   }
                 },
-                icon: const Icon(Icons.restart_alt))
+                icon: IconButton(
+                  onPressed: () {
+                    // Navigator.pushNamed(context, RoutesName.kSearch);
+                    showSearchInputDialog(context: context);
+                  },
+                  icon: const Icon(Icons.search_outlined, color: Colors.black),
+                ))
           ],
         ),
         drawer: DrawerHome(
