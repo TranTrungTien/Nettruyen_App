@@ -3,7 +3,6 @@ import 'package:nettruyen/app/domain/models/comic.dart';
 import 'package:nettruyen/app/domain/models/comic_list.dart';
 import 'package:nettruyen/app/domain/models/content_chapter.dart';
 import 'package:nettruyen/app/domain/models/genre.dart';
-import 'package:nettruyen/app/domain/models/image_chapter.dart';
 import 'package:nettruyen/app/domain/repository/repository_api.dart';
 import 'package:nettruyen/core/resources/data_state.dart';
 
@@ -13,9 +12,9 @@ class RepositoryApiMock implements RepositoryApi {
       {required String comicId}) async {
     await Future.delayed(const Duration(seconds: 1));
     final List<ChapterEntity> chapters = [
-      ChapterEntity(id: 1, name: "Chapter 1"),
-      ChapterEntity(id: 2, name: "Chapter 2"),
-      ChapterEntity(id: 3, name: "Chapter 3"),
+      ChapterEntity(id: '1', name: "Chapter 1"),
+      ChapterEntity(id: '2', name: "Chapter 2"),
+      ChapterEntity(id: '3', name: "Chapter 3"),
     ];
     return DataSuccess(chapters);
   }
@@ -48,7 +47,7 @@ class RepositoryApiMock implements RepositoryApi {
         authors: "Author Name",
         status: "Ongoing",
         genres: [GenreEntity(id: "1", name: "Action")],
-        chapters: [ChapterEntity(id: 1, name: "Chapter 1")]));
+        chapters: [ChapterEntity(id: '1', name: "Chapter 1")]));
   }
 
   @override
@@ -103,7 +102,7 @@ class RepositoryApiMock implements RepositoryApi {
 
   @override
   Future<DataState<ContentChapterEntity>> getContentOneChapter(
-      {required String comicId, required int chapterId}) async {
+      {required String comicId, required String chapterId}) async {
     await Future.delayed(const Duration(seconds: 1));
     final content = ContentChapterEntity(content: "Test");
     return DataSuccess(content);
@@ -136,12 +135,12 @@ class RepositoryApiMock implements RepositoryApi {
           id: "new1",
           title: "New Comic 1",
           thumbnail: "https://via.placeholder.com/150",
-          chapters: [ChapterEntity(id: 1, name: 'Chapter 1')]),
+          chapters: [ChapterEntity(id: '1', name: 'Chapter 1')]),
       ComicEntity(
           id: "new2",
           title: "New Comic 2",
           thumbnail: "https://via.placeholder.com/150",
-          chapters: [ChapterEntity(id: 1, name: 'Chapter 1')]),
+          chapters: [ChapterEntity(id: '1', name: 'Chapter 1')]),
     ];
     return DataSuccess(ComicListEntity(comics: comics));
   }
@@ -155,12 +154,12 @@ class RepositoryApiMock implements RepositoryApi {
           id: "recent1",
           title: "Recently Updated 1",
           thumbnail: "https://via.placeholder.com/150",
-          chapters: [ChapterEntity(id: 1, name: 'Chapter 10 (New)')]),
+          chapters: [ChapterEntity(id: '1', name: 'Chapter 10 (New)')]),
       ComicEntity(
           id: "recent2",
           title: "Recently Updated 2",
           thumbnail: "https://via.placeholder.com/150",
-          chapters: [ChapterEntity(id: 1, name: 'Chapter 5 (New)')]),
+          chapters: [ChapterEntity(id: '1', name: 'Chapter 5 (New)')]),
     ];
     return DataSuccess(ComicListEntity(comics: comics));
   }
@@ -211,31 +210,31 @@ class RepositoryApiMock implements RepositoryApi {
           title: "Trending Comic 1",
           thumbnail:
               "https://i.pinimg.com/736x/c9/2c/a3/c92ca3e49e0c129202112d8a94b5c7f2.jpg",
-          chapters: [ChapterEntity(id: 1, name: 'Chapter 10')]),
+          chapters: [ChapterEntity(id: '1', name: 'Chapter 10')]),
       ComicEntity(
           id: "trending2",
           title: "Trending Comic 2",
           thumbnail:
               "https://i.pinimg.com/736x/f0/6a/b8/f06ab821b06822557a553f19154a3233.jpg",
-          chapters: [ChapterEntity(id: 1, name: 'Chapter 25')]),
+          chapters: [ChapterEntity(id: '1', name: 'Chapter 25')]),
       ComicEntity(
           id: "trending3",
           title: "Trending Comic 3",
           thumbnail:
               "https://i.pinimg.com/originals/91/9f/e4/919fe4b494d456455a5362e847c1b8f5.jpg",
-          chapters: [ChapterEntity(id: 1, name: 'Chapter 1')]),
+          chapters: [ChapterEntity(id: '1', name: 'Chapter 1')]),
       ComicEntity(
           id: "trending4",
           title: "Trending Comic 4",
           thumbnail:
               "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
-          chapters: [ChapterEntity(id: 1, name: 'Chapter 12')]),
+          chapters: [ChapterEntity(id: '1', name: 'Chapter 12')]),
       ComicEntity(
           id: "trending5",
           title: "Trending Comic 5",
           thumbnail:
               "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
-          chapters: [ChapterEntity(id: 1, name: 'Chapter 112')]),
+          chapters: [ChapterEntity(id: '1', name: 'Chapter 112')]),
     ];
     return DataSuccess(ComicListEntity(comics: comics));
   }

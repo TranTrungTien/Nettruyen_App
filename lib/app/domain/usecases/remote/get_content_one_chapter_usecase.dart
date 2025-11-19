@@ -6,7 +6,7 @@ class GetContentOneChapterUsecase {
   RepositoryApi repositoryApi;
   GetContentOneChapterUsecase(this.repositoryApi);
   Future<DataState<ContentChapterEntity>> call(
-      {required String comicId, required int chapterId}) async {
+      {required String comicId, required String chapterId}) async {
     return await repositoryApi.getContentOneChapter(
         comicId: comicId, chapterId: chapterId);
   }

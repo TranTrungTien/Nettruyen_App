@@ -8,7 +8,7 @@ class GetChapterEvent extends ChapterEvent {
 }
 
 class GetContentChapterEvent extends ChapterEvent {
-  int chapterId;
+  String chapterId;
   ComicEntity comic;
   GetContentChapterEvent({required this.chapterId, required this.comic});
 }

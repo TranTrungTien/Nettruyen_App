@@ -13,41 +13,35 @@ class BodyComicPage extends StatefulWidget {
 }
 
 class _BodyComicPageState extends State<BodyComicPage> {
-  int itemCount = 0;
   int activePage = 1;
-  int lengthChapters = 0;
+  int itemCount = 0;
 
-  List<Widget> listRanges = [];
   @override
   void initState() {
     super.initState();
     if (widget.comic.chapters != null) {
-      int totalChapterPage = widget.comic.totalChapterPages ?? 0;
-      int length = widget.comic.chapters!.length;
-
-      for (var i = 1; i <= totalChapterPage; i++) {
-        listRanges.add(_itemChapter(i));
-      }
-
-      setState(() {
-        itemCount = length;
-      });
+      itemCount = widget.comic.chapters!.length;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final totalPages = widget.comic.totalChapterPages ?? 0;
+
     return Container(
       color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Wrap(children: listRanges),
+          Wrap(
+            children: List.generate(
+              totalPages,
+              (i) => _itemChapter(i + 1),
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: Divider(
-              height: 1,
-            ),
+            child: Divider(height: 1),
           ),
           GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
@@ -56,20 +50,20 @@ class _BodyComicPageState extends State<BodyComicPage> {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               childAspectRatio: 3,
-              crossAxisSpacing: 0.0,
-              mainAxisSpacing: 0.0,
             ),
             itemBuilder: (context, index) {
-              int indexChapter = index;
+              final chapter = widget.comic.chapters![index];
 
               return InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context,
-                      '${RoutesName.kComics}/${widget.comic.id}/${widget.comic.chapters![indexChapter].id}',
-                      arguments: <String, dynamic>{
-                        "comic": widget.comic,
-                        "chapter": widget.comic.chapters![indexChapter]
-                      });
+                  Navigator.pushNamed(
+                    context,
+                    '${RoutesName.kComics}/${widget.comic.id}/${chapter.id}',
+                    arguments: {
+                      "comic": widget.comic,
+                      "chapter": chapter,
+                    },
+                  );
                 },
                 child: Container(
                   padding:
@@ -78,28 +72,29 @@ class _BodyComicPageState extends State<BodyComicPage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(width: 1, color: Colors.grey),
-                    color: indexChapter == 0 ? Colors.blue : Colors.white,
+                    color: index == 0 ? Colors.blue : Colors.white,
                   ),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    widget.comic.chapters![indexChapter].name,
+                    chapter.name ?? 'Chương: ${chapter.id}',
                     style: TextStyle(
-                        color: indexChapter == 0 ? Colors.white : Colors.black,
-                        fontSize: 15),
+                      color: index == 0 ? Colors.white : Colors.black,
+                      fontSize: 15,
+                    ),
                   ),
                 ),
               );
             },
           ),
-          const SizedBox(
-            height: 30,
-          )
+          const SizedBox(height: 30),
         ],
       ),
     );
   }
 
   Widget _itemChapter(int page) {
+    final isActive = activePage == page;
+
     return InkWell(
       onTap: () {
         setState(() {
@@ -112,13 +107,14 @@ class _BodyComicPageState extends State<BodyComicPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           border: Border.all(width: 1, color: Colors.grey),
-          color: activePage == page ? Colors.green : Colors.white,
+          color: isActive ? Colors.green : Colors.white,
         ),
         child: Text(
           "$page",
           style: TextStyle(
-              color: activePage == page ? Colors.white : Colors.black,
-              fontSize: 15),
+            color: isActive ? Colors.white : Colors.black,
+            fontSize: 15,
+          ),
         ),
       ),
     );

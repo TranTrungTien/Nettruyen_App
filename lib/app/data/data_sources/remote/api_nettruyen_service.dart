@@ -65,7 +65,7 @@ abstract class ApiNettruyenService {
 
   @GET("/comics/{comic_id}/chapters/{chapter_id}")
   Future<HttpResponse<ContentChapterEntity>> getContentOneChapter(
-      {required String comicId, required int chapterId});
+      {required String comicId, required String chapterId});
 
   @GET("/top?page={page}&status={status}")
   Future<HttpResponse<ComicListEntity>> getTopComics(

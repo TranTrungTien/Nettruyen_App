@@ -22,7 +22,7 @@ class ChapterComicPage extends StatefulWidget {
 
 class _ChapterComicPageState extends State<ChapterComicPage> {
   final _scrollController = ScrollController();
-  ChapterEntity chapter = ChapterEntity(id: 0, name: "");
+  ChapterEntity chapter = ChapterEntity(id: '0', name: "");
   @override
   void initState() {
     super.initState();

@@ -93,7 +93,7 @@ class _ApiNettruyenService implements ApiNettruyenService {
 
   @override
   Future<HttpResponse<ContentChapterEntity>> getContentOneChapter(
-      {required String comicId, required int chapterId}) async {
+      {required String comicId, required String chapterId}) async {
     // pass
     final result =
         await dio.get("$kBaseURL/comics/$comicId/chapters/$chapterId");

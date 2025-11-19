@@ -67,7 +67,7 @@ class _ImageCustome2State extends State<ImageCustome2> {
               widget.onError!(exception.toString());
             }
           },
-          fit: widget.fit,
+          fit: widget.fit ?? BoxFit.cover,
         ),
         borderRadius: widget.borderRadius,
         color: widget.backgroundColor,

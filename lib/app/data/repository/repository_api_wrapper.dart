@@ -14,7 +14,8 @@ class RepositoryApiWrapper implements RepositoryApi {
   RepositoryApiWrapper(this._realApi, this._mockApi);
 
   @override
-  Future<DataState<List<ChapterEntity>>> getChapterByComicId({required String comicId}) {
+  Future<DataState<List<ChapterEntity>>> getChapterByComicId(
+      {required String comicId}) {
     if (ApiMockConfig.getChapterByComicId) {
       return _mockApi.getChapterByComicId(comicId: comicId);
     }
@@ -22,11 +23,14 @@ class RepositoryApiWrapper implements RepositoryApi {
   }
 
   @override
-  Future<DataState<ComicListEntity>> getComicByGenre({String? genreId, int? page, String? status}) {
+  Future<DataState<ComicListEntity>> getComicByGenre(
+      {String? genreId, int? page, String? status}) {
     if (ApiMockConfig.getComicByGenre) {
-      return _mockApi.getComicByGenre(genreId: genreId, page: page, status: status);
+      return _mockApi.getComicByGenre(
+          genreId: genreId, page: page, status: status);
     }
-    return _realApi.getComicByGenre(genreId: genreId, page: page, status: status);
+    return _realApi.getComicByGenre(
+        genreId: genreId, page: page, status: status);
   }
 
   @override
@@ -38,7 +42,8 @@ class RepositoryApiWrapper implements RepositoryApi {
   }
 
   @override
-  Future<DataState<List<ComicEntity>>> getComicsSearchSuggest({required String query}) {
+  Future<DataState<List<ComicEntity>>> getComicsSearchSuggest(
+      {required String query}) {
     if (ApiMockConfig.getComicsSearchSuggest) {
       return _mockApi.getComicsSearchSuggest(query: query);
     }
@@ -46,7 +51,8 @@ class RepositoryApiWrapper implements RepositoryApi {
   }
 
   @override
-  Future<DataState<ComicListEntity>> getComicsSearch({required String query, int? page}) {
+  Future<DataState<ComicListEntity>> getComicsSearch(
+      {required String query, int? page}) {
     if (ApiMockConfig.getComicsSearch) {
       return _mockApi.getComicsSearch(query: query, page: page);
     }
@@ -62,11 +68,14 @@ class RepositoryApiWrapper implements RepositoryApi {
   }
 
   @override
-  Future<DataState<ContentChapterEntity>> getContentOneChapter({required String comicId, required int chapterId}) {
+  Future<DataState<ContentChapterEntity>> getContentOneChapter(
+      {required String comicId, required String chapterId}) {
     if (ApiMockConfig.getContentOneChapter) {
-      return _mockApi.getContentOneChapter(comicId: comicId, chapterId: chapterId);
+      return _mockApi.getContentOneChapter(
+          comicId: comicId, chapterId: chapterId);
     }
-    return _realApi.getContentOneChapter(comicId: comicId, chapterId: chapterId);
+    return _realApi.getContentOneChapter(
+        comicId: comicId, chapterId: chapterId);
   }
 
   @override
@@ -86,7 +95,8 @@ class RepositoryApiWrapper implements RepositoryApi {
   }
 
   @override
-  Future<DataState<ComicListEntity>> getRecentUpdateComics({int? page, String? status}) {
+  Future<DataState<ComicListEntity>> getRecentUpdateComics(
+      {int? page, String? status}) {
     if (ApiMockConfig.getRecentUpdateComics) {
       return _mockApi.getRecentUpdateComics(page: page, status: status);
     }
@@ -102,9 +112,11 @@ class RepositoryApiWrapper implements RepositoryApi {
   }
 
   @override
-  Future<DataState<ComicListEntity>> getTopComics({String? topType, int? page, String? status}) {
+  Future<DataState<ComicListEntity>> getTopComics(
+      {String? topType, int? page, String? status}) {
     if (ApiMockConfig.getTopComics) {
-      return _mockApi.getTopComics(topType: topType, page: page, status: status);
+      return _mockApi.getTopComics(
+          topType: topType, page: page, status: status);
     }
     return _realApi.getTopComics(topType: topType, page: page, status: status);
   }
@@ -118,7 +130,8 @@ class RepositoryApiWrapper implements RepositoryApi {
   }
 
   @override
-  Future<DataState<ComicListEntity>> getBoyOrGirlComics({required bool isBoy, int? page}) {
+  Future<DataState<ComicListEntity>> getBoyOrGirlComics(
+      {required bool isBoy, int? page}) {
     if (ApiMockConfig.getBoyOrGirlComics) {
       return _mockApi.getBoyOrGirlComics(isBoy: isBoy, page: page);
     }

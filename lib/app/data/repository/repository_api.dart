@@ -181,7 +181,7 @@ class RepositoryApiImpl implements RepositoryApi {
 
   @override
   Future<DataState<ContentChapterEntity>> getContentOneChapter(
-      {required String comicId, required int chapterId}) async {
+      {required String comicId, required String chapterId}) async {
     try {
       final httpReponse = await service.getContentOneChapter(
           comicId: comicId, chapterId: chapterId);

@@ -9,7 +9,7 @@ class ImageCustome extends StatelessWidget {
     return url != null
         ? Image.network(
             url!,
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
             height: double.infinity,
             width: double.infinity,
             loadingBuilder: (BuildContext context, Widget child,

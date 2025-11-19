@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 // ignore: must_be_immutable
 class ChapterEntity extends Equatable {
-  int id;
+  String id;
   String name;
   ChapterEntity({
     required this.id,
