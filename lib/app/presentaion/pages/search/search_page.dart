@@ -21,20 +21,30 @@ class _SearchPageState extends State<SearchPage> {
   int _totalPages = 1;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
 
-    final args = ModalRoute.of(context)?.settings.arguments;
-    if (args is String && args.trim().isNotEmpty && args != _currentQuery) {
-      setState(() {
-        _currentQuery = args.trim();
-        _currentPage = 1;
-      });
-      _search(_currentQuery, page: 1);
-    }
+    Future.microtask(() {
+      if (!mounted) return; // bảo vệ context sau async gap
+
+      final args = ModalRoute.of(context)?.settings.arguments;
+      print('args $args');
+      if (args is String) {
+        final newQuery = args.trim();
+        if (newQuery.isNotEmpty) {
+          _search(newQuery, page: 1);
+          setState(() {
+            _currentQuery = newQuery;
+            _currentPage = 1;
+          });
+        }
+      }
+    });
   }
 
   void _search(String query, {int page = 1}) {
+    // Log ra query đang được dùng để tìm kiếm.
+    print('Searching for: "$query" on page $page');
     context.read<SearchComicBloc>().add(GetComicsSearchEvent(
           query: query,
           page: page,
@@ -43,31 +53,15 @@ class _SearchPageState extends State<SearchPage> {
 
   void _loadMore() {
     if (_currentPage < _totalPages) {
-      _currentPage++;
-      _search(_currentQuery, page: _currentPage);
+      // Gọi tìm kiếm cho trang tiếp theo.
+      // State của _currentPage sẽ được cập nhật trong listener của BlocConsumer.
+      _search(_currentQuery, page: _currentPage + 1);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:
-            Text(_currentQuery.isEmpty ? 'Tìm kiếm' : 'Tìm: "$_currentQuery"'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // Gọi dialog từ bên ngoài (showSearchInputDialog)
-              // Không xử lý ở đây → giữ trang sạch
-            },
-          ),
-        ],
-      ),
       body: BlocConsumer<SearchComicBloc, ComicState>(
         listener: (context, state) {
           if (state is ComicSuccesfull && state.listComic != null) {
@@ -79,7 +73,7 @@ class _SearchPageState extends State<SearchPage> {
         },
         builder: (context, state) {
           // 1. Đang load trang đầu
-          if (state is ComicLoading && _currentPage == 1) {
+          if (state is ComicLoading) {
             return const LoadingWidget();
           }
 
@@ -109,7 +103,8 @@ class _SearchPageState extends State<SearchPage> {
                 mainAxisSpacing: 10,
                 crossAxisSpacing: 10,
               ),
-              itemCount: comics.length + (_currentPage < _totalPages ? 1 : 0),
+              // Hiển thị loading indicator ở cuối nếu còn trang
+              itemCount: comics.length + ((_currentPage < _totalPages) ? 1 : 0),
               itemBuilder: (context, index) {
                 if (index == comics.length) {
                   _loadMore();

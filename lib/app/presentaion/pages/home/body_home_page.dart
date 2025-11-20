@@ -10,7 +10,6 @@ import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
 import 'package:nettruyen/app/presentaion/widgets/comic/item_comic_1.dart';
 import 'package:nettruyen/app/presentaion/widgets/grid_view_comics.dart';
 import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
-import 'package:nettruyen/config/routes/routes_name.dart';
 import 'package:nettruyen/app/presentaion/widgets/not_found_icon.dart';
 
 class BodyHomePage extends StatefulWidget {
@@ -44,7 +43,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
       child: Column(
         children: [
           // 1. Recommended Comics (Horizontal List - Unique Layout)
-          _buildRecommendComics(context),
+          // _buildRecommendComics(context),
 
           // 2. Trending Comics (Grid View - Reusable Component)
           // _ComicCategory<TrendingComicsBloc>(

@@ -90,7 +90,7 @@ class CustomeRoute {
     if (settings.name == RoutesName.kSearch) {
       return MaterialPageRoute(
           builder: (context) => PageListComicByBloc(
-              title: "Tìm kiếm", bloc: sl<SearchComicBloc>()),
+              title: "Tìm Kiếm Truyện", bloc: sl<SearchComicBloc>()),
           settings: settings);
     }
 

@@ -103,19 +103,8 @@ void _submitSearch({
 
   Navigator.pop(dialogContext);
 
-  final currentRoute = ModalRoute.of(mainContext)?.settings.name;
-
-  if (currentRoute == '/search') {
-    Navigator.pushReplacementNamed(
-      mainContext,
-      '/search',
-      arguments: query,
-    );
-  } else {
-    Navigator.pushNamed(
-      mainContext,
-      '/search',
-      arguments: query,
-    );
-  }
+  Navigator.of(dialogContext).pushNamed(
+    RoutesName.kSearch,
+    arguments: query,
+  );
 }

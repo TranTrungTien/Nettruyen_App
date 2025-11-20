@@ -4,8 +4,8 @@ import 'package:nettruyen/app/presentaion/pages/home/body_home_page.dart';
 import 'package:nettruyen/app/presentaion/pages/new_comic/body_newComic_page.dart';
 import 'package:nettruyen/app/presentaion/pages/search/search_page.dart';
 import 'package:nettruyen/app/presentaion/pages/page_not_found.dart';
+import 'package:nettruyen/app/presentaion/widgets/app_bar/app_bar.dart';
 import 'package:nettruyen/app/presentaion/widgets/drawer_home.dart';
-import 'package:nettruyen/utils/index.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,52 +34,36 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  handleOnPressed() {
+    switch (_widgetBody.runtimeType) {
+      case BodyHomePage:
+        BodyHomePage.loadingData(context);
+        break;
+      case BodyGenrePage:
+        setState(() {
+          _widgetBody = BodyGenrePage(key: UniqueKey());
+        });
+        break;
+      case BodyNewComicPage:
+        setState(() {
+          _widgetBody = BodyNewComicPage(key: UniqueKey());
+        });
+        break;
+      case SearchPage():
+        setState(() {
+          _widgetBody = SearchPage(key: UniqueKey());
+        });
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(
-            "Đọc truyện miễn phí",
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                color: Colors.amber[700], fontWeight: FontWeight.bold),
-          ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  switch (_widgetBody.runtimeType) {
-                    case BodyHomePage:
-                      BodyHomePage.loadingData(context);
-                      break;
-                    case BodyGenrePage:
-                      setState(() {
-                        _widgetBody = BodyGenrePage(key: UniqueKey());
-                      });
-                      break;
-                    case BodyNewComicPage:
-                      setState(() {
-                        _widgetBody = BodyNewComicPage(key: UniqueKey());
-                      });
-                      break;
-                    case SearchPage():
-                      setState(() {
-                        _widgetBody = SearchPage(key: UniqueKey());
-                      });
-                      break;
-                  }
-                },
-                icon: IconButton(
-                  onPressed: () {
-                    // Navigator.pushNamed(context, RoutesName.kSearch);
-                    showSearchInputDialog(context: context);
-                  },
-                  icon: const Icon(Icons.search_outlined, color: Colors.black),
-                ))
-          ],
-        ),
+        appBar: AppBarWidget(
+            title: "Đọc truyện miễn phí", onPressed: handleOnPressed),
         drawer: DrawerHome(
           onChanged: (indexSelect) {
             setState(() {

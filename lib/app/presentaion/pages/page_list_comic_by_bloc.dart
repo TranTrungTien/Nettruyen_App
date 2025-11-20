@@ -9,6 +9,7 @@ import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/recent_update
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/trending_comics_bloc.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_state.dart';
+import 'package:nettruyen/app/presentaion/widgets/app_bar/app_bar.dart';
 import 'package:nettruyen/app/presentaion/widgets/comic/item_comic_2.dart';
 import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
 import 'package:nettruyen/app/presentaion/widgets/index_page.dart';
@@ -124,8 +125,8 @@ class _PageListComicByBlocState extends State<PageListComicByBloc> {
     }
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(widget.title),
+      appBar: AppBarWidget(
+        title: widget.title,
       ),
       body: Column(
         children: [
