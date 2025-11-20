@@ -15,59 +15,47 @@ import 'package:retrofit/retrofit.dart';
 
 part 'api_nettruyen_service.g.dart';
 
-@RestApi(baseUrl: kBaseURL)
 abstract class ApiNettruyenService {
-  factory ApiNettruyenService({Dio? dio}) = _ApiNettruyenService;
+  factory ApiNettruyenService({Dio? dio}) => _ApiNettruyenService(dio: dio);
 
-  @GET("/genres")
   Future<HttpResponse<List<GenreEntity>>> getGenres();
 
-  @GET("/genres/{genre_id}?page={page}&status={status}")
   Future<HttpResponse<ComicListEntity>> getComicByGenre(
       {String? genreId, int? page, String? status});
 
-  @GET("/trending-comics")
   Future<HttpResponse<ComicListEntity>> getTrendingComics({int? page});
 
-  @GET("$kUrlSearchComics?q={query}&page={page}")
   Future<HttpResponse<ComicListEntity>> getComicsSearch(
       {required String query, int? page});
 
-  @GET("/search-suggest?q={query}")
   Future<HttpResponse<List<ComicEntity>>> getComicsSearchSuggest(
       {required String query});
 
-  @GET(kUrlRecommendComics)
   Future<HttpResponse<List<ComicEntity>>> getRecommendComics();
 
-  @GET("/new-comics?page={page}&status={status}")
   Future<HttpResponse<ComicListEntity>> getNewComics(
       {int? page, String? status});
 
-  @GET("/recent-update-comics?page={page}&status={status}")
   Future<HttpResponse<ComicListEntity>> getRecentUpdateComics(
       {int? page, String? status});
 
-  @GET("/boy-comics?page={page}")
-  @GET("/girl-comics?page={page}")
   Future<HttpResponse<ComicListEntity>> getBoyOrGirlComics(
       {required bool isBoy, int? page});
 
-  @GET("/completed-comics?page={page}")
   Future<HttpResponse<ComicListEntity>> getCompletedComics({int? page});
 
-  @GET("/comics/{comic_id}")
-  Future<HttpResponse<ComicEntity>> getComicById({required String comicId});
+  Future<HttpResponse<ComicEntity>> getComicById(
+      {required String id, int? page});
 
-  @GET("/comics/{comic_id}/chapters")
   Future<HttpResponse<List<ChapterEntity>>> getChapterByComicId(
       {required String comicId});
 
-  @GET("/comics/{comic_id}/chapters/{chapter_id}")
+  Future<HttpResponse<List<ChapterEntity>>> getChaptersByPage(
+      {required String id, required int page});
+
   Future<HttpResponse<ContentChapterEntity>> getContentOneChapter(
       {required String comicId, required String chapterId});
 
-  @GET("/top?page={page}&status={status}")
   Future<HttpResponse<ComicListEntity>> getTopComics(
       {String? topType, int? page, String? status});
 }

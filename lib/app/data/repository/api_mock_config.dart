@@ -1,17 +1,17 @@
-
-class ApiMockConfig {
-  static const bool getGenres = true;
-  static const bool getComicByGenre = true;
-  static const bool getTrendingComics = true;
-  static const bool getComicsSearch = true;
-  static const bool getComicsSearchSuggest = true;
-  static const bool getRecommendComics = true;
-  static const bool getNewComics = true;
-  static const bool getRecentUpdateComics = true;
-  static const bool getBoyOrGirlComics = true;
-  static const bool getCompletedComics = true;
-  static const bool getComicById = true;
-  static const bool getChapterByComicId = true;
-  static const bool getContentOneChapter = true;
-  static const bool getTopComics = true;
+abstract class ApiMockConfig {
+  static bool getGenres = false;
+  static bool getComicByGenre = false;
+  static bool getTrendingComics = false;
+  static bool getComicsSearch = false;
+  static bool getComicsSearchSuggest = false;
+  static bool getRecommendComics = false;
+  static bool getNewComics = false;
+  static bool getRecentUpdateComics = false;
+  static bool getBoyOrGirlComics = false;
+  static bool getCompletedComics = false;
+  static bool getComicById = false;
+  static bool getChapterByComicId = false;
+  static bool getChaptersByPage = false;
+  static bool getContentOneChapter = false;
+  static bool getTopComics = false;
 }

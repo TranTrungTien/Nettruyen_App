@@ -7,22 +7,31 @@ class _ApiNettruyenService implements ApiNettruyenService {
   }
 
   @override
+  Future<HttpResponse<List<ChapterEntity>>> getChaptersByPage(
+      {required String id, required int page}) async {
+    final result = await dio.get('$kBaseURL/comics/$id/$page');
+    final value = List<ChapterEntity>.from(
+      (result.data as List<dynamic>).map<ChapterEntity>(
+        (x) => ChapterModel.fromMap(x as Map<String, dynamic>),
+      ),
+    );
+    return HttpResponse(value, result);
+  }
+
+  @override
   Future<HttpResponse<ComicListEntity>> getBoyOrGirlComics(
       {required bool isBoy, int? page}) async {
-    //pass
     String sex = isBoy ? "boy" : "girl";
     String api = "$kBaseURL/$sex-comics";
     api += page != null ? "?page=$page" : "?page=1";
     final result = await dio.get(api);
     final value = ComicListModel.fromMap(result.data);
-    // final value = ComicListModel(comics: []);
     return HttpResponse(value, result);
   }
 
   @override
   Future<HttpResponse<List<ChapterEntity>>> getChapterByComicId(
       {required String comicId}) async {
-    //pass
     final result = await dio.get("$kBaseURL/comics/$comicId/chapters");
     final value = List<ChapterEntity>.from(
       (result.data as List<dynamic>).map<ChapterEntity>(
@@ -35,7 +44,6 @@ class _ApiNettruyenService implements ApiNettruyenService {
   @override
   Future<HttpResponse<ComicListEntity>> getComicByGenre(
       {String? genreId, int? page, String? status}) async {
-    //pass
     String api = "$kBaseURL/genres/";
     api += genreId ?? "all";
     api += page != null ? "?page=$page" : "?page=1";
@@ -50,9 +58,12 @@ class _ApiNettruyenService implements ApiNettruyenService {
 
   @override
   Future<HttpResponse<ComicEntity>> getComicById(
-      {required String comicId}) async {
-    //pass
-    final result = await dio.get("$kBaseURL/comics/$comicId");
+      {required String id, int? page}) async {
+    String api = "$kBaseURL/comics/$id";
+    if (page != null) {
+      api += "?page=$page";
+    }
+    final result = await dio.get(api);
     final value = ComicModel.fromMap(result.data);
     return HttpResponse(value, result);
   }
@@ -60,7 +71,6 @@ class _ApiNettruyenService implements ApiNettruyenService {
   @override
   Future<HttpResponse<ComicListEntity>> getComicsSearch(
       {required String query, int? page}) async {
-    //pass
     String api = "$kBaseURL/$kUrlSearchComics?q=$query";
     api += page != null ? "&page=$page" : "&page=1";
     final result = await dio.get(api);
@@ -71,7 +81,6 @@ class _ApiNettruyenService implements ApiNettruyenService {
   @override
   Future<HttpResponse<List<ComicEntity>>> getComicsSearchSuggest(
       {required String query}) async {
-    //pass
     final result = await dio.get("$kBaseURL/search-suggest?q=$query");
     List<ComicEntity> value = [];
     for (var element in result.data) {
@@ -82,7 +91,6 @@ class _ApiNettruyenService implements ApiNettruyenService {
 
   @override
   Future<HttpResponse<ComicListEntity>> getCompletedComics({int? page}) async {
-    // pass
     String api = "$kBaseURL/completed-comics";
     api += page != null ? "?page=$page" : "?page=1";
 
@@ -94,7 +102,6 @@ class _ApiNettruyenService implements ApiNettruyenService {
   @override
   Future<HttpResponse<ContentChapterEntity>> getContentOneChapter(
       {required String comicId, required String chapterId}) async {
-    // pass
     final result =
         await dio.get("$kBaseURL/comics/$comicId/chapters/$chapterId");
     final value = ContentChapterModel.fromMap(result.data);
@@ -104,7 +111,6 @@ class _ApiNettruyenService implements ApiNettruyenService {
   @override
   Future<HttpResponse<List<GenreEntity>>> getGenres() async {
     final result = await dio.get("$kBaseURL/genres");
-    // pass
     List<GenreEntity> value = [];
     for (var element in result.data) {
       value.add(GenreModel.fromMap(element));
@@ -115,7 +121,6 @@ class _ApiNettruyenService implements ApiNettruyenService {
   @override
   Future<HttpResponse<ComicListEntity>> getNewComics(
       {int? page, String? status}) async {
-    // pass
     String api = "$kBaseURL/new-comics";
     api += page != null ? "?page=$page" : "?page=1";
     if (status != null) {
@@ -130,7 +135,6 @@ class _ApiNettruyenService implements ApiNettruyenService {
   @override
   Future<HttpResponse<ComicListEntity>> getRecentUpdateComics(
       {int? page, String? status}) async {
-    // pass
     String api = "$kBaseURL/recent-update-comics";
     api += page != null ? "?page=$page" : "?page=1";
     if (status != null) {
@@ -144,7 +148,6 @@ class _ApiNettruyenService implements ApiNettruyenService {
 
   @override
   Future<HttpResponse<List<ComicEntity>>> getRecommendComics() async {
-    // pass
     final result = await dio.get("$kBaseURL$kUrlRecommendComics");
     List<ComicEntity> value = [];
     for (var element in result.data['comics']) {
@@ -156,7 +159,6 @@ class _ApiNettruyenService implements ApiNettruyenService {
   @override
   Future<HttpResponse<ComicListEntity>> getTopComics(
       {String? topType, int? page, String? status}) async {
-    // pass
     String api = "";
     if (topType != null && topType != TopType.all.name) {
       api = "$kBaseURL/top/$topType";
@@ -175,7 +177,6 @@ class _ApiNettruyenService implements ApiNettruyenService {
 
   @override
   Future<HttpResponse<ComicListEntity>> getTrendingComics({int? page}) async {
-    // pass
     String api = "$kBaseURL/trending-comics";
     api += page != null ? "?page=$page" : "?page=1";
     final result = await dio.get(api);

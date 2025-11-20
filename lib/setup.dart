@@ -40,8 +40,7 @@ Future<void> initlizeDependencies() async {
       id: "all", name: "Tất cả", description: "Tất cả thể loại truyện tranh"));
 
   sl.registerLazySingleton<Dio>(() => Dio());
-  sl.registerLazySingleton<ApiNettruyenService>(
-      () => ApiNettruyenService(dio: sl()));
+  sl.registerLazySingleton<ApiNettruyenService>(() => ApiNettruyenService(dio: sl()));
 
   sl.registerLazySingleton<RepositoryApi>(
       () => RepositoryApiImpl(service: sl()));

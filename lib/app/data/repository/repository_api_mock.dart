@@ -255,4 +255,10 @@ class RepositoryApiMock implements RepositoryApi {
     ];
     return DataSuccess(ComicListEntity(comics: comics));
   }
+  
+  @override
+  Future<DataState<List<ChapterEntity>>> getChaptersByPage({required String id, required int page}) {
+    // TODO: implement getChaptersByPage
+    throw UnimplementedError();
+  }
 }

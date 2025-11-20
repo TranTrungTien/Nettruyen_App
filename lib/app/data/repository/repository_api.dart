@@ -65,6 +65,29 @@ class RepositoryApiImpl implements RepositoryApi {
   }
 
   @override
+  Future<DataState<List<ChapterEntity>>> getChaptersByPage(
+      {required String id, required int page}) async {
+    try {
+      final httpReponse = await service.getChaptersByPage(id: id, page: page);
+      if (httpReponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpReponse.data);
+      } else {
+        return DataFailed(DioException(
+            message:
+                "Faild getChaptersByPage StatusCode = ${httpReponse.response.statusCode}",
+            error: httpReponse.response.statusCode,
+            requestOptions: httpReponse.response.requestOptions));
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    } catch (e) {
+      return DataFailed(DioException(
+          requestOptions: RequestOptions(),
+          message: "Exception getChaptersByPage: ${e.toString()}"));
+    }
+  }
+
+  @override
   Future<DataState<ComicListEntity>> getComicByGenre(
       {String? genreId, int? page, String? status}) async {
     try {
@@ -91,7 +114,7 @@ class RepositoryApiImpl implements RepositoryApi {
   @override
   Future<DataState<ComicEntity>> getComicById({required String comicId}) async {
     try {
-      final httpResponse = await service.getComicById(comicId: comicId);
+      final httpResponse = await service.getComicById(id: comicId);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

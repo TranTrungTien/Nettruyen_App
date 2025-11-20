@@ -23,6 +23,15 @@ class RepositoryApiWrapper implements RepositoryApi {
   }
 
   @override
+  Future<DataState<List<ChapterEntity>>> getChaptersByPage(
+      {required String id, required int page}) {
+    if (ApiMockConfig.getChaptersByPage) {
+      return _mockApi.getChaptersByPage(id: id, page: page);
+    }
+    return _realApi.getChaptersByPage(id: id, page: page);
+  }
+
+  @override
   Future<DataState<ComicListEntity>> getComicByGenre(
       {String? genreId, int? page, String? status}) {
     if (ApiMockConfig.getComicByGenre) {

@@ -36,6 +36,9 @@ abstract class RepositoryApi {
   Future<DataState<List<ChapterEntity>>> getChapterByComicId(
       {required String comicId});
 
+  Future<DataState<List<ChapterEntity>>> getChaptersByPage(
+      {required String id, required int page});
+
   Future<DataState<ContentChapterEntity>> getContentOneChapter(
       {required String comicId, required String chapterId});
 
