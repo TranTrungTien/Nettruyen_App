@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class ImageCustome extends StatelessWidget {
   ImageCustome({super.key, this.url});
@@ -22,7 +23,7 @@ class ImageCustome extends StatelessWidget {
                 // Đang tải
                 return Center(
                   child: CircularProgressIndicator(
-                    color: Colors.blue,
+                    color: AppColors.primary,
                     value: loadingProgress.cumulativeBytesLoaded /
                         (loadingProgress.expectedTotalBytes ?? 1),
                   ),

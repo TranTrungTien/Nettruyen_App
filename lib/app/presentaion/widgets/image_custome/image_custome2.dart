@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:nettruyen/core/constants/constants.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class ImageCustome2 extends StatefulWidget {
   ImageCustome2({
@@ -80,7 +81,7 @@ class _ImageCustome2State extends State<ImageCustome2> {
             const Center(
               child: Icon(
                 Icons.bug_report,
-                color: Colors.red,
+                color: AppColors.danger,
               ),
             ),
         ],

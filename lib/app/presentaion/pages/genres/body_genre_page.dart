@@ -14,6 +14,7 @@ import 'package:nettruyen/app/presentaion/widgets/index_page.dart';
 import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:nettruyen/core/constants/constants.dart';
 import 'package:nettruyen/setup.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class BodyGenrePage extends StatefulWidget {
   const BodyGenrePage({super.key});
@@ -51,7 +52,10 @@ class _BodyGenrePageState extends State<BodyGenrePage> {
     return Column(
       children: [
         ListTile(
-          title: const Text("Tình trạng:"),
+          title: const Text(
+            "Tình trạng:",
+            style: TextStyle(color: AppColors.textPrimary),
+          ),
           trailing: DropdownButton(
             value: status,
             onChanged: (value) {
@@ -66,33 +70,38 @@ class _BodyGenrePageState extends State<BodyGenrePage> {
             items: const [
               DropdownMenuItem(
                 value: StatusComic.all,
-                child: Text("Tất cả"),
+                child: Text("Tất cả",
+                    style: TextStyle(color: AppColors.textSecondary)),
               ),
               DropdownMenuItem(
                 value: StatusComic.ongoing,
-                child: Text("Đang tiến hành"),
+                child: Text("Đang tiến hành",
+                    style: TextStyle(color: AppColors.textSecondary)),
               ),
               DropdownMenuItem(
                 value: StatusComic.completed,
-                child: Text("Đã hoàn thành"),
+                child: Text("Đã hoàn thành",
+                    style: TextStyle(color: AppColors.textSecondary)),
               ),
             ],
           ),
         ),
         ListTile(
-          title: const Text("Thể loại:"),
+          title: const Text("Thể loại:",
+              style: TextStyle(color: AppColors.textPrimary)),
           trailing: BlocBuilder<GenreBloc, GenreState>(
             builder: (context, state) {
+              // 1. TRẠNG THÁI TẢI THÀNH CÔNG (SUCCESS)
               if (state is GenreSuccessfull) {
                 List<DropdownMenuItem> listItemGenre = [];
                 for (var element in state.listGenre!) {
                   listItemGenre.add(DropdownMenuItem(
                       value: element.id,
-                      child: Text(
-                        element.name ?? "",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      )));
+                      child: Text(element.name ?? "",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              color: AppColors.textSecondary))));
                 }
                 return DropdownButton(
                     value: state.listGenre!.any((e) => e.id == genre.id)
@@ -113,22 +122,30 @@ class _BodyGenrePageState extends State<BodyGenrePage> {
                       }
                     },
                     items: listItemGenre);
+              } else if (state is GenreLoading) {
+                return Container(
+                  width: 24,
+                  height: 24,
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: const CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                    color: AppColors.primary,
+                  ),
+                );
               } else if (state is GenreFailed) {
                 return SizedBox(
                   width: 30,
-                  child: Text(
-                    state.error!.message.toString(),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  child: Tooltip(
+                    message: state.error!.message.toString(),
+                    child: const Icon(
+                      Icons.error,
+                      color: AppColors.danger,
+                      size: 24,
+                    ),
                   ),
                 );
               }
-              return const SizedBox(
-                width: 30,
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
+              return const SizedBox();
             },
           ),
         ),
@@ -143,7 +160,7 @@ class _BodyGenrePageState extends State<BodyGenrePage> {
                 }
                 return GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 0.8, crossAxisCount: 2),
+                      childAspectRatio: 0.8, crossAxisCount: 3),
                   itemCount: listComic.length,
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,

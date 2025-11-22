@@ -11,6 +11,8 @@ import 'package:nettruyen/app/presentaion/widgets/comic/item_comic_1.dart';
 import 'package:nettruyen/app/presentaion/widgets/grid_view_comics.dart';
 import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:nettruyen/app/presentaion/widgets/not_found_icon.dart';
+import 'package:nettruyen/config/routes/routes_name.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class BodyHomePage extends StatefulWidget {
   const BodyHomePage({super.key});
@@ -43,34 +45,37 @@ class _BodyHomePageState extends State<BodyHomePage> {
       child: Column(
         children: [
           // 1. Recommended Comics (Horizontal List - Unique Layout)
-          // _buildRecommendComics(context),
+          _buildRecommendComics(context),
 
           // 2. Trending Comics (Grid View - Reusable Component)
-          // _ComicCategory<TrendingComicsBloc>(
-          //   title: "Truyện nổi bật",
-          //   icon: Icons.local_fire_department_outlined,
-          //   iconColor: Colors.red,
-          //   route: RoutesName.kPopular,
-          //   refreshEvent: GetTrendingComicsEvent(),
-          // ),
+          _ComicCategory<TrendingComicsBloc>(
+            title: "Truyện nổi bật",
+            icon: Icons.local_fire_department_outlined,
+            iconColor: AppColors.danger,
+            route: RoutesName.kPopular,
+            refreshEvent: GetTrendingComicsEvent(),
+            titleColor: AppColors.primary,
+          ),
 
-          // // // 3. Recent Update Comics (Grid View - Reusable Component)
-          // _ComicCategory<RecentUpdateComicsBloc>(
-          //   title: "Truyện mới cập nhật",
-          //   icon: Icons.access_time,
-          //   iconColor: const Color.fromARGB(255, 255, 200, 0),
-          //   route: RoutesName.kRecentUpdate,
-          //   refreshEvent: GetRecentUpdateComicsEvent(),
-          // ),
+          // 3. Recent Update Comics (Grid View - Reusable Component)
+          _ComicCategory<RecentUpdateComicsBloc>(
+            title: "Truyện mới cập nhật",
+            icon: Icons.access_time,
+            iconColor: AppColors.secondary.withOpacity(0.7),
+            route: RoutesName.kRecentUpdate,
+            refreshEvent: GetRecentUpdateComicsEvent(),
+            titleColor: AppColors.primary,
+          ),
 
-          // // // 4. Completed Comics (Grid View - Reusable Component)
-          // _ComicCategory<CompletedComicBloc>(
-          //   title: "Truyện đã hoàn thành",
-          //   icon: Icons.verified,
-          //   iconColor: Colors.green, // Added a color for consistency
-          //   route: RoutesName.kCompleted,
-          //   refreshEvent: GetCompletedComicsEvent(),
-          // ),
+          // 4. Completed Comics (Grid View - Reusable Component)
+          _ComicCategory<CompletedComicBloc>(
+            title: "Truyện đã hoàn thành",
+            icon: Icons.verified,
+            iconColor: AppColors.success, // Added a color for consistency
+            route: RoutesName.kCompleted,
+            refreshEvent: GetCompletedComicsEvent(),
+            titleColor: AppColors.primary,
+          ),
         ],
       ),
     );
@@ -95,11 +100,15 @@ class _BodyHomePageState extends State<BodyHomePage> {
                 leading: Icon(
                   Icons.local_fire_department,
                   size: 30,
-                  color: Color.fromARGB(255, 253, 133, 4),
+                  color: AppColors.secondary,
                 ),
                 title: Text(
                   "Truyện Hot",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primary,
+                  ),
                 ),
               ),
               Container(
@@ -140,17 +149,18 @@ class _ComicCategory<B extends Bloc<ComicEvent, ComicState>>
   final String title;
   final IconData icon;
   final Color iconColor;
+  final Color titleColor;
   final String route;
   final ComicEvent refreshEvent;
   static const int maxItems = 20; // Define max items here
 
-  const _ComicCategory({
-    required this.title,
-    required this.icon,
-    required this.iconColor,
-    required this.route,
-    required this.refreshEvent,
-  });
+  const _ComicCategory(
+      {required this.title,
+      required this.icon,
+      required this.iconColor,
+      required this.route,
+      required this.refreshEvent,
+      required this.titleColor});
 
   @override
   Widget build(BuildContext context) {
@@ -168,6 +178,7 @@ class _ComicCategory<B extends Bloc<ComicEvent, ComicState>>
             listValue: comicList,
             icon: icon,
             iconColor: iconColor,
+            titleColor: titleColor,
             onPressedShowAll: () {
               Navigator.pushNamed(context, route);
             },

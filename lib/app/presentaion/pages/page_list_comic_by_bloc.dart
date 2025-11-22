@@ -14,6 +14,7 @@ import 'package:nettruyen/app/presentaion/widgets/comic/item_comic_2.dart';
 import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
 import 'package:nettruyen/app/presentaion/widgets/index_page.dart';
 import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class PageListComicByBloc<T> extends StatefulWidget {
   PageListComicByBloc({super.key, required this.title, required this.bloc});
@@ -124,7 +125,7 @@ class _PageListComicByBlocState extends State<PageListComicByBloc> {
       }
     }
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundLight,
       appBar: AppBarWidget(
         title: widget.title,
       ),

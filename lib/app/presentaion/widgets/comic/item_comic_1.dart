@@ -5,6 +5,7 @@ import 'package:nettruyen/app/domain/models/comic.dart';
 import 'package:nettruyen/app/presentaion/widgets/image_custome/image_custome.dart';
 import 'package:nettruyen/config/routes/routes_name.dart';
 import 'package:nettruyen/core/constants/api.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class ItemComic1 extends StatefulWidget {
   ItemComic1({super.key, required this.comic});
@@ -43,14 +44,14 @@ class _ItemComic1State extends State<ItemComic1> {
                   width: 30,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 238, 77, 65),
+                      color: AppColors.hotTag,
                       borderRadius: BorderRadius.circular(5)),
                   child: const Text(
                     "Hot",
                     style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                        color: AppColors.textOnPrimary),
                   ),
                 ),
               ),
@@ -70,7 +71,7 @@ class _ItemComic1State extends State<ItemComic1> {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         fontSize: 10,
-                        color: Colors.white,
+                        color: AppColors.textOnPrimary,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
@@ -81,7 +82,7 @@ class _ItemComic1State extends State<ItemComic1> {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         fontSize: 10,
-                        color: Colors.white,
+                        color: AppColors.textOnPrimary,
                         fontWeight: FontWeight.bold),
                   ),
                 ],

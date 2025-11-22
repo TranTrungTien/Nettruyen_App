@@ -10,6 +10,7 @@ import 'package:nettruyen/app/presentaion/blocs/remote/chapter/chapter_event.dar
 import 'package:nettruyen/app/presentaion/blocs/remote/chapter/chapter_state.dart';
 import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
 import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class ChapterComicPage extends StatefulWidget {
   ChapterComicPage({super.key, required this.comic, required this.chapter});
@@ -37,23 +38,25 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
       child: BlocBuilder<ChapterBloc, ChapterState>(
         builder: (context, state) {
           return Scaffold(
-              backgroundColor: Colors.white,
+              backgroundColor: AppColors.backgroundLight,
               appBar: Hidable(
                 controller: _scrollController,
                 deltaFactor: 1,
                 child: AppBar(
-                    title: ListTile(
-                  title: Text(
-                    widget.comic.title!,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  title: ListTile(
+                    title: Text(
+                      widget.comic.title!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    subtitle: Text(
+                      chapter.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                  subtitle: Text(
-                    chapter.name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                )),
+                  backgroundColor: AppColors.backgroundLight,
+                ),
               ),
               body: buildBody(state),
               bottomNavigationBar: Hidable(
@@ -69,7 +72,7 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
                           child: IconButton(
                             style: ButtonStyle(
                               backgroundColor: WidgetStateProperty.all(
-                                Colors.redAccent,
+                                AppColors.primary,
                               ),
                               shape: WidgetStateProperty.all(
                                 RoundedRectangleBorder(
@@ -98,7 +101,7 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
                             },
                             icon: const Icon(
                               Icons.arrow_back_ios,
-                              color: Colors.white,
+                              color: AppColors.textOnPrimary,
                             ),
                           ),
                         ),
@@ -107,7 +110,7 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
                           child: IconButton(
                             style: ButtonStyle(
                               backgroundColor: WidgetStateProperty.all(
-                                Colors.redAccent,
+                                AppColors.primary,
                               ),
                               shape: WidgetStateProperty.all(
                                 RoundedRectangleBorder(
@@ -133,7 +136,7 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
                               }
                             },
                             icon: const Icon(Icons.arrow_forward_ios,
-                                color: Colors.white),
+                                color: AppColors.textOnPrimary),
                           ),
                         ),
                       ],

@@ -71,7 +71,7 @@ class _ApiNettruyenService implements ApiNettruyenService {
   @override
   Future<HttpResponse<ComicListEntity>> getComicsSearch(
       {required String query, int? page}) async {
-    String api = "$kBaseURL/$kUrlSearchComics?q=$query";
+    String api = "$kBaseURL$kUrlSearchComics?q=$query";
     api += page != null ? "&page=$page" : "&page=1";
     final result = await dio.get(api);
     final value = ComicListModel.fromMap(result.data);

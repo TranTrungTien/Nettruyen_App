@@ -17,6 +17,7 @@ import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/genre/genre_bloc.dart';
 import 'package:nettruyen/config/routes/custome_route.dart';
 import 'package:nettruyen/setup.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,8 +75,8 @@ class MyApp extends StatelessWidget {
         title: 'Comic free',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          appBarTheme: const AppBarTheme(backgroundColor: AppColors.primary),
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
           useMaterial3: true,
         ),
         onGenerateRoute: (settings) => CustomeRoute.generate(settings),

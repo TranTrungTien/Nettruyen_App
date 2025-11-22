@@ -9,6 +9,7 @@ import 'package:nettruyen/app/presentaion/pages/comic/body.dart';
 import 'package:nettruyen/app/presentaion/pages/comic/heading.dart';
 import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
 import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class ComicPage extends StatefulWidget {
   ComicPage({super.key, required this.comicId});
@@ -33,9 +34,13 @@ class _ComicPageState extends State<ComicPage> {
       builder: (context, state) {
         if (state is ComicSuccesfull && state.comic != null) {
           return Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: AppColors.backgroundLight,
             appBar: AppBar(
-              title: Text(state.comic!.title!),
+              title: Text(
+                state.comic!.title!,
+                style: const TextStyle(color: AppColors.primary),
+              ),
+              backgroundColor: AppColors.backgroundLight,
               actions: [
                 IconButton(onPressed: () {}, icon: const Icon(Icons.download))
               ],
@@ -55,6 +60,7 @@ class _ComicPageState extends State<ComicPage> {
           return Scaffold(
             appBar: AppBar(
               title: const Text("Lỗi"),
+              backgroundColor: AppColors.backgroundLight,
             ),
             body: FailedWidet(
               error: state.error!,
@@ -64,7 +70,8 @@ class _ComicPageState extends State<ComicPage> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const LinearProgressIndicator(color: Colors.blue),
+            title: const LinearProgressIndicator(color: AppColors.primary),
+            backgroundColor: AppColors.backgroundLight,
           ),
           body: const LoadingWidget(),
         );

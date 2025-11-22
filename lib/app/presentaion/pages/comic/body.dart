@@ -7,6 +7,7 @@ import 'package:nettruyen/app/domain/repository/repository_api.dart';
 import 'package:nettruyen/config/routes/routes_name.dart';
 import 'package:nettruyen/core/resources/data_state.dart';
 import 'package:nettruyen/setup.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class BodyComicPage extends StatefulWidget {
   BodyComicPage({super.key, required this.comic});
@@ -61,7 +62,7 @@ class _BodyComicPageState extends State<BodyComicPage> {
     final totalPages = widget.comic.totalChapterPages ?? 0;
 
     return Container(
-      color: Colors.white,
+      color: AppColors.backgroundLight,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -105,14 +106,19 @@ class _BodyComicPageState extends State<BodyComicPage> {
                         margin: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          border: Border.all(width: 1, color: Colors.grey),
-                          color: index == 0 ? Colors.blue : Colors.white,
+                          border:
+                              Border.all(width: 1, color: AppColors.primary),
+                          color: index == 0
+                              ? AppColors.primary
+                              : AppColors.textOnPrimary,
                         ),
                         alignment: Alignment.centerLeft,
                         child: Text(
                           chapter.name ?? 'Chương: ${chapter.id}',
                           style: TextStyle(
-                            color: index == 0 ? Colors.white : Colors.black,
+                            color: index == 0
+                                ? AppColors.textOnPrimary
+                                : AppColors.primary,
                             fontSize: 15,
                           ),
                         ),
@@ -143,13 +149,13 @@ class _BodyComicPageState extends State<BodyComicPage> {
         margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          border: Border.all(width: 1, color: Colors.grey),
-          color: isActive ? Colors.green : Colors.white,
+          border: Border.all(width: 1, color: AppColors.primary),
+          color: isActive ? AppColors.primary : AppColors.backgroundLight,
         ),
         child: Text(
           "$page",
           style: TextStyle(
-            color: isActive ? Colors.white : Colors.black,
+            color: isActive ? AppColors.textOnPrimary : AppColors.primary,
             fontSize: 15,
           ),
         ),

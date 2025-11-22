@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:nettruyen/utils/index.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarWidget({super.key, required this.title, this.onPressed});
+  const AppBarWidget({
+    super.key,
+    required this.title,
+    this.onPressed,
+    this.isSearch,
+  });
+
   final String title;
+  final bool? isSearch;
   final VoidCallback? onPressed;
 
   @override
@@ -13,18 +20,21 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         title,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: TextStyle(color: Colors.amber[700], fontWeight: FontWeight.bold),
+        style: const TextStyle(
+          color: AppColors.primary,
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
       ),
+      backgroundColor: AppColors.backgroundLight,
+      centerTitle: true,
       actions: [
-        IconButton(
+        if (isSearch == true)
+          IconButton(
             onPressed: onPressed,
-            icon: IconButton(
-              onPressed: () {
-                // Navigator.pushNamed(context, RoutesName.kSearch);
-                showSearchInputDialog(context: context);
-              },
-              icon: const Icon(Icons.search_outlined, color: Colors.black),
-            ))
+            icon: const Icon(Icons.search_outlined),
+            tooltip: 'Tìm kiếm',
+          ),
       ],
     );
   }

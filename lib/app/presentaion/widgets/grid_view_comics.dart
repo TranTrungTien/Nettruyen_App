@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nettruyen/app/domain/models/comic.dart';
 import 'package:nettruyen/app/presentaion/widgets/comic/item_comic_2.dart';
 import 'package:nettruyen/app/presentaion/widgets/not_found_icon.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 // ignore: must_be_immutable
 class GridViewComics extends StatelessWidget {
@@ -14,12 +15,14 @@ class GridViewComics extends StatelessWidget {
       required this.title,
       required this.icon,
       required this.onPressedShowAll,
-      this.iconColor});
+      this.iconColor,
+      this.titleColor});
   List<ComicEntity>? listValue;
   String title;
   IconData icon;
   Function onPressedShowAll;
   Color? iconColor;
+  Color? titleColor;
   int itemCount;
 
   @override
@@ -32,15 +35,17 @@ class GridViewComics extends StatelessWidget {
           leading: Icon(
             icon,
             size: 30,
-            color: iconColor ?? Colors.green,
+            color: iconColor ?? AppColors.primary,
           ),
           trailing: TextButton(
             onPressed: () => onPressedShowAll(),
-            child: const Icon(Icons.chevron_right, size: 30),
+            child: const Icon(Icons.chevron_right,
+                size: 30, color: AppColors.primary),
           ),
           title: Text(
             title,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: titleColor),
           ),
         ),
         buildBody(),
@@ -69,7 +74,7 @@ class GridViewComics extends StatelessWidget {
             return ItemComic2(comic: listValue![index]);
           } else {
             return Container(
-              color: Colors.amber,
+              color: AppColors.backgroundLight,
             );
           }
         },

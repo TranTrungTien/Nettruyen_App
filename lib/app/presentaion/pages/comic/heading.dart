@@ -5,6 +5,7 @@ import 'package:nettruyen/app/domain/models/comic.dart';
 import 'package:nettruyen/app/presentaion/widgets/image_custome/image_custome.dart';
 import 'package:nettruyen/config/routes/routes_name.dart';
 import 'package:nettruyen/core/constants/api.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class HeadingComic extends StatefulWidget {
   HeadingComic({super.key, required this.comic});
@@ -30,7 +31,7 @@ class _HeadingComicState extends State<HeadingComic> {
         }
         listOther.add(Text(
           value,
-          style: const TextStyle(fontSize: 15, color: Colors.black),
+          style: const TextStyle(fontSize: 15, color: AppColors.textPrimary),
         ));
       }
       otherName = Wrap(children: listOther);
@@ -44,11 +45,11 @@ class _HeadingComicState extends State<HeadingComic> {
           padding: const EdgeInsets.all(3),
           margin: const EdgeInsets.all(3),
           decoration: BoxDecoration(
-              border: Border.all(width: 1, color: Colors.green),
+              border: Border.all(width: 1, color: AppColors.primary),
               borderRadius: BorderRadius.circular(5)),
           child: Text(
             value,
-            style: const TextStyle(fontSize: 13, color: Colors.black),
+            style: const TextStyle(fontSize: 13, color: AppColors.textPrimary),
           ),
         ));
       }
@@ -59,7 +60,7 @@ class _HeadingComicState extends State<HeadingComic> {
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.all(5),
       decoration: BoxDecoration(
-          border: Border.all(width: 1, color: Colors.grey),
+          border: Border.all(width: 1, color: AppColors.primary),
           borderRadius: BorderRadius.circular(10)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +68,9 @@ class _HeadingComicState extends State<HeadingComic> {
           Text(
             widget.comic.title!,
             style: const TextStyle(
-                fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: AppColors.textPrimary),
           ),
           if (otherName != null) otherName,
           Row(
@@ -94,13 +97,13 @@ class _HeadingComicState extends State<HeadingComic> {
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                              color: AppColors.textPrimary),
                         ),
                         const SizedBox(width: 5),
                         Text(
                           widget.comic.total_views ?? "0",
                           style: const TextStyle(
-                              fontSize: 15, color: Colors.black),
+                              fontSize: 15, color: AppColors.textPrimary),
                         )
                       ],
                     ),
@@ -111,14 +114,14 @@ class _HeadingComicState extends State<HeadingComic> {
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                              color: AppColors.textPrimary),
                         ),
                         const SizedBox(width: 5),
                         Text(
                           widget.comic.followers ?? "0",
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
-                              fontSize: 15, color: Colors.black),
+                              fontSize: 15, color: AppColors.textPrimary),
                         )
                       ],
                     ),
@@ -129,14 +132,14 @@ class _HeadingComicState extends State<HeadingComic> {
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                              color: AppColors.textPrimary),
                         ),
                         const SizedBox(width: 5),
                         Text(
                           widget.comic.status ?? "Full",
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
-                              fontSize: 15, color: Colors.black),
+                              fontSize: 15, color: AppColors.textPrimary),
                         )
                       ],
                     ),
@@ -154,12 +157,13 @@ class _HeadingComicState extends State<HeadingComic> {
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                      color: AppColors.textPrimary),
                 ),
               ),
               Text(
                 widget.comic.authors ?? "Đang cập nhật",
-                style: const TextStyle(fontSize: 15, color: Colors.black),
+                style:
+                    const TextStyle(fontSize: 15, color: AppColors.textPrimary),
               )
             ],
           ),
@@ -168,7 +172,8 @@ class _HeadingComicState extends State<HeadingComic> {
               widget.comic.description ?? '',
               overflow: TextOverflow.ellipsis,
               maxLines: isShowMore ? 1000 : 3,
-              style: const TextStyle(fontSize: 15, color: Colors.black),
+              style:
+                  const TextStyle(fontSize: 15, color: AppColors.textSecondary),
             ),
           if (widget.comic.description != null)
             InkWell(
@@ -181,8 +186,7 @@ class _HeadingComicState extends State<HeadingComic> {
                     padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      border: Border.all(width: 1, color: Colors.grey),
-                      color: Colors.white,
+                      border: Border.all(width: 1, color: AppColors.primary),
                     ),
                     child: Text(!isShowMore ? "Xem thêm" : "Thu nhỏ"))),
           Wrap(
@@ -201,15 +205,15 @@ class _HeadingComicState extends State<HeadingComic> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: Colors.green),
+                      border: Border.all(width: 1, color: AppColors.primary),
                       borderRadius: BorderRadius.circular(5),
-                      color: Colors.green),
+                      color: AppColors.primary),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
                         Icons.menu_book,
-                        color: Colors.white,
+                        color: AppColors.textOnPrimary,
                       ),
                       Text(
                         " Đọc từ đầu",
@@ -217,7 +221,7 @@ class _HeadingComicState extends State<HeadingComic> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
-                            color: Colors.white),
+                            color: AppColors.textOnPrimary),
                       ),
                     ],
                   ),
@@ -237,7 +241,7 @@ class _HeadingComicState extends State<HeadingComic> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Colors.green),
+                    border: Border.all(width: 1, color: AppColors.primary),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: const Row(
@@ -245,7 +249,7 @@ class _HeadingComicState extends State<HeadingComic> {
                     children: [
                       Icon(
                         Icons.fiber_new,
-                        color: Colors.green,
+                        color: AppColors.primary,
                       ),
                       Text(
                         " Đọc mới nhất",
@@ -253,7 +257,7 @@ class _HeadingComicState extends State<HeadingComic> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
-                            color: Colors.green),
+                            color: AppColors.primary),
                       )
                     ],
                   ),
@@ -267,9 +271,10 @@ class _HeadingComicState extends State<HeadingComic> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 15),
                     decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Colors.red),
+                        border:
+                            Border.all(width: 1, color: AppColors.secondary),
                         borderRadius: BorderRadius.circular(5),
-                        color: Colors.red),
+                        color: AppColors.secondary),
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -279,11 +284,11 @@ class _HeadingComicState extends State<HeadingComic> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
-                              color: Colors.white),
+                              color: AppColors.textOnPrimary),
                         ),
                         Icon(
                           Icons.navigate_next,
-                          color: Colors.white,
+                          color: AppColors.textOnPrimary,
                         ),
                       ],
                     ),

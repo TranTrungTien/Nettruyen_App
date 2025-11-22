@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 // ignore: must_be_immutable
 class FailedWidet extends StatefulWidget {
@@ -24,7 +25,7 @@ class _FailedWidetState extends State<FailedWidet> {
             style: const TextStyle(
                 fontSize: 50,
                 fontWeight: FontWeight.bold,
-                color: Colors.red,
+                color: AppColors.danger,
                 decoration: TextDecoration.none),
           ),
           Text(
@@ -32,7 +33,7 @@ class _FailedWidetState extends State<FailedWidet> {
             style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: AppColors.textPrimary,
                 decoration: TextDecoration.none),
           ),
           const SizedBox(
@@ -43,7 +44,7 @@ class _FailedWidetState extends State<FailedWidet> {
                   onPressed: () => widget.onReset,
                   icon: const Icon(
                     Icons.restart_alt_rounded,
-                    color: Colors.red,
+                    color: AppColors.danger,
                     size: 50,
                   ))
               : const Spacer()

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nettruyen/config/routes/routes_name.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class PageNotFound extends StatelessWidget {
   const PageNotFound({super.key});
@@ -9,7 +10,7 @@ class PageNotFound extends StatelessWidget {
     print("Page not found init");
     return Container(
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: AppColors.backgroundLight,
       ),
       alignment: Alignment.center,
       child: Column(
@@ -19,7 +20,7 @@ class PageNotFound extends StatelessWidget {
             "404",
             style: TextStyle(
                 fontSize: 60,
-                color: Colors.black,
+                color: AppColors.textPrimary,
                 fontWeight: FontWeight.bold,
                 decoration: TextDecoration.none),
           ),
@@ -29,7 +30,7 @@ class PageNotFound extends StatelessWidget {
               "Page Not Found",
               style: TextStyle(
                   fontSize: 30,
-                  color: Colors.black,
+                  color: AppColors.textPrimary,
                   fontWeight: FontWeight.normal,
                   decoration: TextDecoration.none),
             ),
@@ -43,7 +44,7 @@ class PageNotFound extends StatelessWidget {
                 },
                 child: const Text(
                   "Go back home",
-                  style: TextStyle(fontSize: 20, color: Colors.black),
+                  style: TextStyle(fontSize: 20, color: AppColors.textPrimary),
                 )),
           )
         ],

@@ -5,6 +5,7 @@ import 'package:nettruyen/app/domain/models/comic.dart';
 import 'package:nettruyen/app/presentaion/widgets/image_custome/image_custome.dart';
 import 'package:nettruyen/config/routes/routes_name.dart';
 import 'package:nettruyen/core/constants/api.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class ItemComic2 extends StatefulWidget {
   ItemComic2({super.key, required this.comic});
@@ -45,14 +46,14 @@ class _ItemComic2State extends State<ItemComic2> {
                   width: 30,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 238, 77, 65),
+                      color: AppColors.hotTag,
                       borderRadius: BorderRadius.circular(5)),
                   child: const Text(
                     "Hot",
                     style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                        color: AppColors.textOnPrimary),
                   ),
                 ),
               ),
@@ -72,7 +73,7 @@ class _ItemComic2State extends State<ItemComic2> {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         fontSize: 10,
-                        color: Colors.white,
+                        color: AppColors.textOnPrimary,
                         fontWeight: FontWeight.bold),
                   ),
                   Row(
@@ -82,13 +83,13 @@ class _ItemComic2State extends State<ItemComic2> {
                         children: [
                           const Icon(
                             Icons.remove_red_eye,
-                            color: Colors.white,
+                            color: AppColors.textOnPrimary,
                             size: 10,
                           ),
                           Text(
                             widget.comic.total_views ?? "0",
                             style: const TextStyle(
-                                fontSize: 10, color: Colors.white),
+                                fontSize: 10, color: AppColors.textOnPrimary),
                           )
                         ],
                       ),
@@ -102,7 +103,7 @@ class _ItemComic2State extends State<ItemComic2> {
                           Text(
                             widget.comic.followers ?? "0",
                             style: const TextStyle(
-                                fontSize: 10, color: Colors.white),
+                                fontSize: 10, color: AppColors.textOnPrimary),
                           )
                         ],
                       ),

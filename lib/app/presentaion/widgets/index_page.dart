@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class IndexPage extends StatefulWidget {
   IndexPage(
@@ -104,9 +105,10 @@ class _IndexPageState extends State<IndexPage> {
                     margin: const EdgeInsets.all(1),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        color:
-                            currentPage == index ? Colors.blue : Colors.white,
-                        border: Border.all(width: 1, color: Colors.grey)),
+                        color: currentPage == index
+                            ? AppColors.primary
+                            : AppColors.textOnPrimary,
+                        border: Border.all(width: 1, color: AppColors.primary)),
                     child: Text(index.toString(),
                         style: TextStyle(
                             fontSize: 15,
@@ -132,15 +134,15 @@ class _IndexPageState extends State<IndexPage> {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   color: currentPage == widget.totalPages
-                      ? Colors.blue
-                      : Colors.white,
-                  border: Border.all(width: 1, color: Colors.grey)),
+                      ? AppColors.primary
+                      : AppColors.textOnPrimary,
+                  border: Border.all(width: 1, color: AppColors.primary)),
               child: Text(widget.totalPages.toString(),
                   style: TextStyle(
                       fontSize: 15,
                       color: currentPage == widget.totalPages
-                          ? Colors.white
-                          : Colors.black)),
+                          ? AppColors.textOnPrimary
+                          : AppColors.textPrimary)),
             ),
           ),
         ],

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
-// ignore: must_be_immutable
 class DrawerHome extends StatefulWidget {
-  DrawerHome({super.key, required this.onChanged});
+  DrawerHome({super.key, required this.selectedIndex, required this.onChanged});
+  final int selectedIndex;
+
   void Function(int indexSelect) onChanged;
-  static int indexSelect = 0;
 
   @override
   // ignore: no_logic_in_create_state
@@ -12,129 +13,141 @@ class DrawerHome extends StatefulWidget {
 }
 
 class _DrawerHomeState extends State<DrawerHome> {
-  int indexSelect = 0;
-
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      indexSelect = DrawerHome.indexSelect;
-    });
+    final int indexSelect = widget.selectedIndex;
     return Drawer(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundLight,
       child: Column(
         children: [
-          ListTile(
+          const ListTile(
             selected: true,
-            selectedTileColor: Colors.green[600],
-            title: const Text(
+            selectedTileColor: AppColors.primary,
+            title: Text(
               "Nettruyen",
               style: TextStyle(
                   fontSize: 20,
-                  color: Colors.white,
+                  color: AppColors.textOnPrimary,
                   fontWeight: FontWeight.bold),
             ),
           ),
           ListTile(
             onTap: () {
               setState(() {
-                indexSelect = 0;
-                DrawerHome.indexSelect = indexSelect;
-                widget.onChanged(indexSelect);
+                widget.onChanged(0);
+                Navigator.pop(context);
               });
             },
             selected: indexSelect == 0,
-            selectedTileColor: Colors.amber,
-            leading: Icon(Icons.home,
-                color: indexSelect == 0 ? Colors.white : Colors.black),
+            selectedTileColor: AppColors.primary,
+            leading: Icon(Icons.home_outlined,
+                color: indexSelect == 0
+                    ? AppColors.textOnPrimary
+                    : AppColors.textPrimary),
             title: Text(
               "Trang chủ",
               style: TextStyle(
                   fontSize: 20,
-                  color: indexSelect == 0 ? Colors.white : Colors.black),
+                  color: indexSelect == 0
+                      ? AppColors.textOnPrimary
+                      : AppColors.textPrimary),
             ),
           ),
           ListTile(
             onTap: () {
               setState(() {
-                indexSelect = 1;
-                DrawerHome.indexSelect = indexSelect;
-                widget.onChanged(indexSelect);
+                widget.onChanged(1);
+                Navigator.pop(context);
               });
             },
             selected: indexSelect == 1,
-            selectedTileColor: Colors.amber,
-            leading: Icon(Icons.menu,
-                color: indexSelect == 1 ? Colors.white : Colors.black),
+            selectedTileColor: AppColors.primary,
+            leading: Icon(Icons.category_outlined,
+                color: indexSelect == 1
+                    ? AppColors.textOnPrimary
+                    : AppColors.textPrimary),
             title: Text(
               "Thể loại",
               style: TextStyle(
                   fontSize: 20,
-                  color: indexSelect == 1 ? Colors.white : Colors.black),
+                  color: indexSelect == 1
+                      ? AppColors.textOnPrimary
+                      : AppColors.textPrimary),
             ),
           ),
           ListTile(
             onTap: () {
               setState(() {
-                indexSelect = 2;
-                DrawerHome.indexSelect = indexSelect;
-                widget.onChanged(indexSelect);
+                widget.onChanged(2);
+                Navigator.pop(context);
               });
             },
             selected: indexSelect == 2,
-            selectedTileColor: Colors.amber,
-            leading: Icon(Icons.fiber_new,
-                color: indexSelect == 2 ? Colors.white : Colors.black),
+            selectedTileColor: AppColors.primary,
+            leading: Icon(Icons.book_outlined,
+                color: indexSelect == 2
+                    ? AppColors.textOnPrimary
+                    : AppColors.textPrimary),
             title: Text(
               "Truyện mới",
               style: TextStyle(
                   fontSize: 20,
-                  color: indexSelect == 2 ? Colors.white : Colors.black),
+                  color: indexSelect == 2
+                      ? AppColors.textOnPrimary
+                      : AppColors.textPrimary),
             ),
           ),
           ListTile(
             onTap: () {
               setState(() {
-                indexSelect = 3;
-                DrawerHome.indexSelect = indexSelect;
-                widget.onChanged(indexSelect);
+                widget.onChanged(3);
+                Navigator.pop(context);
               });
             },
             selected: indexSelect == 3,
-            selectedTileColor: Colors.amber,
-            leading: Icon(Icons.ac_unit,
-                color: indexSelect == 3 ? Colors.white : Colors.black),
+            selectedTileColor: AppColors.primary,
+            leading: Icon(Icons.hotel_class_outlined,
+                color: indexSelect == 3
+                    ? AppColors.textOnPrimary
+                    : AppColors.textPrimary),
             title: Text(
               "Xếp hạng",
               style: TextStyle(
                   fontSize: 20,
-                  color: indexSelect == 3 ? Colors.white : Colors.black),
+                  color: indexSelect == 3
+                      ? AppColors.textOnPrimary
+                      : AppColors.textPrimary),
             ),
           ),
           ListTile(
             onTap: () {
               setState(() {
-                indexSelect = 4;
-                DrawerHome.indexSelect = indexSelect;
-                widget.onChanged(indexSelect);
+                widget.onChanged(4);
+                Navigator.pop(context);
               });
             },
             selected: indexSelect == 4,
-            selectedTileColor: Colors.amber,
-            leading: Icon(Icons.history,
-                color: indexSelect == 4 ? Colors.white : Colors.black),
+            selectedTileColor: AppColors.primary,
+            leading: Icon(Icons.history_outlined,
+                color: indexSelect == 4
+                    ? AppColors.textOnPrimary
+                    : AppColors.textPrimary),
             title: Text(
               "Lịch sử",
               style: TextStyle(
                   fontSize: 20,
-                  color: indexSelect == 4 ? Colors.white : Colors.black),
+                  color: indexSelect == 4
+                      ? AppColors.textOnPrimary
+                      : AppColors.textPrimary),
             ),
           ),
           ListTile(
             onTap: () {},
-            leading: const Icon(Icons.exit_to_app, color: Colors.black),
+            leading: const Icon(Icons.exit_to_app_outlined,
+                color: AppColors.textPrimary),
             title: const Text(
               "Thoát",
-              style: TextStyle(fontSize: 20, color: Colors.black),
+              style: TextStyle(fontSize: 20, color: AppColors.textPrimary),
             ),
           ),
         ],
