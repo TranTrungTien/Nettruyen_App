@@ -6,6 +6,7 @@ import 'package:nettruyen/app/presentaion/widgets/image_custome/image_custome.da
 import 'package:nettruyen/config/routes/routes_name.dart';
 import 'package:nettruyen/core/constants/api.dart';
 import 'package:nettruyen/core/constants/colors.dart';
+import 'package:nettruyen/core/utils/noti.dart';
 
 class HeadingComic extends StatefulWidget {
   HeadingComic({super.key, required this.comic});
@@ -229,12 +230,13 @@ class _HeadingComicState extends State<HeadingComic> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context,
-                      '${RoutesName.kComics}/${widget.comic.id}/${widget.comic.chapters?.last.id}',
-                      arguments: <String, dynamic>{
-                        "comic": widget.comic,
-                        "chapter": widget.comic.chapters!.last
-                      });
+                  showFeatureComingSoon(context);
+                  // Navigator.pushNamed(context,
+                  //     '${RoutesName.kComics}/${widget.comic.id}/${widget.comic.chapters?.last.id}',
+                  //     arguments: <String, dynamic>{
+                  //       "comic": widget.comic,
+                  //       "chapter": widget.comic.chapters!.last
+                  //     });
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(vertical: 5),
@@ -265,7 +267,9 @@ class _HeadingComicState extends State<HeadingComic> {
               ),
               Visibility(
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    showFeatureComingSoon(context);
+                  },
                   child: Container(
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     padding: const EdgeInsets.symmetric(

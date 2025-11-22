@@ -5,13 +5,13 @@ import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/boy_comic_blo
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/completed_comic_bloc.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/girl_comic_bloc.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/recent_update_comic_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/search_comic_bloc.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/trending_comics_bloc.dart';
 import 'package:nettruyen/app/presentaion/pages/chapter/chapter_comic_page.dart';
 import 'package:nettruyen/app/presentaion/pages/comic/comic_page.dart';
 import 'package:nettruyen/app/presentaion/pages/home/home_page.dart';
 import 'package:nettruyen/app/presentaion/pages/page_list_comic_by_bloc.dart';
 import 'package:nettruyen/app/presentaion/pages/page_not_found.dart';
+import 'package:nettruyen/app/presentaion/pages/search/search_page.dart';
 import 'package:nettruyen/config/routes/routes_name.dart';
 import 'package:nettruyen/setup.dart';
 
@@ -89,9 +89,7 @@ class CustomeRoute {
 
     if (settings.name == RoutesName.kSearch) {
       return MaterialPageRoute(
-          builder: (context) => PageListComicByBloc(
-              title: "Tìm Kiếm Truyện", bloc: sl<SearchComicBloc>()),
-          settings: settings);
+          builder: (context) => const SearchPage(), settings: settings);
     }
 
     return MaterialPageRoute(

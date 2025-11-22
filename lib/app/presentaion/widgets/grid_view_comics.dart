@@ -16,7 +16,8 @@ class GridViewComics extends StatelessWidget {
       required this.icon,
       required this.onPressedShowAll,
       this.iconColor,
-      this.titleColor});
+      this.titleColor,
+      this.crossAxisCount = 3});
   List<ComicEntity>? listValue;
   String title;
   IconData icon;
@@ -24,6 +25,7 @@ class GridViewComics extends StatelessWidget {
   Color? iconColor;
   Color? titleColor;
   int itemCount;
+  final int crossAxisCount;
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +66,8 @@ class GridViewComics extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 20),
       child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 1.4, crossAxisCount: 2),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 1.4, crossAxisCount: crossAxisCount, ),
         itemCount: itemCount,
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,

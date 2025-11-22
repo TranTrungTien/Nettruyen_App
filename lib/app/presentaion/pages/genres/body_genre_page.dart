@@ -13,6 +13,7 @@ import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
 import 'package:nettruyen/app/presentaion/widgets/index_page.dart';
 import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:nettruyen/core/constants/constants.dart';
+import 'package:nettruyen/core/utils/noti.dart';
 import 'package:nettruyen/setup.dart';
 import 'package:nettruyen/core/constants/colors.dart';
 
@@ -59,13 +60,14 @@ class _BodyGenrePageState extends State<BodyGenrePage> {
           trailing: DropdownButton(
             value: status,
             onChanged: (value) {
-              if (value is StatusComic) {
-                setState(() {
-                  status = value;
-                });
-                context.read<ComicByGenreBloc>().add(GetComicByGenreEvent(
-                    status: value.name, genreId: genre.id));
-              }
+              showFeatureComingSoon(context);
+              // if (value is StatusComic) {
+              //   setState(() {
+              //     status = value;
+              //   });
+              //   context.read<ComicByGenreBloc>().add(GetComicByGenreEvent(
+              //       status: value.name, genreId: genre.id));
+              // }
             },
             items: const [
               DropdownMenuItem(
@@ -91,7 +93,6 @@ class _BodyGenrePageState extends State<BodyGenrePage> {
               style: TextStyle(color: AppColors.textPrimary)),
           trailing: BlocBuilder<GenreBloc, GenreState>(
             builder: (context, state) {
-              // 1. TRẠNG THÁI TẢI THÀNH CÔNG (SUCCESS)
               if (state is GenreSuccessfull) {
                 List<DropdownMenuItem> listItemGenre = [];
                 for (var element in state.listGenre!) {

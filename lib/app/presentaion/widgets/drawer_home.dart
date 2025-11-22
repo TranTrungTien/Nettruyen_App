@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nettruyen/core/constants/colors.dart';
+import 'package:nettruyen/core/utils/noti.dart';
 
 class DrawerHome extends StatefulWidget {
   DrawerHome({super.key, required this.selectedIndex, required this.onChanged});
@@ -33,10 +34,8 @@ class _DrawerHomeState extends State<DrawerHome> {
           ),
           ListTile(
             onTap: () {
-              setState(() {
-                widget.onChanged(0);
-                Navigator.pop(context);
-              });
+              widget.onChanged(0);
+              Navigator.pop(context);
             },
             selected: indexSelect == 0,
             selectedTileColor: AppColors.primary,
@@ -55,10 +54,8 @@ class _DrawerHomeState extends State<DrawerHome> {
           ),
           ListTile(
             onTap: () {
-              setState(() {
-                widget.onChanged(1);
-                Navigator.pop(context);
-              });
+              widget.onChanged(1);
+              Navigator.pop(context);
             },
             selected: indexSelect == 1,
             selectedTileColor: AppColors.primary,
@@ -77,10 +74,9 @@ class _DrawerHomeState extends State<DrawerHome> {
           ),
           ListTile(
             onTap: () {
-              setState(() {
-                widget.onChanged(2);
-                Navigator.pop(context);
-              });
+              showFeatureComingSoon(context);
+              Navigator.pop(context);
+              //   widget.onChanged(2);
             },
             selected: indexSelect == 2,
             selectedTileColor: AppColors.primary,
@@ -99,10 +95,9 @@ class _DrawerHomeState extends State<DrawerHome> {
           ),
           ListTile(
             onTap: () {
-              setState(() {
-                widget.onChanged(3);
-                Navigator.pop(context);
-              });
+              showFeatureComingSoon(context);
+              Navigator.pop(context);
+              //   widget.onChanged(3);
             },
             selected: indexSelect == 3,
             selectedTileColor: AppColors.primary,
@@ -121,10 +116,9 @@ class _DrawerHomeState extends State<DrawerHome> {
           ),
           ListTile(
             onTap: () {
-              setState(() {
-                widget.onChanged(4);
-                Navigator.pop(context);
-              });
+              showFeatureComingSoon(context);
+              Navigator.pop(context);
+              //   widget.onChanged(4);
             },
             selected: indexSelect == 4,
             selectedTileColor: AppColors.primary,
@@ -142,7 +136,10 @@ class _DrawerHomeState extends State<DrawerHome> {
             ),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              showFeatureComingSoon(context);
+              Navigator.pop(context);
+            },
             leading: const Icon(Icons.exit_to_app_outlined,
                 color: AppColors.textPrimary),
             title: const Text(

@@ -155,7 +155,7 @@ class _PageListComicByBlocState extends State<PageListComicByBloc> {
       }
       return GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 0.8, crossAxisCount: 2),
+            childAspectRatio: 0.8, crossAxisCount: 3),
         itemCount: listComic.length,
         scrollDirection: Axis.vertical,
         shrinkWrap: true,

@@ -10,6 +10,7 @@ import 'package:nettruyen/app/presentaion/pages/comic/heading.dart';
 import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
 import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:nettruyen/core/constants/colors.dart';
+import 'package:nettruyen/core/utils/noti.dart';
 
 class ComicPage extends StatefulWidget {
   ComicPage({super.key, required this.comicId});
@@ -42,7 +43,11 @@ class _ComicPageState extends State<ComicPage> {
               ),
               backgroundColor: AppColors.backgroundLight,
               actions: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.download))
+                IconButton(
+                    onPressed: () {
+                      showFeatureComingSoon(context);
+                    },
+                    icon: const Icon(Icons.download))
               ],
             ),
             body: SingleChildScrollView(

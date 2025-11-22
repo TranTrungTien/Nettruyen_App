@@ -88,7 +88,6 @@ class _BodyHomePageState extends State<BodyHomePage> {
         if (state is ComicSuccesfull) {
           final listComic = state.listComic?.comics;
 
-          // **Logic check for comicLength == 0**
           if (listComic == null || listComic.isEmpty) {
             return const NotFoundIcon();
           }
@@ -152,7 +151,9 @@ class _ComicCategory<B extends Bloc<ComicEvent, ComicState>>
   final Color titleColor;
   final String route;
   final ComicEvent refreshEvent;
-  static const int maxItems = 20; // Define max items here
+  static const int maxItems = 20;
+  final int crossAxisCount = 2;
+
 
   const _ComicCategory(
       {required this.title,
@@ -170,7 +171,6 @@ class _ComicCategory<B extends Bloc<ComicEvent, ComicState>>
           final comicList = state.listComic?.comics;
           var length = comicList?.length ?? 0;
 
-          // Determine itemCount, capping at maxItems
           final itemCount = length > maxItems ? maxItems : length;
 
           return GridViewComics(
@@ -179,6 +179,7 @@ class _ComicCategory<B extends Bloc<ComicEvent, ComicState>>
             icon: icon,
             iconColor: iconColor,
             titleColor: titleColor,
+            crossAxisCount: crossAxisCount,
             onPressedShowAll: () {
               Navigator.pushNamed(context, route);
             },

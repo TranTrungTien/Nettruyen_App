@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nettruyen/app/presentaion/pages/genres/body_genre_page.dart';
 import 'package:nettruyen/app/presentaion/pages/home/body_home_page.dart';
-import 'package:nettruyen/app/presentaion/pages/search/search_page.dart';
 import 'package:nettruyen/app/presentaion/pages/page_not_found.dart';
 import 'package:nettruyen/app/presentaion/widgets/app_bar/app_bar.dart';
 import 'package:nettruyen/app/presentaion/widgets/drawer_home.dart';
 import 'package:nettruyen/core/constants/colors.dart';
+import 'package:nettruyen/config/routes/routes_name.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,21 +29,14 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  handleOnPressed() {
-    switch (_widgetBody.runtimeType) {
-      case BodyHomePage:
-        BodyHomePage.loadingData(context);
-        break;
-      case SearchPage():
-        setState(() {
-          _widgetBody = SearchPage(key: UniqueKey());
-        });
-        break;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    handleOnPressed() {
+      Navigator.of(context).pushNamed(
+        RoutesName.kSearch,
+      );
+    }
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.backgroundLight,

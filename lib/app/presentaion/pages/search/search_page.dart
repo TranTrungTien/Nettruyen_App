@@ -1,12 +1,14 @@
-// search_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/search_comic_bloc.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_state.dart';
+import 'package:nettruyen/app/presentaion/widgets/app_bar/app_bar.dart';
 import 'package:nettruyen/app/presentaion/widgets/comic/item_comic_2.dart';
 import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
 import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
+import 'package:nettruyen/app/domain/models/comic.dart';
+import 'package:nettruyen/core/constants/colors.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -16,113 +18,198 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  final _textController = TextEditingController();
+
   String _currentQuery = '';
   int _currentPage = 1;
   int _totalPages = 1;
+  final List<ComicEntity> _allComics = [];
 
   @override
-  void initState() {
-    super.initState();
-
-    Future.microtask(() {
-      if (!mounted) return; // bảo vệ context sau async gap
-
-      final args = ModalRoute.of(context)?.settings.arguments;
-      print('args $args');
-      if (args is String) {
-        final newQuery = args.trim();
-        if (newQuery.isNotEmpty) {
-          _search(newQuery, page: 1);
-          setState(() {
-            _currentQuery = newQuery;
-            _currentPage = 1;
-          });
-        }
-      }
-    });
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
   }
 
-  void _search(String query, {int page = 1}) {
-    // Log ra query đang được dùng để tìm kiếm.
-    print('Searching for: "$query" on page $page');
-    context.read<SearchComicBloc>().add(GetComicsSearchEvent(
-          query: query,
-          page: page,
-        ));
+  void _submitSearch(String query) {
+    final newQuery = query.trim();
+    if (newQuery.isEmpty) return;
+
+    FocusScope.of(context).unfocus();
+
+    if (_currentQuery != newQuery) {
+      setState(() {
+        _currentQuery = newQuery;
+      });
+      context
+          .read<SearchComicBloc>()
+          .add(GetComicsSearchEvent(query: newQuery, page: 1));
+    }
   }
 
   void _loadMore() {
-    if (_currentPage < _totalPages) {
-      // Gọi tìm kiếm cho trang tiếp theo.
-      // State của _currentPage sẽ được cập nhật trong listener của BlocConsumer.
-      _search(_currentQuery, page: _currentPage + 1);
+    if (_currentPage < _totalPages &&
+        context.read<SearchComicBloc>().state is! ComicLoading) {
+      context.read<SearchComicBloc>().add(
+          GetComicsSearchEvent(query: _currentQuery, page: _currentPage + 1));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<SearchComicBloc, ComicState>(
-        listener: (context, state) {
-          if (state is ComicSuccesfull && state.listComic != null) {
-            setState(() {
-              _totalPages = state.listComic!.total_pages ?? 1;
-              _currentPage = state.listComic!.current_page ?? 1;
-            });
-          }
-        },
-        builder: (context, state) {
-          // 1. Đang load trang đầu
-          if (state is ComicLoading) {
-            return const LoadingWidget();
-          }
-
-          // 2. Lỗi
-          if (state is ComicFailed) {
-            return FailedWidet(error: state.error!);
-          }
-
-          // 3. Thành công
-          if (state is ComicSuccesfull && state.listComic?.comics != null) {
-            final comics = state.listComic!.comics!;
-
-            if (comics.isEmpty) {
-              return const Center(
-                child: Text(
-                  'Không tìm thấy kết quả',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+      appBar: const AppBarWidget(title: 'Tìm kiếm truyện'),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 36,
+                    decoration: BoxDecoration(
+                      color: AppColors
+                          .backgroundLight, // Dùng màu nền sáng (trắng ngà)
+                      borderRadius: BorderRadius.circular(28),
+                      boxShadow: [
+                        BoxShadow(
+                          color:
+                              Colors.black.withOpacity(0.08), // BoxShadow nhẹ
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: TextField(
+                      controller: _textController,
+                      textInputAction: TextInputAction.search,
+                      onSubmitted: _submitSearch,
+                      style: const TextStyle(
+                          fontSize: 14, color: AppColors.textPrimary),
+                      decoration: InputDecoration(
+                        hintText: 'Tìm truyện, tác giả, thể loại...',
+                        hintStyle: TextStyle(
+                            color: AppColors.textSecondary.withOpacity(0.7),
+                            fontSize: 14),
+                        filled: true,
+                        fillColor: Colors.transparent,
+                        prefixIcon: const Icon(Icons.search_rounded,
+                            color: AppColors.primary, size: 22),
+                        prefixIconConstraints:
+                            const BoxConstraints(minWidth: 36, minHeight: 36),
+                        contentPadding:
+                            const EdgeInsetsDirectional.only(start: 8),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(
+                              color: AppColors.textSecondary.withOpacity(0.4),
+                              width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: const BorderSide(
+                              color: AppColors.primary, width: 2.0),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              );
-            }
-
-            return GridView.builder(
-              padding: const EdgeInsets.all(8),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.7,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-              ),
-              // Hiển thị loading indicator ở cuối nếu còn trang
-              itemCount: comics.length + ((_currentPage < _totalPages) ? 1 : 0),
-              itemBuilder: (context, index) {
-                if (index == comics.length) {
-                  _loadMore();
-                  return const Center(child: CircularProgressIndicator());
-                }
-                return ItemComic2(comic: comics[index]);
-              },
-            );
-          }
-
-          // 4. Chưa có dữ liệu (vừa vào, chưa search)
-          return const Center(
-            child: Text(
-              'Nhập từ khóa để tìm kiếm',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+                const SizedBox(width: 8),
+                Material(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(28),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(28),
+                    onTap: () => _submitSearch(_textController.text),
+                    child: Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            AppColors.primary,
+                            AppColors.primary.withOpacity(0.8),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(28),
+                        boxShadow: [
+                          BoxShadow(
+                              color: AppColors.primary.withOpacity(0.4),
+                              blurRadius: 12,
+                              offset: const Offset(0, 6)),
+                        ],
+                      ),
+                      child: const Icon(Icons.arrow_forward_rounded,
+                          color: AppColors.textOnPrimary, size: 22),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          );
-        },
+          ),
+          Expanded(
+            child: BlocConsumer<SearchComicBloc, ComicState>(
+              listener: (context, state) {
+                if (state is ComicSuccesfull && state.listComic != null) {
+                  final newComics = state.listComic!.comics ?? [];
+                  final newPage = state.listComic!.current_page ?? 1;
+                  setState(() {
+                    _totalPages = state.listComic!.total_pages ?? 1;
+                    _currentPage = newPage;
+                    if (newPage == 1) {
+                      _allComics
+                        ..clear()
+                        ..addAll(newComics);
+                    } else {
+                      _allComics.addAll(newComics);
+                    }
+                  });
+                }
+              },
+              builder: (context, state) {
+                if (_currentQuery.isEmpty) {
+                  return const Center(
+                      child: Text("Nhập từ khóa để bắt đầu tìm kiếm",
+                          style: TextStyle(
+                              fontSize: 16, color: AppColors.textSecondary)));
+                }
+
+                if (state is ComicLoading && _allComics.isEmpty) {
+                  return const LoadingWidget();
+                }
+                if (state is ComicFailed && _allComics.isEmpty) {
+                  return FailedWidet(error: state.error!);
+                }
+                if (_allComics.isEmpty) {
+                  return const Center(
+                      child: Text('Không tìm thấy kết quả nào',
+                          style: TextStyle(
+                              fontSize: 16, color: AppColors.textSecondary)));
+                }
+
+                return GridView.builder(
+                  padding: const EdgeInsets.all(8),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 0.55,
+                  ),
+                  itemCount: _allComics.length +
+                      ((_currentPage < _totalPages) ? 1 : 0),
+                  itemBuilder: (context, index) {
+                    if (index == _allComics.length) {
+                      _loadMore();
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    return ItemComic2(comic: _allComics[index]);
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
