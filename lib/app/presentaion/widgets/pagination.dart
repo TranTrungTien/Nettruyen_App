@@ -60,7 +60,10 @@ class _SmartPaginationState extends State<SmartPagination> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Go To Page'), // Updated text to English
+        title: Text(
+          'Nhập page (1-${widget.totalPages})',
+          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
+        ), // Updated text to English
         content: TextField(
           controller: _pageController,
           keyboardType: TextInputType.number,

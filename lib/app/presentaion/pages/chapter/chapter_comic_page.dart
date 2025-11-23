@@ -69,16 +69,14 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: IconButton(
-                            style: ButtonStyle(
-                              backgroundColor: WidgetStateProperty.all(
-                                AppColors.primary,
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              shape: WidgetStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 12),
                             ),
                             onPressed: () {
                               var chapters = state.contentChapter?.chapters;
@@ -102,21 +100,26 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
                             icon: const Icon(
                               Icons.arrow_back_ios,
                               color: AppColors.textOnPrimary,
+                              size: 16,
+                            ),
+                            label: const Text(
+                              'Chương trước',
+                              style: TextStyle(
+                                  color: AppColors.textOnPrimary, fontSize: 16),
                             ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: IconButton(
-                            style: ButtonStyle(
-                              backgroundColor: WidgetStateProperty.all(
-                                AppColors.primary,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              shape: WidgetStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 12),
+                              foregroundColor: AppColors.textOnPrimary,
                             ),
                             onPressed: () {
                               var chapters = state.contentChapter?.chapters;
@@ -135,10 +138,23 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
                                 });
                               }
                             },
-                            icon: const Icon(Icons.arrow_forward_ios,
-                                color: AppColors.textOnPrimary),
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                // 1. Text "Chương sau"
+                                Text(
+                                  'Chương sau',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: AppColors.textOnPrimary),
+                                ),
+                                SizedBox(width: 10),
+                                Icon(Icons.arrow_forward_ios,
+                                    size: 16, color: AppColors.textOnPrimary),
+                              ],
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
