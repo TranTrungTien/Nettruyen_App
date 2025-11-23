@@ -64,104 +64,98 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primary,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 12),
-                            ),
-                            onPressed: () {
-                              var chapters = state.contentChapter?.chapters;
-                              if (chapters == null) return;
-
-                              var index = chapters
-                                  .indexWhere((e) => e.id == chapter.id);
-
-                              if (index > 0) {
-                                final prevChapter = chapters[index - 1];
-
-                                context.read<ChapterBloc>().add(
-                                    GetContentChapterEvent(
-                                        chapterId: prevChapter.id,
-                                        comic: widget.comic));
-                                setState(() {
-                                  chapter = prevChapter;
-                                });
-                              }
-                            },
-                            icon: const Icon(
-                              Icons.arrow_back_ios,
-                              color: AppColors.textOnPrimary,
-                              size: 16,
-                            ),
-                            label: const Text(
-                              'Chương trước',
-                              style: TextStyle(
-                                  color: AppColors.textOnPrimary, fontSize: 16),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primary,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 12),
-                              foregroundColor: AppColors.textOnPrimary,
-                            ),
-                            onPressed: () {
-                              var chapters = state.contentChapter?.chapters;
-                              if (chapters == null) return;
-                              int index = chapters
-                                  .indexWhere((e) => e.id == chapter.id);
-                              var length = chapters.length;
-                              if (index < length - 1) {
-                                final nextChapter = chapters[index + 1];
-                                context.read<ChapterBloc>().add(
-                                    GetContentChapterEvent(
-                                        chapterId: nextChapter.id,
-                                        comic: widget.comic));
-                                setState(() {
-                                  chapter = nextChapter;
-                                });
-                              }
-                            },
-                            child: const Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                // 1. Text "Chương sau"
-                                Text(
-                                  'Chương sau',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColors.textOnPrimary),
-                                ),
-                                SizedBox(width: 10),
-                                Icon(Icons.arrow_forward_ios,
-                                    size: 16, color: AppColors.textOnPrimary),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                    child: buildPrevAndNextButton(state),
                   ),
                 ),
               ));
         },
       ),
+    );
+  }
+
+  Widget buildPrevAndNextButton(ChapterState state) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            ),
+            onPressed: () {
+              var chapters = state.contentChapter?.chapters;
+              if (chapters == null) return;
+
+              var index = chapters.indexWhere((e) => e.id == chapter.id);
+
+              if (index > 0) {
+                final prevChapter = chapters[index - 1];
+
+                context.read<ChapterBloc>().add(GetContentChapterEvent(
+                    chapterId: prevChapter.id, comic: widget.comic));
+                setState(() {
+                  chapter = prevChapter;
+                });
+              }
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: AppColors.textOnPrimary,
+              size: 16,
+            ),
+            label: const Text(
+              'Chương trước',
+              style: TextStyle(color: AppColors.textOnPrimary, fontSize: 16),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              foregroundColor: AppColors.textOnPrimary,
+            ),
+            onPressed: () {
+              var chapters = state.contentChapter?.chapters;
+              if (chapters == null) return;
+              int index = chapters.indexWhere((e) => e.id == chapter.id);
+              var length = chapters.length;
+              if (index < length - 1) {
+                final nextChapter = chapters[index + 1];
+                context.read<ChapterBloc>().add(GetContentChapterEvent(
+                    chapterId: nextChapter.id, comic: widget.comic));
+                setState(() {
+                  chapter = nextChapter;
+                });
+              }
+            },
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // 1. Text "Chương sau"
+                Text(
+                  'Chương sau',
+                  style:
+                      TextStyle(fontSize: 16, color: AppColors.textOnPrimary),
+                ),
+                SizedBox(width: 10),
+                Icon(Icons.arrow_forward_ios,
+                    size: 16, color: AppColors.textOnPrimary),
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 
@@ -171,12 +165,17 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
       return SingleChildScrollView(
         controller: _scrollController,
         padding: const EdgeInsets.all(16),
-        child: Text(
-          content,
-          style: const TextStyle(
-            fontSize: 16,
-            height: 1.5, // Khoảng cách dòng
-          ),
+        child: Column(
+          children: [
+            Text(
+              content,
+              style: const TextStyle(
+                fontSize: 16,
+                height: 1.5,
+              ),
+            ),
+            buildPrevAndNextButton(state)
+          ],
         ),
       );
     }
