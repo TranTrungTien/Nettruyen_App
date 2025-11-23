@@ -77,7 +77,7 @@ class _ItemComic1State extends State<ItemComic1> {
                   Text(
                     widget.comic.last_chapter != null
                         ? widget.comic.last_chapter!.name
-                        : "",
+                        : "Chương: Đang cập nhật",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(

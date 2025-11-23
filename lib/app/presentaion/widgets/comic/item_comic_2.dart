@@ -72,46 +72,60 @@ class _ItemComic2State extends State<ItemComic2> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
-                        fontSize: 10,
-                        color: AppColors.textOnPrimary,
-                        fontWeight: FontWeight.bold),
+                      fontSize: 10,
+                      color: AppColors.textOnPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.remove_red_eye,
-                            color: AppColors.textOnPrimary,
-                            size: 10,
-                          ),
-                          Text(
-                            widget.comic.total_views ?? "0",
-                            style: const TextStyle(
-                                fontSize: 10, color: AppColors.textOnPrimary),
-                          )
-                        ],
+                      Expanded(
+                        child: Row(
+                          children: [
+                            const Icon(Icons.remove_red_eye,
+                                size: 10, color: AppColors.textOnPrimary),
+                            const SizedBox(width: 2),
+                            Flexible(
+                              child: Text(
+                                widget.comic.total_views ?? "0",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  color: AppColors.textOnPrimary,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.favorite,
-                            color: Colors.white,
-                            size: 10,
-                          ),
-                          Text(
-                            widget.comic.followers ?? "0",
-                            style: const TextStyle(
-                                fontSize: 10, color: AppColors.textOnPrimary),
-                          )
-                        ],
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            const Icon(Icons.favorite,
+                                size: 10, color: Colors.white),
+                            const SizedBox(width: 2),
+                            Flexible(
+                              child: Text(
+                                widget.comic.followers ?? "0",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.right,
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  color: AppColors.textOnPrimary,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
-            ),
+            )
           ],
         ),
       ),

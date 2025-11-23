@@ -10,7 +10,6 @@ import 'package:nettruyen/setup.dart';
 import 'package:nettruyen/core/constants/colors.dart';
 import 'package:nettruyen/app/presentaion/widgets/pagination.dart';
 
-
 class BodyComicPage extends StatefulWidget {
   BodyComicPage({super.key, required this.comic});
   ComicEntity comic;
@@ -121,6 +120,8 @@ class _BodyComicPageState extends State<BodyComicPage> {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           chapter.name ?? 'Chương: ${chapter.id}',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: index == 0
                                 ? AppColors.textOnPrimary

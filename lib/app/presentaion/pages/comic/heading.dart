@@ -101,10 +101,14 @@ class _HeadingComicState extends State<HeadingComic> {
                               color: AppColors.textPrimary),
                         ),
                         const SizedBox(width: 5),
-                        Text(
-                          widget.comic.total_views ?? "0",
-                          style: const TextStyle(
-                              fontSize: 15, color: AppColors.textPrimary),
+                        Expanded(
+                          child: Text(
+                            widget.comic.total_views ?? "0",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontSize: 15, color: AppColors.textPrimary),
+                          ),
                         )
                       ],
                     ),
@@ -121,11 +125,14 @@ class _HeadingComicState extends State<HeadingComic> {
                               color: AppColors.textPrimary),
                         ),
                         const SizedBox(width: 5),
-                        Text(
-                          widget.comic.followers ?? "0",
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontSize: 15, color: AppColors.textPrimary),
+                        Expanded(
+                          child: Text(
+                            widget.comic.followers ?? "0",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontSize: 15, color: AppColors.textPrimary),
+                          ),
                         )
                       ],
                     ),
@@ -142,11 +149,14 @@ class _HeadingComicState extends State<HeadingComic> {
                               color: AppColors.textPrimary),
                         ),
                         const SizedBox(width: 5),
-                        Text(
-                          widget.comic.status ?? "Full",
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontSize: 15, color: AppColors.textPrimary),
+                        Expanded(
+                          child: Text(
+                            widget.comic.status ?? "Full",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontSize: 15, color: AppColors.textPrimary),
+                          ),
                         )
                       ],
                     ),
