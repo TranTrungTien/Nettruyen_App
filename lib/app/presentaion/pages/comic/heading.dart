@@ -108,6 +108,9 @@ class _HeadingComicState extends State<HeadingComic> {
                         )
                       ],
                     ),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Row(
                       children: [
                         const Text(
@@ -125,6 +128,9 @@ class _HeadingComicState extends State<HeadingComic> {
                               fontSize: 15, color: AppColors.textPrimary),
                         )
                       ],
+                    ),
+                    const SizedBox(
+                      height: 5,
                     ),
                     Row(
                       children: [

@@ -8,6 +8,8 @@ import 'package:nettruyen/config/routes/routes_name.dart';
 import 'package:nettruyen/core/resources/data_state.dart';
 import 'package:nettruyen/setup.dart';
 import 'package:nettruyen/core/constants/colors.dart';
+import 'package:nettruyen/app/presentaion/widgets/pagination.dart';
+
 
 class BodyComicPage extends StatefulWidget {
   BodyComicPage({super.key, required this.comic});
@@ -66,11 +68,15 @@ class _BodyComicPageState extends State<BodyComicPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Wrap(
-            children: List.generate(
-              totalPages,
-              (i) => _itemChapter(i + 1),
-            ),
+          SmartPagination(
+            totalPages: totalPages,
+            activePage: activePage,
+            onPageChanged: (page) {
+              setState(() {
+                activePage = page;
+              });
+              _fetchChapters(page);
+            },
           ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -128,37 +134,6 @@ class _BodyComicPageState extends State<BodyComicPage> {
                 ),
           const SizedBox(height: 30),
         ],
-      ),
-    );
-  }
-
-  Widget _itemChapter(int page) {
-    final isActive = activePage == page;
-
-    return InkWell(
-      onTap: () {
-        if (!isActive) {
-          setState(() {
-            activePage = page;
-          });
-          _fetchChapters(page);
-        }
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-        margin: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(width: 1, color: AppColors.primary),
-          color: isActive ? AppColors.primary : AppColors.backgroundLight,
-        ),
-        child: Text(
-          "$page",
-          style: TextStyle(
-            color: isActive ? AppColors.textOnPrimary : AppColors.primary,
-            fontSize: 15,
-          ),
-        ),
       ),
     );
   }
