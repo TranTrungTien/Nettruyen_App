@@ -13,6 +13,7 @@ import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:nettruyen/app/presentaion/widgets/not_found_icon.dart';
 import 'package:nettruyen/config/routes/routes_name.dart';
 import 'package:nettruyen/core/constants/colors.dart';
+import 'package:nettruyen/core/constants/constants.dart';
 
 class BodyHomePage extends StatefulWidget {
   const BodyHomePage({super.key});
@@ -76,6 +77,43 @@ class _BodyHomePageState extends State<BodyHomePage> {
             refreshEvent: GetCompletedComicsEvent(),
             titleColor: AppColors.primary,
           ),
+
+          //Footer
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            child: Column(
+              children: [
+                RichText(
+                  text: const TextSpan(
+                    style:
+                        TextStyle(color: AppColors.textPrimary, fontSize: 14),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: APP_NAME,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(
+                        text:
+                            ' – nơi đọc truyện online miễn phí với kho truyện tiên hiệp, đô thị, dị giới, sắc hiệp được cập nhật nhanh, giao diện tối ưu cho trải nghiệm đọc mượt mà.',
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Text(
+                  "©2025. Nội dung được tổng hợp từ các nguồn bên thứ ba. Tôi không sở hữu bản quyền và không chịu trách nhiệm về tính chính xác của nội dung",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: AppColors.textSecondary,
+                    height: 1.3,
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -153,7 +191,6 @@ class _ComicCategory<B extends Bloc<ComicEvent, ComicState>>
   final ComicEvent refreshEvent;
   static const int maxItems = 20;
   final int crossAxisCount = 2;
-
 
   const _ComicCategory(
       {required this.title,

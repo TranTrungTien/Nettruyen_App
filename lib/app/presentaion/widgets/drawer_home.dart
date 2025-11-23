@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nettruyen/core/constants/colors.dart';
+import 'package:nettruyen/core/constants/constants.dart';
 import 'package:nettruyen/core/utils/noti.dart';
 
 class DrawerHome extends StatefulWidget {
@@ -25,7 +26,7 @@ class _DrawerHomeState extends State<DrawerHome> {
             selected: true,
             selectedTileColor: AppColors.primary,
             title: Text(
-              "Nettruyen",
+              APP_NAME,
               style: TextStyle(
                   fontSize: 20,
                   color: AppColors.textOnPrimary,
