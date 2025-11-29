@@ -11,8 +11,8 @@ import 'package:nettruyen/core/constants/colors.dart';
 import 'package:nettruyen/app/presentaion/widgets/pagination.dart';
 
 class BodyComicPage extends StatefulWidget {
-  BodyComicPage({super.key, required this.comic});
-  ComicEntity comic;
+  const BodyComicPage({super.key, required this.comic});
+  final ComicEntity comic;
 
   @override
   State<BodyComicPage> createState() => _BodyComicPageState();
@@ -27,34 +27,33 @@ class _BodyComicPageState extends State<BodyComicPage> {
   @override
   void initState() {
     super.initState();
-    _chapters = widget.comic.chapters ?? [];
+    _chapters = widget.comic.chapters ?? <ChapterEntity>[];
+    if (_chapters.isEmpty && (widget.comic.totalChapterPages ?? 0) > 0) {
+      _fetchChapters(1);
+    }
   }
 
-  void _fetchChapters(int page) async {
+  Future<void> _fetchChapters(int page) async {
     if (_isLoading) return;
-    setState(() {
-      _isLoading = true;
-    });
-
-    final dataState = await _repository.getChaptersByPage(
-      id: widget.comic.id ?? '0',
-      page: page,
-    );
-
-    if (dataState is DataSuccess && dataState.data != null) {
-      if (mounted) {
+    setState(() => _isLoading = true);
+    try {
+      final dataState = await _repository.getChaptersByPage(
+        id: widget.comic.id ?? '0',
+        page: page,
+      );
+      if (!mounted) return;
+      if (dataState is DataSuccess && dataState.data != null) {
         setState(() {
           _chapters = dataState.data!;
           _isLoading = false;
         });
+      } else {
+        setState(() => _isLoading = false);
+        // Optionally: show error toast
       }
-    } else {
-      // Handle error state if needed
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _isLoading = false);
     }
   }
 
@@ -67,16 +66,23 @@ class _BodyComicPageState extends State<BodyComicPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SmartPagination(
-            totalPages: totalPages,
-            activePage: activePage,
-            onPageChanged: (page) {
-              setState(() {
-                activePage = page;
-              });
-              _fetchChapters(page);
-            },
-          ),
+          if (totalPages > 0)
+            SmartPagination(
+              totalPages: totalPages,
+              activePage: activePage,
+              onPageChanged: (page) {
+                setState(() => activePage = page);
+                _fetchChapters(page);
+              },
+            )
+          else
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'Chưa có chương',
+                style: TextStyle(color: AppColors.textSecondary),
+              ),
+            ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 10.0),
             child: Divider(height: 1),
@@ -93,7 +99,6 @@ class _BodyComicPageState extends State<BodyComicPage> {
                   ),
                   itemBuilder: (context, index) {
                     final chapter = _chapters[index];
-
                     return InkWell(
                       onTap: () {
                         Navigator.pushNamed(
@@ -102,12 +107,16 @@ class _BodyComicPageState extends State<BodyComicPage> {
                           arguments: {
                             "comic": widget.comic,
                             "chapter": chapter,
+                            "currentChapterPage": activePage,
+                            "totalChapterPages": widget.comic.totalChapterPages,
+                            "isClickFirstChapter": index == 0,
+                            "isClickLastChapter": index == _chapters.length - 1,
+                            "defaultChapters": _chapters
                           },
                         );
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         margin: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),

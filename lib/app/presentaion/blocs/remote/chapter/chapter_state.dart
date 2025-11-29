@@ -16,7 +16,6 @@ class ChapterState extends Equatable {
   });
 
   @override
-  // TODO: implement props
   List<Object?> get props => [contentChapter, comic, error];
 
   ChapterState copyWith({

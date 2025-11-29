@@ -10,7 +10,6 @@ import 'package:nettruyen/app/domain/models/comic_list.dart';
 import 'package:nettruyen/app/domain/models/content_chapter.dart';
 import 'package:nettruyen/app/domain/models/genre.dart';
 import 'package:nettruyen/core/constants/api.dart';
-import 'package:nettruyen/core/constants/constants.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_nettruyen_service.g.dart';
@@ -28,19 +27,10 @@ abstract class ApiNettruyenService {
   Future<HttpResponse<ComicListEntity>> getComicsSearch(
       {required String query, int? page});
 
-  Future<HttpResponse<List<ComicEntity>>> getComicsSearchSuggest(
-      {required String query});
-
   Future<HttpResponse<List<ComicEntity>>> getRecommendComics();
-
-  Future<HttpResponse<ComicListEntity>> getNewComics(
-      {int? page, String? status});
 
   Future<HttpResponse<ComicListEntity>> getRecentUpdateComics(
       {int? page, String? status});
-
-  Future<HttpResponse<ComicListEntity>> getBoyOrGirlComics(
-      {required bool isBoy, int? page});
 
   Future<HttpResponse<ComicListEntity>> getCompletedComics({int? page});
 
@@ -55,7 +45,4 @@ abstract class ApiNettruyenService {
 
   Future<HttpResponse<ContentChapterEntity>> getContentOneChapter(
       {required String comicId, required String chapterId});
-
-  Future<HttpResponse<ComicListEntity>> getTopComics(
-      {String? topType, int? page, String? status});
 }

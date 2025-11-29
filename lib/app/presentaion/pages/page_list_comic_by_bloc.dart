@@ -1,12 +1,6 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nettruyen/app/domain/models/comic.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/boy_comic_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/completed_comic_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/girl_comic_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/recent_update_comic_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/trending_comics_bloc.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_state.dart';
 import 'package:nettruyen/app/presentaion/widgets/app_bar/app_bar.dart';
@@ -16,156 +10,91 @@ import 'package:nettruyen/app/presentaion/widgets/index_page.dart';
 import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:nettruyen/core/constants/colors.dart';
 
-class PageListComicByBloc<T> extends StatefulWidget {
-  PageListComicByBloc({super.key, required this.title, required this.bloc});
-  String title;
-  T bloc;
+class ComicListPage<B extends Bloc<ComicEvent, ComicState>>
+    extends StatefulWidget {
+  const ComicListPage({
+    super.key,
+    required this.title,
+    required this.makeEvent,
+  });
+
+  final String title;
+  final ComicEvent Function(int page) makeEvent;
 
   @override
-  State<PageListComicByBloc> createState() => _PageListComicByBlocState();
+  State<ComicListPage<B>> createState() => _ComicListPageState<B>();
 }
 
-class _PageListComicByBlocState extends State<PageListComicByBloc> {
+class _ComicListPageState<B extends Bloc<ComicEvent, ComicState>>
+    extends State<ComicListPage<B>> {
   int totalPages = 1;
   int currentPage = 1;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    uploadData(page: 1);
+    context.read<B>().add(widget.makeEvent(1));
   }
 
-  ComicState? checkState() {
-    switch (widget.bloc.runtimeType) {
-      case TrendingComicsBloc:
-        return context.watch<TrendingComicsBloc>().state;
-      case CompletedComicBloc:
-        return context.watch<CompletedComicBloc>().state;
-      case RecentUpdateComicsBloc:
-        return context.watch<RecentUpdateComicsBloc>().state;
-      case BoyComicBloc:
-        return context.watch<BoyComicBloc>().state;
-      case GirlComicBloc:
-        return context.watch<GirlComicBloc>().state;
+  void _loadPage(int page) {
+    context.read<B>().add(widget.makeEvent(page));
+  }
+
+  Widget _buildGrid(ComicState state) {
+    if (state is ComicSuccesfull) {
+      final listComic = state.listComic?.comics ?? const <ComicEntity>[];
+      return GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: 0.8,
+          crossAxisCount: 3,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+        ),
+        itemCount: listComic.length,
+        shrinkWrap: true,
+        physics: const AlwaysScrollableScrollPhysics(),
+        itemBuilder: (context, index) => ItemComic2(comic: listComic[index]),
+      );
     }
-    return null;
-  }
-
-  void uploadData({int? page}) {
-    print(widget.bloc.runtimeType);
-    switch (widget.bloc.runtimeType) {
-      case TrendingComicsBloc:
-        context
-            .read<TrendingComicsBloc>()
-            .add(GetTrendingComicsEvent(page: page));
-      case CompletedComicBloc:
-        context
-            .read<CompletedComicBloc>()
-            .add(GetCompletedComicsEvent(page: page));
-      case RecentUpdateComicsBloc:
-        context
-            .read<RecentUpdateComicsBloc>()
-            .add(GetRecentUpdateComicsEvent(page: page));
-      case BoyComicBloc:
-        context
-            .read<BoyComicBloc>()
-            .add(GetBoyOrGirlComicsEvent(isBoy: true, page: page));
-      case GirlComicBloc:
-        context
-            .read<GirlComicBloc>()
-            .add(GetBoyOrGirlComicsEvent(isBoy: false, page: page));
-    }
-  }
-
-  Widget bodyBuild() {
-    switch (widget.bloc.runtimeType) {
-      case TrendingComicsBloc:
-        return BlocBuilder<TrendingComicsBloc, ComicState>(
-          builder: (context, state) {
-            return childbody(state);
-          },
-        );
-      case CompletedComicBloc:
-        return BlocBuilder<CompletedComicBloc, ComicState>(
-          builder: (context, state) {
-            return childbody(state);
-          },
-        );
-      case RecentUpdateComicsBloc:
-        return BlocBuilder<RecentUpdateComicsBloc, ComicState>(
-          builder: (context, state) {
-            return childbody(state);
-          },
-        );
-      case BoyComicBloc:
-        return BlocBuilder<BoyComicBloc, ComicState>(
-          builder: (context, state) {
-            return childbody(state);
-          },
-        );
-      case GirlComicBloc:
-        return BlocBuilder<GirlComicBloc, ComicState>(
-          builder: (context, state) {
-            return childbody(state);
-          },
-        );
+    if (state is ComicFailed) {
+      return FailedWidet(error: state.error!);
     }
     return const LoadingWidget();
   }
 
   @override
   Widget build(BuildContext context) {
-    ComicState? blocCommicState = checkState();
-    if (blocCommicState != null) {
-      if (blocCommicState is ComicSuccesfull) {
-        setState(() {
-          totalPages = blocCommicState.listComic!.total_pages!;
-          currentPage = blocCommicState.listComic!.current_page!;
-        });
-      }
-    }
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
-      appBar: AppBarWidget(
-        title: widget.title,
-      ),
-      body: Column(
-        children: [
-          Expanded(child: bodyBuild()),
-          IndexPage(
-            onValue: (index) {
-              uploadData(page: index);
-            },
-            totalPages: totalPages,
-            currentPage: currentPage,
-          ),
-          const SizedBox(
-            height: 10,
-          )
-        ],
+      appBar: AppBarWidget(title: widget.title),
+      body: BlocConsumer<B, ComicState>(
+        builder: (context, state) {
+          return Column(
+            children: [
+              Expanded(child: _buildGrid(state)),
+              IndexPage(
+                  totalPages: totalPages,
+                  currentPage: currentPage,
+                  onValue: (index) {
+                    if (index <= totalPages && index >= 0) {
+                      setState(() {
+                        currentPage = index;
+                      });
+                    }
+                    _loadPage(index);
+                  }),
+              const SizedBox(height: 10),
+            ],
+          );
+        },
+        listener: (BuildContext context, ComicState state) {
+          if (state is ComicSuccesfull) {
+            setState(() {
+              totalPages = state.listComic?.totalPages ?? 1;
+            });
+          }
+        },
       ),
     );
-  }
-
-  Widget childbody(ComicState state) {
-    if (state is ComicSuccesfull) {
-      List<ComicEntity> listComic = [];
-      if (state.listComic != null && state.listComic?.comics != null) {
-        listComic = state.listComic!.comics!;
-      }
-      return GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 0.8, crossAxisCount: 3),
-        itemCount: listComic.length,
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return ItemComic2(comic: listComic[index]);
-        },
-      );
-    } else if (state is ComicFailed) {
-      return FailedWidet(error: state.error!);
-    }
-    return const LoadingWidget();
   }
 }

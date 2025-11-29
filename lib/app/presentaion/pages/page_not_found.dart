@@ -7,7 +7,6 @@ class PageNotFound extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Page not found init");
     return Container(
       decoration: const BoxDecoration(
         color: AppColors.backgroundLight,

@@ -11,14 +11,13 @@ import 'package:nettruyen/app/presentaion/widgets/comic/item_comic_1.dart';
 import 'package:nettruyen/app/presentaion/widgets/grid_view_comics.dart';
 import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:nettruyen/app/presentaion/widgets/not_found_icon.dart';
+import 'package:nettruyen/app/presentaion/widgets/recently_updated_story.dart';
 import 'package:nettruyen/config/routes/routes_name.dart';
 import 'package:nettruyen/core/constants/colors.dart';
 import 'package:nettruyen/core/constants/constants.dart';
 
 class BodyHomePage extends StatefulWidget {
   const BodyHomePage({super.key});
-
-  // Data loading function can remain static or be integrated into the State
   static void loadingData(BuildContext context) {
     context.read<RecommendComicsBloc>().add(GetRecommendComicsEvent());
     context.read<TrendingComicsBloc>().add(GetTrendingComicsEvent());
@@ -40,35 +39,15 @@ class _BodyHomePageState extends State<BodyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime currentDateTime = DateTime.now();
+    int currentYear = currentDateTime.year;
     return SingleChildScrollView(
       physics: const ClampingScrollPhysics(),
       padding: const EdgeInsets.all(5),
       child: Column(
         children: [
-          // 1. Recommended Comics (Horizontal List - Unique Layout)
           _buildRecommendComics(context),
-
-          // 2. Trending Comics (Grid View - Reusable Component)
-          _ComicCategory<TrendingComicsBloc>(
-            title: "Truyện nổi bật",
-            icon: Icons.local_fire_department_outlined,
-            iconColor: AppColors.danger,
-            route: RoutesName.kPopular,
-            refreshEvent: GetTrendingComicsEvent(),
-            titleColor: AppColors.primary,
-          ),
-
-          // 3. Recent Update Comics (Grid View - Reusable Component)
-          _ComicCategory<RecentUpdateComicsBloc>(
-            title: "Truyện mới cập nhật",
-            icon: Icons.access_time,
-            iconColor: AppColors.secondary.withOpacity(0.7),
-            route: RoutesName.kRecentUpdate,
-            refreshEvent: GetRecentUpdateComicsEvent(),
-            titleColor: AppColors.primary,
-          ),
-
-          // 4. Completed Comics (Grid View - Reusable Component)
+          const RecentUpdateListView(),
           _ComicCategory<CompletedComicBloc>(
             title: "Truyện đã hoàn thành",
             icon: Icons.verified,
@@ -102,10 +81,10 @@ class _BodyHomePageState extends State<BodyHomePage> {
                 const SizedBox(
                   height: 5,
                 ),
-                const Text(
-                  "©2025. Nội dung được tổng hợp từ các nguồn bên thứ ba. Tôi không sở hữu bản quyền và không chịu trách nhiệm về tính chính xác của nội dung",
+                Text(
+                  "©$currentYear. Nội dung được tổng hợp từ các nguồn bên thứ ba. Tôi không sở hữu bản quyền và không chịu trách nhiệm về tính chính xác của nội dung",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 12,
                     color: AppColors.textSecondary,
                     height: 1.3,
@@ -137,7 +116,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
                 leading: Icon(
                   Icons.local_fire_department,
                   size: 30,
-                  color: AppColors.secondary,
+                  color: AppColors.danger,
                 ),
                 title: Text(
                   "Truyện Hot",
@@ -151,11 +130,14 @@ class _BodyHomePageState extends State<BodyHomePage> {
               Container(
                 height: 160,
                 margin: const EdgeInsets.only(bottom: 20),
-                child: ListView.builder(
+                child: ListView.separated(
                   itemCount: listComic.length,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const SizedBox(width: 10);
+                  },
                   itemBuilder: (context, index) {
                     return ItemComic1(comic: listComic[index]);
                   },

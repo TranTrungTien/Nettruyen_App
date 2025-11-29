@@ -22,9 +22,8 @@ class _ItemComic1State extends State<ItemComic1> {
         Navigator.pushNamed(context, '${RoutesName.kComics}/${widget.comic.id}',
             arguments: widget.comic.id);
       },
-      child: Container(
+      child: SizedBox(
         width: 120,
-        padding: const EdgeInsets.all(5),
         child: Stack(
           alignment: AlignmentDirectional.bottomCenter,
           children: [
@@ -37,7 +36,7 @@ class _ItemComic1State extends State<ItemComic1> {
               width: double.infinity,
               alignment: Alignment.topLeft,
               child: Visibility(
-                visible: widget.comic.is_trending ?? false,
+                visible: true,
                 child: Container(
                   margin: const EdgeInsets.all(5),
                   height: 20,
@@ -75,9 +74,7 @@ class _ItemComic1State extends State<ItemComic1> {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    widget.comic.last_chapter != null
-                        ? widget.comic.last_chapter!.name
-                        : "Chương: Đang cập nhật",
+                    'Chương: ${widget.comic.totalChapters ?? "Đang cập nhật"}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(

@@ -3,27 +3,27 @@ import 'package:nettruyen/app/domain/models/comic.dart';
 
 class ComicListEntity {
   List<ComicEntity>? comics;
-  int? total_pages;
-  int? current_page;
+  int? totalPages;
+  int? currentPage;
   ComicListEntity({
     this.comics,
-    this.total_pages,
-    this.current_page,
+    this.totalPages,
+    this.currentPage,
   });
 
   ComicListEntity copyWith({
     List<ComicEntity>? comics,
-    int? total_pages,
-    int? current_page,
+    int? totalPages,
+    int? currentPage,
   }) {
     return ComicListEntity(
       comics: comics ?? this.comics,
-      total_pages: total_pages ?? this.total_pages,
-      current_page: current_page ?? this.current_page,
+      totalPages: totalPages ?? this.totalPages,
+      currentPage: currentPage ?? this.totalPages,
     );
   }
 
   @override
   String toString() =>
-      'ComicListEntity(comics: $comics, total_pages: $total_pages, current_page: $current_page)';
+      'ComicListEntity(comics: $comics, total_pages: $totalPages, current_page: $currentPage)';
 }

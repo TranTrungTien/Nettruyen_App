@@ -1,20 +1,19 @@
 import 'dart:convert';
 
 import 'package:nettruyen/app/data/models/chapter.dart';
-import 'package:nettruyen/app/data/models/image_chapter.dart';
 import 'package:nettruyen/app/domain/models/content_chapter.dart';
 
 class ContentChapterModel extends ContentChapterEntity {
   ContentChapterModel(
-      {super.chapter_name, super.chapters, super.comic_name, super.content});
+      {super.chapterName, super.chapters, super.comicName, super.content});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'chapters':
           chapters?.map((x) => ChapterModel.fromEntity(x).toMap()).toList(),
       'content': content,
-      'chapter_name': chapter_name,
-      'comic_name': comic_name,
+      'chapterName': chapterName,
+      'comicName': comicName,
     };
   }
 
@@ -28,8 +27,8 @@ class ContentChapterModel extends ContentChapterEntity {
             )
           : null,
       content: map['content'],
-      chapter_name: map['chapter_name'],
-      comic_name: map['comic_name'],
+      chapterName: map['chapterName'],
+      comicName: map['comicName'],
     );
   }
 

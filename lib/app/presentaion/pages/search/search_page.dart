@@ -155,9 +155,9 @@ class _SearchPageState extends State<SearchPage> {
               listener: (context, state) {
                 if (state is ComicSuccesfull && state.listComic != null) {
                   final newComics = state.listComic!.comics ?? [];
-                  final newPage = state.listComic!.current_page ?? 1;
+                  final newPage = state.listComic!.currentPage ?? 1;
                   setState(() {
-                    _totalPages = state.listComic!.total_pages ?? 1;
+                    _totalPages = state.listComic!.totalPages ?? 1;
                     _currentPage = newPage;
                     if (newPage == 1) {
                       _allComics
@@ -193,9 +193,10 @@ class _SearchPageState extends State<SearchPage> {
                 return GridView.builder(
                   padding: const EdgeInsets.all(8),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 0.55,
-                  ),
+                      crossAxisCount: 3,
+                      childAspectRatio: 0.55,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10),
                   itemCount: _allComics.length +
                       ((_currentPage < _totalPages) ? 1 : 0),
                   itemBuilder: (context, index) {

@@ -5,15 +5,21 @@ import 'package:equatable/equatable.dart';
 // ignore: must_be_immutable
 class ChapterEntity extends Equatable {
   String id;
-  String name;
+  String? name;
+  String? url;
+  int? chapterNumber;
+  DateTime? updatedAt;
+
   ChapterEntity({
     required this.id,
-    required this.name,
+    this.name,
+    this.url,
+    this.chapterNumber,
+    this.updatedAt,
   });
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [id, name];
+  List<Object?> get props => [id, name, url, chapterNumber, updatedAt];
 
   @override
   bool get stringify => true;

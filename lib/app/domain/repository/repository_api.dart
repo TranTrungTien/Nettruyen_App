@@ -16,18 +16,10 @@ abstract class RepositoryApi {
   Future<DataState<ComicListEntity>> getComicsSearch(
       {required String query, int? page});
 
-  Future<DataState<List<ComicEntity>>> getComicsSearchSuggest(
-      {required String query});
-
   Future<DataState<List<ComicEntity>>> getRecommendComics();
-
-  Future<DataState<ComicListEntity>> getNewComics({int? page, String? status});
 
   Future<DataState<ComicListEntity>> getRecentUpdateComics(
       {int? page, String? status});
-
-  Future<DataState<ComicListEntity>> getBoyOrGirlComics(
-      {required bool isBoy, int? page});
 
   Future<DataState<ComicListEntity>> getCompletedComics({int? page});
 
@@ -41,7 +33,4 @@ abstract class RepositoryApi {
 
   Future<DataState<ContentChapterEntity>> getContentOneChapter(
       {required String comicId, required String chapterId});
-
-  Future<DataState<ComicListEntity>> getTopComics(
-      {String? topType, int? page, String? status});
 }

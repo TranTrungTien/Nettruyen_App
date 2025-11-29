@@ -15,18 +15,17 @@ class ComicModel extends ComicEntity {
       super.description,
       super.authors,
       super.status,
-      // ignore: non_constant_identifier_names
-      super.other_names,
-      // ignore: non_constant_identifier_names
-      super.total_views,
+      super.otherNames,
+      super.totalViews,
       super.followers,
       super.chapters,
       super.genres,
-      super.is_trending,
-      super.last_chapter,
-      super.short_description,
-      super.updated_at,
-      super.totalChapterPages});
+      super.isTrending,
+      super.latestChapter,
+      super.shortDescription,
+      super.updatedAt,
+      super.totalChapterPages,
+      super.totalChapters});
 
   factory ComicModel.fromEntity(ComicEntity entity) {
     return ComicModel(
@@ -36,16 +35,17 @@ class ComicModel extends ComicEntity {
         description: entity.description,
         authors: entity.authors,
         status: entity.status,
-        other_names: entity.other_names,
-        total_views: entity.total_views,
+        otherNames: entity.otherNames,
+        totalViews: entity.totalViews,
         followers: entity.followers,
         chapters: entity.chapters,
         genres: entity.genres,
-        is_trending: entity.is_trending,
-        last_chapter: entity.last_chapter,
-        short_description: entity.short_description,
-        updated_at: entity.updated_at,
-        totalChapterPages: entity.totalChapterPages);
+        isTrending: entity.isTrending,
+        latestChapter: entity.latestChapter,
+        shortDescription: entity.shortDescription,
+        updatedAt: entity.updatedAt,
+        totalChapterPages: entity.totalChapterPages,
+        totalChapters: entity.totalChapterPages);
   }
 
   Map<String, dynamic> toMap() {
@@ -56,16 +56,17 @@ class ComicModel extends ComicEntity {
       'description': description,
       'authors': authors,
       'status': status,
-      'other_names': other_names,
-      'total_views': total_views,
+      'otherNames': otherNames,
+      'totalViews': totalViews,
       'followers': followers,
-      'is_trending': is_trending,
-      'last_chapter': last_chapter != null
-          ? ChapterModel.fromEntity(last_chapter!).toMap()
+      'isTrending': isTrending,
+      'latestChapter': latestChapter != null
+          ? ChapterModel.fromEntity(latestChapter!).toMap()
           : null,
-      'short_description': short_description,
-      'updated_at': updated_at,
+      'shortDescription': shortDescription,
+      'updatedAt': updatedAt,
       'totalChapterPages': totalChapterPages,
+      'totalChapters': totalChapters,
       'chapters':
           chapters?.map((x) => ChapterModel.fromEntity(x).toMap()).toList(),
       'genres': genres?.map((x) => GenreModel.fromEntity(x).toMap()).toList(),
@@ -101,16 +102,19 @@ class ComicModel extends ComicEntity {
       description: map['description'],
       authors: authors,
       status: map['status'],
-      other_names: List.empty(),
-      total_views: map['total_views'].toString(),
+      otherNames: List.empty(),
+      totalViews: map['totalViews'].toString(),
       followers: map['followers'].toString(),
-      is_trending: map['is_trending'],
-      last_chapter: null,
-      short_description: map['short_description'],
-      updated_at: map['updated_at'],
+      isTrending: map['isTrending'],
+      latestChapter: map['latestChapter'] != null
+          ? ChapterModel.fromMap(map['latestChapter'])
+          : null,
+      shortDescription: map['shortDescription'],
+      updatedAt: map['updatedAt'],
       chapters: chapters,
       genres: genres,
-      totalChapterPages: map['total_chapter_pages'],
+      totalChapterPages: map['totalChapterPages'],
+      totalChapters: map['totalChapters'],
     );
   }
 

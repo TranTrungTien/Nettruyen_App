@@ -3,6 +3,7 @@ import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:nettruyen/core/constants/constants.dart';
 import 'package:nettruyen/core/constants/colors.dart';
 
+// ignore: must_be_immutable
 class ImageCustome2 extends StatefulWidget {
   ImageCustome2({
     super.key,
@@ -57,7 +58,8 @@ class _ImageCustome2State extends State<ImageCustome2> {
         image: DecorationImage(
           image: widget.url != null
               ? NetworkImage(widget.url!)
-              : const AssetImage("assets/images/error_image.png") as ImageProvider,
+              : const AssetImage("assets/images/error_image.png")
+                  as ImageProvider,
           onError: (exception, stackTrace) {
             if (mounted) {
               setState(() {

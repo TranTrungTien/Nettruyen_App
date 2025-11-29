@@ -24,7 +24,6 @@ class _ItemComic2State extends State<ItemComic2> {
             arguments: widget.comic.id);
       },
       child: Container(
-        padding: const EdgeInsets.all(5),
         width: 100,
         color: Colors.white,
         child: Stack(
@@ -39,7 +38,7 @@ class _ItemComic2State extends State<ItemComic2> {
               width: double.infinity,
               alignment: Alignment.topLeft,
               child: Visibility(
-                visible: widget.comic.is_trending ?? false,
+                visible: true,
                 child: Container(
                   margin: const EdgeInsets.all(5),
                   height: 20,
@@ -82,12 +81,12 @@ class _ItemComic2State extends State<ItemComic2> {
                       Expanded(
                         child: Row(
                           children: [
-                            const Icon(Icons.remove_red_eye,
+                            const Icon(Icons.library_books_outlined,
                                 size: 10, color: AppColors.textOnPrimary),
                             const SizedBox(width: 2),
                             Flexible(
                               child: Text(
-                                widget.comic.total_views ?? "0",
+                                widget.comic.totalChapters?.toString() ?? '0',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
@@ -103,12 +102,12 @@ class _ItemComic2State extends State<ItemComic2> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            const Icon(Icons.favorite,
+                            const Icon(Icons.signal_cellular_alt_outlined,
                                 size: 10, color: Colors.white),
                             const SizedBox(width: 2),
                             Flexible(
                               child: Text(
-                                widget.comic.followers ?? "0",
+                                widget.comic.status ?? "Đạng cập nhật",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.right,

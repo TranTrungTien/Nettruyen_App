@@ -67,7 +67,11 @@ class GridViewComics extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 1.4, crossAxisCount: crossAxisCount, ),
+          childAspectRatio: 1.4,
+          crossAxisCount: crossAxisCount,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+        ),
         itemCount: itemCount,
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,

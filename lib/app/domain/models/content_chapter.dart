@@ -7,31 +7,31 @@ import 'package:nettruyen/app/domain/models/image_chapter.dart';
 class ContentChapterEntity {
   List<ChapterEntity>? chapters;
   String? content;
-  String? chapter_name;
-  String? comic_name;
+  String? chapterName;
+  String? comicName;
   ContentChapterEntity({
     this.chapters,
     this.content,
-    this.chapter_name,
-    this.comic_name,
+    this.chapterName,
+    this.comicName,
   });
 
   ContentChapterEntity copyWith({
     List<ChapterEntity>? chapters,
     List<ImageChapterEntity>? images,
-    String? chapter_name,
-    String? comic_name,
+    String? chapterName,
+    String? comicName,
   }) {
     return ContentChapterEntity(
       chapters: chapters ?? this.chapters,
       content: content ?? this.content,
-      chapter_name: chapter_name ?? this.chapter_name,
-      comic_name: comic_name ?? this.comic_name,
+      chapterName: chapterName ?? this.chapterName,
+      comicName: comicName ?? this.comicName,
     );
   }
 
   @override
   String toString() {
-    return 'ContentChapterEntity(chapters: $chapters, content: $content, chapter_name: $chapter_name, comic_name: $comic_name)';
+    return 'ContentChapterEntity(chapters: $chapters, content: $content, chapter_name: $chapterName, comic_name: $comicName)';
   }
 }

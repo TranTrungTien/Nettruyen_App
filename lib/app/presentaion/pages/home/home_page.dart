@@ -16,48 +16,42 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  final List<Widget> _listWidget = [
-    BodyHomePage(key: UniqueKey()),
-    BodyGenrePage(
-      key: UniqueKey(),
-    ),
+
+  final _pages = const <Widget>[
+    BodyHomePage(),
+    BodyGenrePage(),
   ];
-  Widget? _widgetBody;
-  @override
-  void initState() {
-    _widgetBody = _listWidget[0];
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
-    handleOnPressed() {
-      Navigator.of(context).pushNamed(
-        RoutesName.kSearch,
-      );
+    void handleOnPressed() {
+      Navigator.of(context).pushNamed(RoutesName.kSearch);
     }
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.backgroundLight,
-        appBar: AppBarWidget(
-            title: "Đọc truyện miễn phí",
-            onPressed: handleOnPressed,
-            isSearch: true),
-        drawer: DrawerHome(
-          selectedIndex: _selectedIndex,
-          onChanged: (selectedIndex) {
-            setState(() {
-              if (selectedIndex >= _listWidget.length || selectedIndex < 0) {
-                _widgetBody = const PageNotFound();
-              } else {
-                _widgetBody = _listWidget[selectedIndex];
-                _selectedIndex = selectedIndex;
-              }
-            });
-          },
-        ),
-        body: _widgetBody,
+    return Scaffold(
+      backgroundColor: AppColors.backgroundLight,
+      appBar: AppBarWidget(
+        title: "Đọc truyện miễn phí",
+        onPressed: handleOnPressed,
+        isSearch: true,
+      ),
+      drawer: DrawerHome(
+        selectedIndex: _selectedIndex,
+        onChanged: (selectedIndex) {
+          // Bound check bảo vệ
+          if (selectedIndex < 0 || selectedIndex >= _pages.length) {
+            // Tùy bạn: push PageNotFound hoặc giữ nguyên index
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const PageNotFound()),
+            );
+            return;
+          }
+          setState(() => _selectedIndex = selectedIndex);
+        },
+      ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
       ),
     );
   }

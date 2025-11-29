@@ -3,6 +3,7 @@ import 'package:nettruyen/core/constants/colors.dart';
 import 'package:nettruyen/core/constants/constants.dart';
 import 'package:nettruyen/core/utils/noti.dart';
 
+// ignore: must_be_immutable
 class DrawerHome extends StatefulWidget {
   DrawerHome({super.key, required this.selectedIndex, required this.onChanged});
   final int selectedIndex;
@@ -10,7 +11,6 @@ class DrawerHome extends StatefulWidget {
   void Function(int indexSelect) onChanged;
 
   @override
-  // ignore: no_logic_in_create_state
   State<DrawerHome> createState() => _DrawerHomeState();
 }
 

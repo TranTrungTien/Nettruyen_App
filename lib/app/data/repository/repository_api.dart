@@ -9,36 +9,11 @@ import 'package:nettruyen/app/domain/models/content_chapter.dart';
 import 'package:nettruyen/app/domain/models/genre.dart';
 import 'package:nettruyen/app/domain/repository/repository_api.dart';
 import 'package:nettruyen/core/resources/data_state.dart';
-import 'package:retrofit/dio.dart';
 
 class RepositoryApiImpl implements RepositoryApi {
   late ApiNettruyenService service;
   RepositoryApiImpl({ApiNettruyenService? service}) {
     this.service = service ?? ApiNettruyenService();
-  }
-
-  @override
-  Future<DataState<ComicListEntity>> getBoyOrGirlComics(
-      {required bool isBoy, int? page}) async {
-    try {
-      final httpReponse =
-          await service.getBoyOrGirlComics(isBoy: isBoy, page: page);
-      if (httpReponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpReponse.data);
-      } else {
-        return DataFailed(DioException(
-            message:
-                "Faild getBoyOrGirlComics Status code: ${httpReponse.response.statusCode}",
-            error: httpReponse.response.statusCode,
-            requestOptions: httpReponse.response.requestOptions));
-      }
-    } on DioException catch (e) {
-      return DataFailed(e);
-    } catch (e) {
-      return DataFailed(DioException(
-          requestOptions: RequestOptions(),
-          message: "Exception getBoyOrGirlComics: ${e.toString()}"));
-    }
   }
 
   @override
@@ -70,7 +45,9 @@ class RepositoryApiImpl implements RepositoryApi {
     try {
       final httpReponse = await service.getChaptersByPage(id: id, page: page);
       if (httpReponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpReponse.data);
+        final List<ChapterEntity> chapters =
+            httpReponse.data.cast<ChapterEntity>();
+        return DataSuccess(chapters);
       } else {
         return DataFailed(DioException(
             message:
@@ -158,29 +135,6 @@ class RepositoryApiImpl implements RepositoryApi {
   }
 
   @override
-  Future<DataState<List<ComicEntity>>> getComicsSearchSuggest(
-      {required String query}) async {
-    try {
-      final httpReponse = await service.getComicsSearchSuggest(query: query);
-      if (httpReponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpReponse.data);
-      } else {
-        return DataFailed(DioException(
-            message:
-                "Faild getComicsSearchSuggest StatusCode = ${httpReponse.response.statusCode}",
-            error: httpReponse.response.statusCode,
-            requestOptions: httpReponse.response.requestOptions));
-      }
-    } on DioException catch (e) {
-      return DataFailed(e);
-    } catch (e) {
-      return DataFailed(DioException(
-          requestOptions: RequestOptions(),
-          message: "Exception getComicsSearchSuggest: ${e.toString()}"));
-    }
-  }
-
-  @override
   Future<DataState<ComicListEntity>> getCompletedComics({int? page}) async {
     try {
       final httpReponse = await service.getCompletedComics(page: page);
@@ -249,30 +203,6 @@ class RepositoryApiImpl implements RepositoryApi {
   }
 
   @override
-  Future<DataState<ComicListEntity>> getNewComics(
-      {int? page, String? status}) async {
-    try {
-      final httpReponse =
-          await service.getNewComics(page: page, status: status);
-      if (httpReponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpReponse.data);
-      } else {
-        return DataFailed(DioException(
-            message:
-                "Faild getNewComics StatusCode = ${httpReponse.response.statusCode}",
-            error: httpReponse.response.statusCode,
-            requestOptions: httpReponse.response.requestOptions));
-      }
-    } on DioException catch (e) {
-      return DataFailed(e);
-    } catch (e) {
-      return DataFailed(DioException(
-          requestOptions: RequestOptions(),
-          message: "Exception getNewComics: ${e.toString()}"));
-    }
-  }
-
-  @override
   Future<DataState<ComicListEntity>> getRecentUpdateComics(
       {int? page, String? status}) async {
     try {
@@ -315,31 +245,6 @@ class RepositoryApiImpl implements RepositoryApi {
       return DataFailed(DioException(
           requestOptions: RequestOptions(),
           message: "Exception getRecommendComics: ${e.toString()}"));
-    }
-  }
-
-  @override
-  Future<DataState<ComicListEntity>> getTopComics(
-      {String? topType, int? page, String? status}) async {
-    try {
-      final HttpResponse<ComicListEntity> httpReponse = await service
-          .getTopComics(topType: topType, page: page, status: status);
-
-      if (httpReponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpReponse.data);
-      } else {
-        return DataFailed(DioException(
-            message:
-                "Faild getTopTypeComics StatusCode = ${httpReponse.response.statusCode}",
-            error: httpReponse.response.statusCode,
-            requestOptions: httpReponse.response.requestOptions));
-      }
-    } on DioException catch (e) {
-      return DataFailed(e);
-    } catch (e) {
-      return DataFailed(DioException(
-          requestOptions: RequestOptions(),
-          message: "Exception getTopTypeComics: ${e.toString()}"));
     }
   }
 

@@ -4,20 +4,20 @@ import 'package:nettruyen/app/data/models/comic.dart';
 import 'package:nettruyen/app/domain/models/comic_list.dart';
 
 class ComicListModel extends ComicListEntity {
-  ComicListModel({super.comics, super.current_page, super.total_pages});
+  ComicListModel({super.comics, super.currentPage, super.totalPages});
 
   factory ComicListModel.fromEntity(ComicListEntity entity) {
     return ComicListModel(
         comics: entity.comics,
-        current_page: entity.current_page,
-        total_pages: entity.total_pages);
+        currentPage: entity.currentPage,
+        totalPages: entity.totalPages);
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'comics': comics?.map((x) => ComicModel.fromEntity(x).toMap()).toList(),
-      'total_pages': total_pages,
-      'current_page': current_page,
+      'totalPages': totalPages,
+      'currentPage': currentPage,
     };
   }
 
@@ -30,8 +30,8 @@ class ComicListModel extends ComicListEntity {
               ),
             )
           : null,
-      total_pages: map['total_pages'],
-      current_page: map['current_page'],
+      totalPages: map['totalPages'],
+      currentPage: map['currentPage'],
     );
   }
 

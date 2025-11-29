@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:nettruyen/app/domain/models/chapter.dart';
 
+// ignore: must_be_immutable
 class ChapterModel extends ChapterEntity {
   ChapterModel({required super.id, required super.name});
 

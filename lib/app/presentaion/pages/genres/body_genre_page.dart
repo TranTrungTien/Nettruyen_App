@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nettruyen/app/domain/models/comic.dart';
 import 'package:nettruyen/app/domain/models/genre.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/comic_by_genre_bloc.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
@@ -19,6 +18,7 @@ import 'package:nettruyen/core/constants/colors.dart';
 
 class BodyGenrePage extends StatefulWidget {
   const BodyGenrePage({super.key});
+
   static void loading(BuildContext context) {
     context.read<ComicByGenreBloc>().add(GetComicByGenreEvent());
     context.read<GenreBloc>().add(GetGenresEvent());
@@ -33,161 +33,183 @@ class _BodyGenrePageState extends State<BodyGenrePage> {
   GenreEntity genre = sl();
   int totalPages = 1;
   int currentPage = 1;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     BodyGenrePage.loading(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    var blocCommicState = context.watch<ComicByGenreBloc>().state;
-    if (blocCommicState is ComicSuccesfull) {
-      setState(() {
-        totalPages = blocCommicState.listComic!.total_pages!;
-        currentPage = blocCommicState.listComic!.current_page!;
-      });
+    return BlocConsumer<ComicByGenreBloc, ComicState>(
+      listener: (context, state) {
+        if (state is ComicSuccesfull) {
+          setState(() {
+            totalPages = state.listComic!.totalPages ?? 1;
+          });
+        }
+      },
+      builder: (context, comicState) {
+        return Column(
+          children: [
+            ListTile(
+              title: const Text(
+                "Tình trạng:",
+                style: TextStyle(color: AppColors.textPrimary),
+              ),
+              trailing: DropdownButton(
+                value: status,
+                onChanged: (value) {
+                  showFeatureComingSoon(context);
+                  // if (value is StatusComic) {
+                  //   setState(() => status = value);
+                  //   context.read<ComicByGenreBloc>().add(
+                  //     GetComicByGenreEvent(
+                  //       status: value.name,
+                  //       genreId: genre.id,
+                  //     ),
+                  //   );
+                  // }
+                },
+                items: const [
+                  DropdownMenuItem(
+                    value: StatusComic.all,
+                    child: Text("Tất cả",
+                        style: TextStyle(color: AppColors.textSecondary)),
+                  ),
+                  DropdownMenuItem(
+                    value: StatusComic.ongoing,
+                    child: Text("Đang tiến hành",
+                        style: TextStyle(color: AppColors.textSecondary)),
+                  ),
+                  DropdownMenuItem(
+                    value: StatusComic.completed,
+                    child: Text("Đã hoàn thành",
+                        style: TextStyle(color: AppColors.textSecondary)),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              title: const Text(
+                "Thể loại:",
+                style: TextStyle(color: AppColors.textPrimary),
+              ),
+              trailing: BlocBuilder<GenreBloc, GenreState>(
+                builder: (context, state) {
+                  if (state is GenreSuccessfull) {
+                    final genres = state.listGenre!;
+                    return DropdownButton(
+                      value:
+                          genres.any((e) => e.id == genre.id) ? genre.id : null,
+                      onChanged: (value) {
+                        if (value != null) {
+                          setState(() {
+                            genre = genres.firstWhere(
+                              (e) => e.id == value,
+                              orElse: () => sl(),
+                            );
+                            currentPage = 1;
+                          });
+
+                          context.read<ComicByGenreBloc>().add(
+                                GetComicByGenreEvent(
+                                  genreId: genre.id,
+                                  status: status.name,
+                                ),
+                              );
+                        }
+                      },
+                      items: genres
+                          .map((e) => DropdownMenuItem(
+                                value: e.id,
+                                child: Text(
+                                  e.name ?? "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      color: AppColors.textSecondary),
+                                ),
+                              ))
+                          .toList(),
+                    );
+                  }
+
+                  if (state is GenreLoading) {
+                    return const SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.5,
+                        color: AppColors.primary,
+                      ),
+                    );
+                  }
+
+                  if (state is GenreFailed) {
+                    return Tooltip(
+                      message: state.error!.message.toString(),
+                      child: const Icon(
+                        Icons.error,
+                        color: AppColors.danger,
+                        size: 24,
+                      ),
+                    );
+                  }
+
+                  return const SizedBox();
+                },
+              ),
+            ),
+            Expanded(
+              child: _buildComicList(comicState),
+            ),
+            IndexPage(
+              totalPages: totalPages,
+              currentPage: currentPage,
+              onValue: (index) {
+                if (index <= totalPages && index >= 0) {
+                  setState(() {
+                    currentPage = index;
+                  });
+                }
+                context.read<ComicByGenreBloc>().add(
+                      GetComicByGenreEvent(
+                        genreId: genre.id,
+                        status: status.name,
+                        page: index,
+                      ),
+                    );
+              },
+            ),
+            const SizedBox(height: 10),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildComicList(ComicState state) {
+    if (state is ComicSuccesfull) {
+      final listComic = state.listComic?.comics ?? [];
+      return GridView.builder(
+        padding: const EdgeInsets.all(8),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: 0.8,
+          crossAxisCount: 3,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+        ),
+        itemCount: listComic.length,
+        itemBuilder: (_, i) => ItemComic2(comic: listComic[i]),
+      );
     }
 
-    return Column(
-      children: [
-        ListTile(
-          title: const Text(
-            "Tình trạng:",
-            style: TextStyle(color: AppColors.textPrimary),
-          ),
-          trailing: DropdownButton(
-            value: status,
-            onChanged: (value) {
-              showFeatureComingSoon(context);
-              // if (value is StatusComic) {
-              //   setState(() {
-              //     status = value;
-              //   });
-              //   context.read<ComicByGenreBloc>().add(GetComicByGenreEvent(
-              //       status: value.name, genreId: genre.id));
-              // }
-            },
-            items: const [
-              DropdownMenuItem(
-                value: StatusComic.all,
-                child: Text("Tất cả",
-                    style: TextStyle(color: AppColors.textSecondary)),
-              ),
-              DropdownMenuItem(
-                value: StatusComic.ongoing,
-                child: Text("Đang tiến hành",
-                    style: TextStyle(color: AppColors.textSecondary)),
-              ),
-              DropdownMenuItem(
-                value: StatusComic.completed,
-                child: Text("Đã hoàn thành",
-                    style: TextStyle(color: AppColors.textSecondary)),
-              ),
-            ],
-          ),
-        ),
-        ListTile(
-          title: const Text("Thể loại:",
-              style: TextStyle(color: AppColors.textPrimary)),
-          trailing: BlocBuilder<GenreBloc, GenreState>(
-            builder: (context, state) {
-              if (state is GenreSuccessfull) {
-                List<DropdownMenuItem> listItemGenre = [];
-                for (var element in state.listGenre!) {
-                  listItemGenre.add(DropdownMenuItem(
-                      value: element.id,
-                      child: Text(element.name ?? "",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              color: AppColors.textSecondary))));
-                }
-                return DropdownButton(
-                    value: state.listGenre!.any((e) => e.id == genre.id)
-                        ? genre.id
-                        : null,
-                    onChanged: (value) {
-                      if (value != null) {
-                        setState(() {
-                          genre = state.listGenre!.firstWhere(
-                            (element) => element.id == value,
-                            orElse: () => sl(),
-                          );
-                        });
+    if (state is ComicFailed) {
+      return FailedWidet(error: state.error!);
+    }
 
-                        context.read<ComicByGenreBloc>().add(
-                            GetComicByGenreEvent(
-                                genreId: genre.id, status: status.name));
-                      }
-                    },
-                    items: listItemGenre);
-              } else if (state is GenreLoading) {
-                return Container(
-                  width: 24,
-                  height: 24,
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  child: const CircularProgressIndicator(
-                    strokeWidth: 2.5,
-                    color: AppColors.primary,
-                  ),
-                );
-              } else if (state is GenreFailed) {
-                return SizedBox(
-                  width: 30,
-                  child: Tooltip(
-                    message: state.error!.message.toString(),
-                    child: const Icon(
-                      Icons.error,
-                      color: AppColors.danger,
-                      size: 24,
-                    ),
-                  ),
-                );
-              }
-              return const SizedBox();
-            },
-          ),
-        ),
-        Expanded(
-          child: BlocBuilder<ComicByGenreBloc, ComicState>(
-            builder: (context, state) {
-              if (state is ComicSuccesfull) {
-                List<ComicEntity> listComic = [];
-                if (state.listComic != null &&
-                    state.listComic?.comics != null) {
-                  listComic = state.listComic!.comics!;
-                }
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 0.8, crossAxisCount: 3),
-                  itemCount: listComic.length,
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return ItemComic2(comic: listComic[index]);
-                  },
-                );
-              } else if (state is ComicFailed) {
-                return FailedWidet(error: state.error!);
-              }
-              return const LoadingWidget();
-            },
-          ),
-        ),
-        IndexPage(
-          onValue: (index) {
-            context.read<ComicByGenreBloc>().add(GetComicByGenreEvent(
-                genreId: genre.id, status: status.name, page: index));
-          },
-          totalPages: totalPages,
-          currentPage: currentPage,
-        ),
-        const SizedBox(
-          height: 10,
-        )
-      ],
-    );
+    return const LoadingWidget();
   }
 }

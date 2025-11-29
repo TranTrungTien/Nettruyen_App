@@ -10,39 +10,40 @@ class ComicEntity extends Equatable {
   String? title;
   String? thumbnail;
   String? description;
-  String? short_description;
-  bool? is_trending = false;
-  String? updated_at; //
+  String? shortDescription;
+  bool? isTrending = false;
+  String? updatedAt;
   String? authors;
   String? status;
-  List<String>? other_names;
-  String? total_views;
+  List<String>? otherNames;
+  String? totalViews;
   String? followers;
   List<ChapterEntity>? chapters;
   List<GenreEntity>? genres;
-  ChapterEntity? last_chapter; //
+  ChapterEntity? latestChapter;
   int? totalChapterPages;
+  int? totalChapters;
 
   ComicEntity(
       {this.id,
       this.title,
       this.thumbnail,
       this.description,
-      this.short_description,
-      this.is_trending,
-      this.updated_at,
+      this.shortDescription,
+      this.isTrending,
+      this.updatedAt,
       this.authors,
       this.status,
-      this.other_names,
-      this.total_views,
+      this.otherNames,
+      this.totalViews,
       this.followers,
       this.chapters,
       this.genres,
-      this.last_chapter,
-      this.totalChapterPages});
+      this.latestChapter,
+      this.totalChapterPages,
+      this.totalChapters});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [id];
 
   ComicEntity copyWith(
@@ -50,35 +51,37 @@ class ComicEntity extends Equatable {
       String? title,
       String? thumbnail,
       String? description,
-      String? short_description,
-      bool? is_trending,
-      String? updated_at,
+      String? shortDescription,
+      bool? isTrending,
+      String? updatedAt,
       String? authors,
       String? status,
-      List<String>? other_names,
-      String? total_views,
+      List<String>? otherNames,
+      String? totalViews,
       String? followers,
       List<ChapterEntity>? chapters,
       List<GenreEntity>? genres,
-      ChapterEntity? last_chapter,
-      int? totalChapterPages}) {
+      ChapterEntity? latestChapter,
+      int? totalChapterPages,
+      int? totalChapters}) {
     return ComicEntity(
         id: id ?? this.id,
         title: title ?? this.title,
         thumbnail: thumbnail ?? this.thumbnail,
         description: description ?? this.description,
-        short_description: short_description ?? this.short_description,
-        is_trending: is_trending ?? this.is_trending,
-        updated_at: updated_at ?? this.updated_at,
+        shortDescription: shortDescription ?? this.shortDescription,
+        isTrending: isTrending ?? this.isTrending,
+        updatedAt: updatedAt ?? this.updatedAt,
         authors: authors ?? this.authors,
         status: status ?? this.status,
-        other_names: other_names ?? this.other_names,
-        total_views: total_views ?? this.total_views,
+        otherNames: otherNames ?? this.otherNames,
+        totalViews: totalViews ?? this.totalViews,
         followers: followers ?? this.followers,
         chapters: chapters ?? this.chapters,
         genres: genres ?? this.genres,
-        last_chapter: last_chapter ?? this.last_chapter,
-        totalChapterPages: totalChapterPages ?? 0);
+        latestChapter: latestChapter ?? this.latestChapter,
+        totalChapterPages: totalChapterPages ?? 0,
+        totalChapters: totalChapters ?? 0);
   }
 
   @override
