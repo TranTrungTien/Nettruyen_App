@@ -29,7 +29,6 @@ class _HeadingComicState extends State<HeadingComic> {
 
     return Container(
       padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         border: Border.all(width: 1, color: AppColors.primary),
         borderRadius: BorderRadius.circular(10),

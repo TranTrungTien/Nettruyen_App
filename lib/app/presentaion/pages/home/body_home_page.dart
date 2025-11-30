@@ -8,13 +8,13 @@ import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
 import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_state.dart';
 import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
 import 'package:nettruyen/app/presentaion/widgets/comic/item_comic_1.dart';
-import 'package:nettruyen/app/presentaion/widgets/grid_view_comics.dart';
+import 'package:nettruyen/app/presentaion/widgets/footer.dart';
+import 'package:nettruyen/app/presentaion/widgets/story_grid.dart';
 import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:nettruyen/app/presentaion/widgets/not_found_icon.dart';
 import 'package:nettruyen/app/presentaion/widgets/recently_updated_story.dart';
 import 'package:nettruyen/config/routes/routes_name.dart';
 import 'package:nettruyen/core/constants/colors.dart';
-import 'package:nettruyen/core/constants/constants.dart';
 
 class BodyHomePage extends StatefulWidget {
   const BodyHomePage({super.key});
@@ -33,120 +33,57 @@ class _BodyHomePageState extends State<BodyHomePage> {
   @override
   void initState() {
     super.initState();
-    // Trigger data loading when the widget initializes
     BodyHomePage.loadingData(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    DateTime currentDateTime = DateTime.now();
-    int currentYear = currentDateTime.year;
     return SingleChildScrollView(
       physics: const ClampingScrollPhysics(),
       padding: const EdgeInsets.all(5),
       child: Column(
         children: [
-          _buildRecommendComics(context),
+          _buildRecommendStory(context),
           const RecentUpdateListView(),
           _ComicCategory<CompletedComicBloc>(
             title: "Truyện đã hoàn thành",
             icon: Icons.verified,
-            iconColor: AppColors.success, // Added a color for consistency
+            iconColor: AppColors.success,
             route: RoutesName.kCompleted,
             refreshEvent: GetCompletedComicsEvent(),
             titleColor: AppColors.primary,
           ),
 
           //Footer
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            child: Column(
-              children: [
-                RichText(
-                  text: const TextSpan(
-                    style:
-                        TextStyle(color: AppColors.textPrimary, fontSize: 14),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: APP_NAME,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text:
-                            ' – nơi đọc truyện online miễn phí với kho truyện tiên hiệp, đô thị, dị giới, sắc hiệp được cập nhật nhanh, giao diện tối ưu cho trải nghiệm đọc mượt mà.',
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "©$currentYear. Nội dung được tổng hợp từ các nguồn bên thứ ba. Tôi không sở hữu bản quyền và không chịu trách nhiệm về tính chính xác của nội dung",
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppColors.textSecondary,
-                    height: 1.3,
-                  ),
-                ),
-              ],
-            ),
-          )
+          const Footer(),
         ],
       ),
     );
   }
 
-  // Widget for the unique Recommend Comics section (horizontal list)
-  Widget _buildRecommendComics(BuildContext context) {
+  Widget _buildRecommendStory(BuildContext context) {
     return BlocBuilder<RecommendComicsBloc, ComicState>(
-      builder: (context, state) {
+        builder: (context, state) {
+      Widget? buildList() {
         if (state is ComicSuccesfull) {
           final listComic = state.listComic?.comics;
-
           if (listComic == null || listComic.isEmpty) {
             return const NotFoundIcon();
+          } else {
+            return ListView.separated(
+              itemCount: listComic.length,
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox(width: 10);
+              },
+              itemBuilder: (context, index) {
+                return ItemComic1(comic: listComic[index]);
+              },
+            );
           }
-
-          return Column(
-            children: [
-              const ListTile(
-                contentPadding: EdgeInsets.only(left: 10),
-                leading: Icon(
-                  Icons.local_fire_department,
-                  size: 30,
-                  color: AppColors.danger,
-                ),
-                title: Text(
-                  "Truyện Hot",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.primary,
-                  ),
-                ),
-              ),
-              Container(
-                height: 160,
-                margin: const EdgeInsets.only(bottom: 20),
-                child: ListView.separated(
-                  itemCount: listComic.length,
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(width: 10);
-                  },
-                  itemBuilder: (context, index) {
-                    return ItemComic1(comic: listComic[index]);
-                  },
-                ),
-              ),
-            ],
-          );
-        }
-        if (state is ComicFailed) {
+        } else if (state is ComicFailed) {
           return FailedWidet(
             error: state.error!,
             onReset: () {
@@ -155,14 +92,40 @@ class _BodyHomePageState extends State<BodyHomePage> {
                   .add(GetRecommendComicsEvent());
             },
           );
+        } else {
+          return const LoadingWidget();
         }
-        return const LoadingWidget();
-      },
-    );
+      }
+
+      return Column(
+        children: [
+          const ListTile(
+            contentPadding: EdgeInsets.only(left: 10),
+            leading: Icon(
+              Icons.local_fire_department,
+              size: 30,
+              color: AppColors.danger,
+            ),
+            title: Text(
+              "Truyện Hot",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: AppColors.primary,
+              ),
+            ),
+          ),
+          Container(
+            height: 160,
+            margin: const EdgeInsets.only(bottom: 20),
+            child: buildList(),
+          ),
+        ],
+      );
+    });
   }
 }
 
-// 🎯 Reusable Widget for GridViewComics categories
 class _ComicCategory<B extends Bloc<ComicEvent, ComicState>>
     extends StatelessWidget {
   final String title;
@@ -186,36 +149,57 @@ class _ComicCategory<B extends Bloc<ComicEvent, ComicState>>
   Widget build(BuildContext context) {
     return BlocBuilder<B, ComicState>(
       builder: (context, state) {
-        if (state is ComicSuccesfull) {
-          final comicList = state.listComic?.comics;
-          var length = comicList?.length ?? 0;
+        final stories = state.listComic?.comics;
+        final length = stories?.length ?? 0;
+        final itemCount = length > maxItems ? maxItems : length;
 
-          final itemCount = length > maxItems ? maxItems : length;
-
-          return GridViewComics(
-            itemCount: itemCount,
-            listValue: comicList,
-            icon: icon,
-            iconColor: iconColor,
-            titleColor: titleColor,
-            crossAxisCount: crossAxisCount,
-            onPressedShowAll: () {
-              Navigator.pushNamed(context, route);
-            },
-            title: title,
-          );
-        }
-
-        if (state is ComicFailed) {
-          return FailedWidet(
-            error: state.error!,
-            onReset: () {
-              context.read<B>().add(refreshEvent);
-            },
-          );
-        }
-
-        return const LoadingWidget();
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListTile(
+              contentPadding: const EdgeInsets.only(left: 10),
+              leading: Icon(
+                icon,
+                size: 30,
+                color: iconColor,
+              ),
+              trailing: TextButton(
+                onPressed: () => Navigator.pushNamed(context, route),
+                child: const Icon(Icons.chevron_right,
+                    size: 30, color: AppColors.primary),
+              ),
+              title: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: titleColor,
+                ),
+              ),
+            ),
+            if (state is ComicFailed)
+              FailedWidet(
+                error: state.error!,
+                onReset: () => context.read<B>().add(refreshEvent),
+              )
+            else if (state is ComicLoading)
+              const Padding(
+                padding: EdgeInsets.all(20),
+                child: Center(child: LoadingWidget()),
+              )
+            else if (stories == null || stories.isEmpty)
+              const Padding(
+                padding: EdgeInsets.all(40),
+                child: NotFoundIcon(),
+              )
+            else
+              StoryGrid(
+                stories: stories,
+                itemCount: itemCount,
+                crossAxisCount: 2,
+              ),
+          ],
+        );
       },
     );
   }

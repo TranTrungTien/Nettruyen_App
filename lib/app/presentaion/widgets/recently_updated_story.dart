@@ -16,27 +16,13 @@ class RecentUpdateListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RecentUpdateComicsBloc, ComicState>(
       builder: (context, state) {
-        if (state is ComicSuccesfull) {
-          final comics = state.listComic?.comics ?? [];
-          if (comics.isEmpty) {
-            return const SizedBox.shrink();
-          }
-
-          return Column(
-            children: [
-              const ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 12),
-                leading: Icon(Icons.access_time,
-                    size: 30, color: AppColors.secondary),
-                title: Text(
-                  "Truyện mới cập nhật",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.primary),
-                ),
-              ),
-              ListView.separated(
+        Widget buildList() {
+          if (state is ComicSuccesfull) {
+            final comics = state.listComic?.comics ?? [];
+            if (comics.isEmpty) {
+              return const SizedBox.shrink();
+            } else {
+              return ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: comics.length.clamp(0, 20),
@@ -139,25 +125,39 @@ class RecentUpdateListView extends StatelessWidget {
                     ),
                   );
                 },
+              );
+            }
+          } else if (state is ComicFailed) {
+            return FailedWidet(
+              error: state.error!,
+              onReset: () {
+                context
+                    .read<RecentUpdateComicsBloc>()
+                    .add(GetRecentUpdateComicsEvent());
+              },
+            );
+          }
+          return const LoadingWidget();
+        }
+
+        return Column(
+          children: [
+            const ListTile(
+              contentPadding: EdgeInsets.symmetric(horizontal: 12),
+              leading:
+                  Icon(Icons.access_time, size: 30, color: AppColors.secondary),
+              title: Text(
+                "Truyện mới cập nhật",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primary),
               ),
-              const SizedBox(height: 10),
-            ],
-          );
-        }
-
-        if (state is ComicFailed) {
-          return FailedWidet(
-            error: state.error!,
-            onReset: () {
-              context
-                  .read<RecentUpdateComicsBloc>()
-                  .add(GetRecentUpdateComicsEvent());
-            },
-          );
-        }
-
-        // Đang load
-        return const LoadingWidget();
+            ),
+            buildList(),
+            const SizedBox(height: 10),
+          ],
+        );
       },
     );
   }

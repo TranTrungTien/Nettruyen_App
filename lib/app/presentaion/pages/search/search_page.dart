@@ -69,13 +69,11 @@ class _SearchPageState extends State<SearchPage> {
                   child: Container(
                     height: 36,
                     decoration: BoxDecoration(
-                      color: AppColors
-                          .backgroundLight, // Dùng màu nền sáng (trắng ngà)
+                      color: AppColors.backgroundLight,
                       borderRadius: BorderRadius.circular(28),
                       boxShadow: [
                         BoxShadow(
-                          color:
-                              Colors.black.withOpacity(0.08), // BoxShadow nhẹ
+                          color: Colors.black.withOpacity(0.08),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),
@@ -174,7 +172,7 @@ class _SearchPageState extends State<SearchPage> {
                   return const Center(
                       child: Text("Nhập từ khóa để bắt đầu tìm kiếm",
                           style: TextStyle(
-                              fontSize: 16, color: AppColors.textSecondary)));
+                              fontSize: 14, color: AppColors.textSecondary)));
                 }
 
                 if (state is ComicLoading && _allComics.isEmpty) {
@@ -187,7 +185,7 @@ class _SearchPageState extends State<SearchPage> {
                   return const Center(
                       child: Text('Không tìm thấy kết quả nào',
                           style: TextStyle(
-                              fontSize: 16, color: AppColors.textSecondary)));
+                              fontSize: 14, color: AppColors.textSecondary)));
                 }
 
                 return GridView.builder(

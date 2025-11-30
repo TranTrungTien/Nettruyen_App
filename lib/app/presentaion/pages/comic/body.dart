@@ -67,13 +67,15 @@ class _BodyComicPageState extends State<BodyComicPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (totalPages > 0)
-            SmartPagination(
-              totalPages: totalPages,
-              activePage: activePage,
-              onPageChanged: (page) {
-                setState(() => activePage = page);
-                _fetchChapters(page);
-              },
+            Center(
+              child: SmartPagination(
+                totalPages: totalPages,
+                activePage: activePage,
+                onPageChanged: (page) {
+                  setState(() => activePage = page);
+                  _fetchChapters(page);
+                },
+              ),
             )
           else
             const Padding(
