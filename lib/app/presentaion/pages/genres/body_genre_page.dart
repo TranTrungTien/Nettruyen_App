@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nettruyen/app/domain/models/genre.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/comic_by_genre_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_state.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/genre/genre_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/genre/genre_event.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/genre/genre_state.dart';
-import 'package:nettruyen/app/presentaion/widgets/comic/item_comic_2.dart';
-import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
-import 'package:nettruyen/app/presentaion/widgets/index_page.dart';
-import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
-import 'package:nettruyen/core/constants/constants.dart';
-import 'package:nettruyen/core/utils/noti.dart';
-import 'package:nettruyen/setup.dart';
-import 'package:nettruyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/genre.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/comic_by_genre_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_event.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_state.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/genre/genre_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/genre/genre_event.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/genre/genre_state.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/comic/item_comic_2.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/failed_widget.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/index_page.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
+import 'package:minh_nguyet_truyen/core/constants/constants.dart';
+import 'package:minh_nguyet_truyen/core/utils/noti.dart';
+import 'package:minh_nguyet_truyen/setup.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
 class BodyGenrePage extends StatefulWidget {
   const BodyGenrePage({super.key});

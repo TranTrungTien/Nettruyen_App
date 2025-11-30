@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nettruyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarWidget({

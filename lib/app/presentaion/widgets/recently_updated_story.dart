@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/recent_update_comic_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_state.dart';
-import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
-import 'package:nettruyen/app/presentaion/widgets/genre.dart';
-import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
-import 'package:nettruyen/config/routes/routes_name.dart';
-import 'package:nettruyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/recent_update_comic_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_event.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_state.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/failed_widget.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/genre.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
+import 'package:minh_nguyet_truyen/config/routes/routes_name.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
 class RecentUpdateListView extends StatelessWidget {
   const RecentUpdateListView({super.key});

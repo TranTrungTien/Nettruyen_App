@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:nettruyen/app/domain/models/comic.dart';
-import 'package:nettruyen/app/presentaion/widgets/genre.dart';
-import 'package:nettruyen/app/presentaion/widgets/image_custome/image_custome.dart';
-import 'package:nettruyen/config/routes/routes_name.dart';
-import 'package:nettruyen/core/constants/api.dart';
-import 'package:nettruyen/core/constants/colors.dart';
-import 'package:nettruyen/core/utils/noti.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/genre.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/image_custome/image_custome.dart';
+import 'package:minh_nguyet_truyen/config/routes/routes_name.dart';
+import 'package:minh_nguyet_truyen/core/constants/api.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/core/utils/noti.dart';
 
 class HeadingComic extends StatefulWidget {
   const HeadingComic({super.key, required this.comic});

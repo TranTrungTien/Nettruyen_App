@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nettruyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
 void showFeatureComingSoon(BuildContext context) {
   const snackBar = SnackBar(

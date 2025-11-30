@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:nettruyen/app/domain/models/chapter.dart';
-import 'package:nettruyen/app/domain/models/comic.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/completed_comic_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/recent_update_comic_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/trending_comics_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
-import 'package:nettruyen/app/presentaion/pages/chapter/chapter_comic_page.dart';
-import 'package:nettruyen/app/presentaion/pages/comic/comic_page.dart';
-import 'package:nettruyen/app/presentaion/pages/home/home_page.dart';
-import 'package:nettruyen/app/presentaion/pages/page_not_found.dart';
-import 'package:nettruyen/app/presentaion/pages/search/search_page.dart';
-import 'package:nettruyen/config/routes/routes_name.dart';
-import 'package:nettruyen/config/routes/type_route.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/chapter.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/completed_comic_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/recent_update_comic_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/trending_comics_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_event.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/pages/chapter/chapter_comic_page.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/pages/comic/comic_page.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/pages/home/home_page.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/pages/page_not_found.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/pages/search/search_page.dart';
+import 'package:minh_nguyet_truyen/config/routes/routes_name.dart';
+import 'package:minh_nguyet_truyen/config/routes/type_route.dart';
 
 class AppRouter {
   static Route<dynamic> generate(RouteSettings settings) {

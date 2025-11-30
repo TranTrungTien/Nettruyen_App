@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:nettruyen/app/data/models/chapter.dart';
-import 'package:nettruyen/app/data/models/genre.dart';
-import 'package:nettruyen/app/domain/models/chapter.dart';
-import 'package:nettruyen/app/domain/models/comic.dart';
-import 'package:nettruyen/app/domain/models/genre.dart';
+import 'package:minh_nguyet_truyen/app/data/models/chapter.dart';
+import 'package:minh_nguyet_truyen/app/data/models/genre.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/chapter.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/genre.dart';
 
 // ignore: must_be_immutable
 class ComicModel extends ComicEntity {

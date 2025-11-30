@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
-import 'package:nettruyen/core/constants/constants.dart';
-import 'package:nettruyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
+import 'package:minh_nguyet_truyen/core/constants/constants.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
 // ignore: must_be_immutable
 class ImageCustome2 extends StatefulWidget {

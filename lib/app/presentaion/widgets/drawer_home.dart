@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nettruyen/core/constants/colors.dart';
-import 'package:nettruyen/core/constants/constants.dart';
-import 'package:nettruyen/core/utils/noti.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/core/constants/constants.dart';
+import 'package:minh_nguyet_truyen/core/utils/noti.dart';
 
 // ignore: must_be_immutable
 class DrawerHome extends StatefulWidget {

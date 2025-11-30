@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
-import 'package:nettruyen/app/domain/models/chapter.dart';
-import 'package:nettruyen/app/domain/models/genre.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/chapter.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/genre.dart';
 
 // ignore: must_be_immutable
 class ComicEntity extends Equatable {

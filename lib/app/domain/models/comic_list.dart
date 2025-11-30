@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:nettruyen/app/domain/models/comic.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
 
 class ComicListEntity {
   List<ComicEntity>? comics;

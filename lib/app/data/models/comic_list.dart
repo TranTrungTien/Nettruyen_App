@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:nettruyen/app/data/models/comic.dart';
-import 'package:nettruyen/app/domain/models/comic_list.dart';
+import 'package:minh_nguyet_truyen/app/data/models/comic.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic_list.dart';
 
 class ComicListModel extends ComicListEntity {
   ComicListModel({super.comics, super.currentPage, super.totalPages});

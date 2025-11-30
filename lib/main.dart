@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/chapter/chapter_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/comic_by_genre_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/comic_id_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/completed_comic_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/recent_update_comic_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/recommend_comics_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/search_comic_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/trending_comics_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/genre/genre_bloc.dart';
-import 'package:nettruyen/config/routes/custome_route.dart';
-import 'package:nettruyen/core/constants/colors.dart';
-import 'package:nettruyen/setup.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter/chapter_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/comic_by_genre_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/comic_id_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/completed_comic_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/recent_update_comic_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/recommend_comics_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/search_comic_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/trending_comics_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_event.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/genre/genre_bloc.dart';
+import 'package:minh_nguyet_truyen/config/routes/custome_route.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/setup.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

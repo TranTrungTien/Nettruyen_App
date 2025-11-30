@@ -1,6 +1,6 @@
-import 'package:nettruyen/app/domain/models/comic_list.dart';
-import 'package:nettruyen/app/domain/repository/repository_api.dart';
-import 'package:nettruyen/core/resources/data_state.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic_list.dart';
+import 'package:minh_nguyet_truyen/app/domain/repository/repository_api.dart';
+import 'package:minh_nguyet_truyen/core/resources/data_state.dart';
 
 class GetComicByGenreUsecase {
   RepositoryApi repositoryApi;

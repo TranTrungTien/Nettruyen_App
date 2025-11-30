@@ -2,7 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:nettruyen/app/domain/models/genre.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/genre.dart';
 
 class GenreState extends Equatable {
   List<GenreEntity>? listGenre;

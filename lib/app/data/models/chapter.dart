@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:nettruyen/app/domain/models/chapter.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/chapter.dart';
 
 // ignore: must_be_immutable
 class ChapterModel extends ChapterEntity {

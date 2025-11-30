@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hidable/hidable.dart';
-import 'package:nettruyen/app/domain/models/chapter.dart';
-import 'package:nettruyen/app/domain/models/comic.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/chapter/chapter_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/chapter/chapter_event.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/chapter/chapter_state.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_event.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_state.dart';
-import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
-import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
-import 'package:nettruyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/chapter.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter/chapter_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter/chapter_event.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter/chapter_state.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_event.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_state.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/failed_widget.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
 class ChapterComicPage extends StatefulWidget {
   const ChapterComicPage({

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:nettruyen/app/domain/models/image_chapter.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/image_chapter.dart';
 
 // ignore: must_be_immutable
 class ImageChapterModel extends ImageChapterEntity {

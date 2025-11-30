@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:nettruyen/app/domain/usecases/remote/get_genres_usecase.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/genre/genre_event.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/genre/genre_state.dart';
+import 'package:minh_nguyet_truyen/app/domain/usecases/remote/get_genres_usecase.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/genre/genre_event.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/genre/genre_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nettruyen/core/resources/data_state.dart';
+import 'package:minh_nguyet_truyen/core/resources/data_state.dart';
 
 class GenreBloc extends Bloc<GenreEvent, GenreState> {
   GetGenresUsecase usecase;

@@ -2,9 +2,9 @@
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:nettruyen/app/domain/models/comic.dart';
-import 'package:nettruyen/app/domain/models/comic_list.dart';
-import 'package:nettruyen/app/domain/models/content_chapter.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic_list.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/content_chapter.dart';
 
 class ComicState extends Equatable {
   ComicListEntity? listComic;

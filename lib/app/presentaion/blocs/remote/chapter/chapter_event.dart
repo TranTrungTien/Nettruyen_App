@@ -1,4 +1,4 @@
-import 'package:nettruyen/app/domain/models/comic.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
 
 abstract class ChapterEvent {}
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nettruyen/config/routes/routes_name.dart';
-import 'package:nettruyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/config/routes/routes_name.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
 class PageNotFound extends StatelessWidget {
   const PageNotFound({super.key});

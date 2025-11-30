@@ -1,5 +1,5 @@
-name: nettruyen
-description: A new Flutter project.
+name: minh_nguyet_truyen
+description: đọc truyện online miễn phí với kho truyện tiên hiệp, đô thị, dị giới, sắc hiệp được cập nhật nhanh, giao diện tối ưu cho trải nghiệm đọc mượt mà.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev

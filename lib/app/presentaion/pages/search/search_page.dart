@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/search_comic_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_state.dart';
-import 'package:nettruyen/app/presentaion/widgets/app_bar/app_bar.dart';
-import 'package:nettruyen/app/presentaion/widgets/comic/item_comic_2.dart';
-import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
-import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
-import 'package:nettruyen/app/domain/models/comic.dart';
-import 'package:nettruyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/search_comic_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_event.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_state.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/app_bar/app_bar.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/comic/item_comic_2.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/failed_widget.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});

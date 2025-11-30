@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:nettruyen/app/presentaion/pages/genres/body_genre_page.dart';
-import 'package:nettruyen/app/presentaion/pages/home/body_home_page.dart';
-import 'package:nettruyen/app/presentaion/pages/page_not_found.dart';
-import 'package:nettruyen/app/presentaion/widgets/app_bar/app_bar.dart';
-import 'package:nettruyen/app/presentaion/widgets/drawer_home.dart';
-import 'package:nettruyen/core/constants/colors.dart';
-import 'package:nettruyen/config/routes/routes_name.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/pages/genres/body_genre_page.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/pages/home/body_home_page.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/pages/page_not_found.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/app_bar/app_bar.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/drawer_home.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/config/routes/routes_name.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

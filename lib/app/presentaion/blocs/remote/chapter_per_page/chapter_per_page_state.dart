@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:nettruyen/app/domain/models/chapter.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/chapter.dart';
 
 class ChapterPerPageState extends Equatable {
   DioException? error;

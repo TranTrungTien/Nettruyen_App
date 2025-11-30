@@ -1,14 +1,14 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:nettruyen/app/domain/models/chapter.dart';
-import 'package:nettruyen/app/domain/models/comic.dart';
-import 'package:nettruyen/app/domain/repository/repository_api.dart';
-import 'package:nettruyen/config/routes/routes_name.dart';
-import 'package:nettruyen/core/resources/data_state.dart';
-import 'package:nettruyen/setup.dart';
-import 'package:nettruyen/core/constants/colors.dart';
-import 'package:nettruyen/app/presentaion/widgets/pagination.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/chapter.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
+import 'package:minh_nguyet_truyen/app/domain/repository/repository_api.dart';
+import 'package:minh_nguyet_truyen/config/routes/routes_name.dart';
+import 'package:minh_nguyet_truyen/core/resources/data_state.dart';
+import 'package:minh_nguyet_truyen/setup.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/pagination.dart';
 
 class BodyComicPage extends StatefulWidget {
   const BodyComicPage({super.key, required this.comic});

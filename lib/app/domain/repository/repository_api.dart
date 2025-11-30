@@ -1,9 +1,9 @@
-import 'package:nettruyen/app/domain/models/chapter.dart';
-import 'package:nettruyen/app/domain/models/comic.dart';
-import 'package:nettruyen/app/domain/models/comic_list.dart';
-import 'package:nettruyen/app/domain/models/content_chapter.dart';
-import 'package:nettruyen/app/domain/models/genre.dart';
-import 'package:nettruyen/core/resources/data_state.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/chapter.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic_list.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/content_chapter.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/genre.dart';
+import 'package:minh_nguyet_truyen/core/resources/data_state.dart';
 
 abstract class RepositoryApi {
   Future<DataState<List<GenreEntity>>> getGenres();

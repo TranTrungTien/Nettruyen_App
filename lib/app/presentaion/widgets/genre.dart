@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nettruyen/app/domain/models/genre.dart';
-import 'package:nettruyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/genre.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
 class Genres extends StatelessWidget {
   const Genres({super.key, required this.genres});

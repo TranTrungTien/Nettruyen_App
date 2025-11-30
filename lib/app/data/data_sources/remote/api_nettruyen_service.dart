@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:nettruyen/app/data/models/chapter.dart';
-import 'package:nettruyen/app/data/models/comic.dart';
-import 'package:nettruyen/app/data/models/comic_list.dart';
-import 'package:nettruyen/app/data/models/content_chapter.dart';
-import 'package:nettruyen/app/data/models/genre.dart';
-import 'package:nettruyen/app/domain/models/chapter.dart';
-import 'package:nettruyen/app/domain/models/comic.dart';
-import 'package:nettruyen/app/domain/models/comic_list.dart';
-import 'package:nettruyen/app/domain/models/content_chapter.dart';
-import 'package:nettruyen/app/domain/models/genre.dart';
-import 'package:nettruyen/core/constants/api.dart';
+import 'package:minh_nguyet_truyen/app/data/models/chapter.dart';
+import 'package:minh_nguyet_truyen/app/data/models/comic.dart';
+import 'package:minh_nguyet_truyen/app/data/models/comic_list.dart';
+import 'package:minh_nguyet_truyen/app/data/models/content_chapter.dart';
+import 'package:minh_nguyet_truyen/app/data/models/genre.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/chapter.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic_list.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/content_chapter.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/genre.dart';
+import 'package:minh_nguyet_truyen/core/constants/api.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_nettruyen_service.g.dart';

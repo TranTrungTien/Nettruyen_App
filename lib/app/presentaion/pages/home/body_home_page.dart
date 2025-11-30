@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/completed_comic_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/recent_update_comic_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/recommend_comics_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/trending_comics_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_state.dart';
-import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
-import 'package:nettruyen/app/presentaion/widgets/comic/item_comic_1.dart';
-import 'package:nettruyen/app/presentaion/widgets/footer.dart';
-import 'package:nettruyen/app/presentaion/widgets/story_grid.dart';
-import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
-import 'package:nettruyen/app/presentaion/widgets/not_found_icon.dart';
-import 'package:nettruyen/app/presentaion/widgets/recently_updated_story.dart';
-import 'package:nettruyen/config/routes/routes_name.dart';
-import 'package:nettruyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/completed_comic_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/recent_update_comic_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/recommend_comics_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/trending_comics_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_event.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_state.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/failed_widget.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/comic/item_comic_1.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/footer.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/story_grid.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/not_found_icon.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/recently_updated_story.dart';
+import 'package:minh_nguyet_truyen/config/routes/routes_name.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
 class BodyHomePage extends StatefulWidget {
   const BodyHomePage({super.key});

@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nettruyen/app/domain/usecases/remote/get_chapter_per_page_usecase.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_event.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_state.dart';
-import 'package:nettruyen/core/resources/data_state.dart';
+import 'package:minh_nguyet_truyen/app/domain/usecases/remote/get_chapter_per_page_usecase.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_event.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_state.dart';
+import 'package:minh_nguyet_truyen/core/resources/data_state.dart';
 
 class ChapterPerPageBloc
     extends Bloc<GetChapterPerPageEvent, ChapterPerPageState> {

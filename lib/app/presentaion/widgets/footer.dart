@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nettruyen/core/constants/constants.dart';
-import 'package:nettruyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/core/constants/constants.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:nettruyen/app/data/models/chapter.dart';
-import 'package:nettruyen/app/domain/models/content_chapter.dart';
+import 'package:minh_nguyet_truyen/app/data/models/chapter.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/content_chapter.dart';
 
 class ContentChapterModel extends ContentChapterEntity {
   ContentChapterModel(

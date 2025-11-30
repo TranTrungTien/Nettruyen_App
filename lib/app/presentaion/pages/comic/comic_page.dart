@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/blocs/comic_id_bloc.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_state.dart';
-import 'package:nettruyen/app/presentaion/pages/comic/body.dart';
-import 'package:nettruyen/app/presentaion/pages/comic/heading.dart';
-import 'package:nettruyen/app/presentaion/widgets/failed_widget.dart';
-import 'package:nettruyen/app/presentaion/widgets/loading_widget.dart';
-import 'package:nettruyen/core/constants/colors.dart';
-import 'package:nettruyen/core/utils/noti.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/comic_id_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_event.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_state.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/pages/comic/body.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/pages/comic/heading.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/failed_widget.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
+import 'package:minh_nguyet_truyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/core/utils/noti.dart';
 
 class ComicPage extends StatefulWidget {
   const ComicPage({super.key, required this.comicId});

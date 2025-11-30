@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nettruyen/app/domain/usecases/remote/get_recent_update_comics_usecase.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_event.dart';
-import 'package:nettruyen/app/presentaion/blocs/remote/comic/comic_state.dart';
-import 'package:nettruyen/core/resources/data_state.dart';
+import 'package:minh_nguyet_truyen/app/domain/usecases/remote/get_recent_update_comics_usecase.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_event.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_state.dart';
+import 'package:minh_nguyet_truyen/core/resources/data_state.dart';
 
 class RecentUpdateComicsBloc extends Bloc<ComicEvent, ComicState> {
   GetRecentUpdateComicsUsecase usecase;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nettruyen/app/domain/models/comic.dart';
-import 'package:nettruyen/app/presentaion/widgets/comic/item_comic_2.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/comic/item_comic_2.dart';
 
 class StoryGrid extends StatelessWidget {
   const StoryGrid({
