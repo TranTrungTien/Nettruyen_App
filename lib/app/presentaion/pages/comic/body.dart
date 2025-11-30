@@ -62,6 +62,7 @@ class _BodyComicPageState extends State<BodyComicPage> {
     final totalPages = widget.comic.totalChapterPages ?? 0;
 
     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
       color: AppColors.backgroundLight,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

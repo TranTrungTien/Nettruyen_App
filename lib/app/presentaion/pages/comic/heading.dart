@@ -28,6 +28,7 @@ class _HeadingComicState extends State<HeadingComic> {
     Widget? genresWidget = Genres(genres: widget.comic.genres ?? []);
 
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 6),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border.all(width: 1, color: AppColors.primary),

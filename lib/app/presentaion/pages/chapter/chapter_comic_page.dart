@@ -56,21 +56,21 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
     _loadedPage = widget.currentChapterPage;
     chapters = widget.defaultChapters;
     context.read<ChapterBloc>().add(
-          GetContentChapterEvent(chapterId: chapter.id, comic: widget.comic),
-        );
+      GetContentChapterEvent(chapterId: chapter.id, comic: widget.comic),
+    );
     if (widget.isClickFirstChapter && widget.currentChapterPage > 1) {
       context.read<ChapterPerPageBloc>().add(
-            GetChapterPerPageEvent(
-                widget.comic.id ?? '', widget.currentChapterPage - 1),
-          );
+        GetChapterPerPageEvent(
+            widget.comic.id ?? '', widget.currentChapterPage - 1),
+      );
     }
 
     if (widget.isClickLastChapter &&
         widget.currentChapterPage < widget.totalChapterPages) {
       context.read<ChapterPerPageBloc>().add(
-            GetChapterPerPageEvent(
-                widget.comic.id ?? '', widget.currentChapterPage + 1),
-          );
+        GetChapterPerPageEvent(
+            widget.comic.id ?? '', widget.currentChapterPage + 1),
+      );
     }
     if (widget.currentChapterPage < 0) {
       _hasMorePrev = false;
@@ -90,8 +90,8 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
 
   void _navigateToChapter(ChapterEntity newChapter) {
     context.read<ChapterBloc>().add(
-          GetContentChapterEvent(chapterId: newChapter.id, comic: widget.comic),
-        );
+      GetContentChapterEvent(chapterId: newChapter.id, comic: widget.comic),
+    );
     setState(() => chapter = newChapter);
     _scrollController.animateTo(
       0,
@@ -116,8 +116,8 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
       } else {
         setState(() => _isLoadingNextPage = true);
         context.read<ChapterPerPageBloc>().add(
-              GetChapterPerPageEvent(widget.comic.id ?? '', nextPage),
-            );
+          GetChapterPerPageEvent(widget.comic.id ?? '', nextPage),
+        );
       }
     }
   }
@@ -134,8 +134,8 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
       } else {
         setState(() => _isLoadingPrevPage = true);
         context.read<ChapterPerPageBloc>().add(
-              GetChapterPerPageEvent(widget.comic.id ?? '', prevPage),
-            );
+          GetChapterPerPageEvent(widget.comic.id ?? '', prevPage),
+        );
       }
     }
   }
@@ -177,33 +177,36 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
           final isLoadingChapter = state is ChapterLoading;
           return Scaffold(
             backgroundColor: AppColors.backgroundLight,
-            appBar: Hidable(
+            body: CustomScrollView(
               controller: _scrollController,
-              child: AppBar(
-                backgroundColor: AppColors.backgroundLight,
-                title: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    widget.comic.title ?? '',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  subtitle: Text(
-                    chapter.name ?? '',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+              slivers: [
+                SliverAppBar(
+                  floating: true,
+                  snap: true,
+                  backgroundColor: AppColors.backgroundLight,
+                  title: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(
+                      widget.comic.title ?? '',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    subtitle: Text(
+                      chapter.name ?? '',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
-              ),
+                SliverToBoxAdapter(
+                  child: _buildBody(state),
+                ),
+              ],
             ),
-            body: _buildBody(state),
             bottomNavigationBar: Hidable(
               controller: _scrollController,
               child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: _buildPrevAndNextButton(isLoadingChapter),
-                ),
+                child: _buildPrevAndNextButton(isLoadingChapter),
               ),
             ),
           );
@@ -242,7 +245,7 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
               backgroundColor: AppColors.primary,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8)),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
             ),
             onPressed: isLoadingChapter || !hasPrev ? null : _goPrev,
             icon: const Icon(Icons.arrow_back_ios,
@@ -259,7 +262,7 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
               foregroundColor: AppColors.textOnPrimary,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8)),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
             ),
             onPressed: isLoadingChapter || !hasNext ? null : _goNext,
             child: const Row(
@@ -282,8 +285,7 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
   Widget _buildBody(ChapterState state) {
     if (state is ChapterSuccessfull) {
       final content = state.contentChapter?.content ?? '';
-      return SingleChildScrollView(
-        controller: _scrollController,
+      return Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [

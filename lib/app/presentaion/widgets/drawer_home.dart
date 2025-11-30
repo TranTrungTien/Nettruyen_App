@@ -6,6 +6,7 @@ import 'package:minh_nguyet_truyen/core/utils/noti.dart';
 // ignore: must_be_immutable
 class DrawerHome extends StatefulWidget {
   DrawerHome({super.key, required this.selectedIndex, required this.onChanged});
+
   final int selectedIndex;
 
   void Function(int indexSelect) onChanged;
@@ -22,134 +23,105 @@ class _DrawerHomeState extends State<DrawerHome> {
       backgroundColor: AppColors.backgroundLight,
       child: Column(
         children: [
-          const ListTile(
-            selected: true,
-            selectedTileColor: AppColors.primary,
-            title: Text(
-              APP_NAME,
-              style: TextStyle(
-                  fontSize: 20,
-                  color: AppColors.textOnPrimary,
-                  fontWeight: FontWeight.bold),
+          Container(
+            width: double.infinity,
+            color: AppColors.primary,
+            child: const SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: EdgeInsets.only(left: 16, right: 16, bottom: 6),
+                child: Text(
+                  APP_NAME,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textOnPrimary,
+                  ),
+                ),
+              ),
             ),
           ),
-          ListTile(
-            onTap: () {
-              widget.onChanged(0);
-              Navigator.pop(context);
-            },
-            selected: indexSelect == 0,
-            selectedTileColor: AppColors.primary,
-            leading: Icon(Icons.home_outlined,
-                color: indexSelect == 0
-                    ? AppColors.textOnPrimary
-                    : AppColors.textPrimary),
-            title: Text(
-              "Trang chủ",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: indexSelect == 0
-                      ? AppColors.textOnPrimary
-                      : AppColors.textPrimary),
-            ),
-          ),
-          ListTile(
-            onTap: () {
-              widget.onChanged(1);
-              Navigator.pop(context);
-            },
-            selected: indexSelect == 1,
-            selectedTileColor: AppColors.primary,
-            leading: Icon(Icons.category_outlined,
-                color: indexSelect == 1
-                    ? AppColors.textOnPrimary
-                    : AppColors.textPrimary),
-            title: Text(
-              "Thể loại",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: indexSelect == 1
-                      ? AppColors.textOnPrimary
-                      : AppColors.textPrimary),
-            ),
-          ),
-          ListTile(
-            onTap: () {
-              showFeatureComingSoon(context);
-              Navigator.pop(context);
-              //   widget.onChanged(2);
-            },
-            selected: indexSelect == 2,
-            selectedTileColor: AppColors.primary,
-            leading: Icon(Icons.book_outlined,
-                color: indexSelect == 2
-                    ? AppColors.textOnPrimary
-                    : AppColors.textPrimary),
-            title: Text(
-              "Truyện mới",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: indexSelect == 2
-                      ? AppColors.textOnPrimary
-                      : AppColors.textPrimary),
-            ),
-          ),
-          ListTile(
-            onTap: () {
-              showFeatureComingSoon(context);
-              Navigator.pop(context);
-              //   widget.onChanged(3);
-            },
-            selected: indexSelect == 3,
-            selectedTileColor: AppColors.primary,
-            leading: Icon(Icons.hotel_class_outlined,
-                color: indexSelect == 3
-                    ? AppColors.textOnPrimary
-                    : AppColors.textPrimary),
-            title: Text(
-              "Xếp hạng",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: indexSelect == 3
-                      ? AppColors.textOnPrimary
-                      : AppColors.textPrimary),
-            ),
-          ),
-          ListTile(
-            onTap: () {
-              showFeatureComingSoon(context);
-              Navigator.pop(context);
-              //   widget.onChanged(4);
-            },
-            selected: indexSelect == 4,
-            selectedTileColor: AppColors.primary,
-            leading: Icon(Icons.history_outlined,
-                color: indexSelect == 4
-                    ? AppColors.textOnPrimary
-                    : AppColors.textPrimary),
-            title: Text(
-              "Lịch sử",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: indexSelect == 4
-                      ? AppColors.textOnPrimary
-                      : AppColors.textPrimary),
-            ),
-          ),
-          ListTile(
-            onTap: () {
-              showFeatureComingSoon(context);
-              Navigator.pop(context);
-            },
-            leading: const Icon(Icons.exit_to_app_outlined,
-                color: AppColors.textPrimary),
-            title: const Text(
-              "Thoát",
-              style: TextStyle(fontSize: 20, color: AppColors.textPrimary),
+
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                _menuItem(
+                    title: "Trang chủ",
+                    icon: Icons.home_outlined,
+                    index: 0,
+                    indexSelect: indexSelect),
+                _menuItem(
+                    title: "Thể loại",
+                    icon: Icons.category_outlined,
+                    index: 1,
+                    indexSelect: indexSelect),
+                _menuItem(
+                    title: "Truyện mới",
+                    icon: Icons.book_outlined,
+                    index: 2,
+                    indexSelect: indexSelect),
+                _menuItem(
+                    title: "Xếp hạng",
+                    icon: Icons.hotel_class_outlined,
+                    index: 3,
+                    indexSelect: indexSelect),
+                _menuItem(
+                    title: "Lịch sử",
+                    icon: Icons.history_outlined,
+                    index: 4,
+                    indexSelect: indexSelect),
+                ListTile(
+                  leading: const Icon(Icons.exit_to_app_outlined,
+                      color: AppColors.textPrimary),
+                  title: const Text(
+                    "Thoát",
+                    style:
+                        TextStyle(fontSize: 18, color: AppColors.textPrimary),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _menuItem({
+    required String title,
+    required IconData icon,
+    required int index,
+    required int indexSelect,
+  }) {
+    final bool isSelected = indexSelect == index;
+
+    return ListTile(
+      selected: isSelected,
+      selectedTileColor: AppColors.primary,
+      tileColor: Colors.transparent,
+      selectedColor: AppColors.textOnPrimary,
+      leading: Icon(
+        icon,
+        color: isSelected ? AppColors.textOnPrimary : AppColors.textPrimary,
+      ),
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+          color: isSelected ? AppColors.textOnPrimary : AppColors.textPrimary,
+        ),
+      ),
+      onTap: () {
+        if (indexSelect != index) {
+          widget.onChanged(index);
+        }
+        Navigator.pop(context);
+      },
     );
   }
 }
