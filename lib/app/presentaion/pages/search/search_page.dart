@@ -32,6 +32,9 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _submitSearch(String query) {
+    setState(() {
+      _allComics.clear();
+    });
     final newQuery = query.trim();
     if (newQuery.isEmpty) return;
 
