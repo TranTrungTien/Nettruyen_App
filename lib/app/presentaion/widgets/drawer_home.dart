@@ -41,21 +41,24 @@ class _DrawerHomeState extends State<DrawerHome> {
               ),
             ),
           ),
-
           Expanded(
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
                 _menuItem(
-                    title: "Trang chủ",
-                    icon: Icons.home_outlined,
-                    index: 0,
-                    indexSelect: indexSelect),
+                  title: "Trang chủ",
+                  icon: Icons.home_outlined,
+                  index: 0,
+                  indexSelect: indexSelect,
+                  isCommingSoonFeature: false,
+                ),
                 _menuItem(
-                    title: "Thể loại",
-                    icon: Icons.category_outlined,
-                    index: 1,
-                    indexSelect: indexSelect),
+                  title: "Thể loại",
+                  icon: Icons.category_outlined,
+                  index: 1,
+                  indexSelect: indexSelect,
+                  isCommingSoonFeature: false,
+                ),
                 _menuItem(
                     title: "Truyện mới",
                     icon: Icons.book_outlined,
@@ -96,6 +99,7 @@ class _DrawerHomeState extends State<DrawerHome> {
     required IconData icon,
     required int index,
     required int indexSelect,
+    bool isCommingSoonFeature = true,
   }) {
     final bool isSelected = indexSelect == index;
 
@@ -117,8 +121,10 @@ class _DrawerHomeState extends State<DrawerHome> {
         ),
       ),
       onTap: () {
-        if (indexSelect != index) {
+        if (indexSelect != index && !isCommingSoonFeature) {
           widget.onChanged(index);
+        } else {
+          showFeatureComingSoon(context);
         }
         Navigator.pop(context);
       },
