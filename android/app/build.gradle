@@ -43,7 +43,7 @@ android {
     }
 
     namespace "com.minhnguyet.truyen"
-    compileSdkVersion 34
+    compileSdkVersion 35
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -62,17 +62,13 @@ android {
     defaultConfig {
         applicationId "com.minhnguyet.truyen"
         minSdkVersion flutter.minSdkVersion
-        targetSdkVersion 34
+        targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        ndk {
-            abiFilters 'x86_64', 'arm64-v8a', 'armeabi-v7a'
-        }
     }
 
     buildTypes {
         release {
-            // Use the release signing config
             signingConfig signingConfigs.release
         }
     }
