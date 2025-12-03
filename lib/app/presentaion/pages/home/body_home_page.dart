@@ -6,9 +6,9 @@ import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/reco
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/trending_comics_bloc.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_event.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_state.dart';
-import 'package:minh_nguyet_truyen/app/presentaion/widgets/failed_widget.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/comic/item_comic_1.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/footer.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/reload.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/story_grid.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/not_found_icon.dart';
@@ -84,9 +84,8 @@ class _BodyHomePageState extends State<BodyHomePage> {
             );
           }
         } else if (state is ComicFailed) {
-          return FailedWidet(
-            error: state.error!,
-            onReset: () {
+          return Reload(
+            onRetry: () {
               context
                   .read<RecommendComicsBloc>()
                   .add(GetRecommendComicsEvent());
@@ -178,9 +177,8 @@ class _ComicCategory<B extends Bloc<ComicEvent, ComicState>>
               ),
             ),
             if (state is ComicFailed)
-              FailedWidet(
-                error: state.error!,
-                onReset: () => context.read<B>().add(refreshEvent),
+              Reload(
+                onRetry: () => context.read<B>().add(refreshEvent),
               )
             else if (state is ComicLoading)
               const Padding(

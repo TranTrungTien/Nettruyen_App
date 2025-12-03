@@ -8,7 +8,7 @@ import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/genre/genre_bloc
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/genre/genre_event.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/genre/genre_state.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/comic/item_comic_2.dart';
-import 'package:minh_nguyet_truyen/app/presentaion/widgets/failed_widget.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/error_view.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/index_page.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:minh_nguyet_truyen/core/constants/constants.dart';
@@ -207,7 +207,12 @@ class _BodyGenrePageState extends State<BodyGenrePage> {
     }
 
     if (state is ComicFailed) {
-      return FailedWidet(error: state.error!);
+      return ErrorView(
+        message: state.error?.message,
+        onRetry: () {
+          context.read<ComicByGenreBloc>().add(GetComicByGenreEvent());
+        },
+      );
     }
 
     return const LoadingWidget();

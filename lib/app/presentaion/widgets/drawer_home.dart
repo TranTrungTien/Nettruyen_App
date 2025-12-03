@@ -3,13 +3,13 @@ import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 import 'package:minh_nguyet_truyen/core/constants/constants.dart';
 import 'package:minh_nguyet_truyen/core/utils/noti.dart';
 
-// ignore: must_be_immutable
 class DrawerHome extends StatefulWidget {
-  DrawerHome({super.key, required this.selectedIndex, required this.onChanged});
+  const DrawerHome(
+      {super.key, required this.selectedIndex, required this.onChanged});
 
   final int selectedIndex;
 
-  void Function(int indexSelect) onChanged;
+  final void Function(int indexSelect) onChanged;
 
   @override
   State<DrawerHome> createState() => _DrawerHomeState();
@@ -83,6 +83,7 @@ class _DrawerHomeState extends State<DrawerHome> {
                         TextStyle(fontSize: 18, color: AppColors.textPrimary),
                   ),
                   onTap: () {
+                    showFeatureComingSoon(context);
                     Navigator.pop(context);
                   },
                 ),

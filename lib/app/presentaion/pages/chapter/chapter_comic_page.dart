@@ -9,7 +9,7 @@ import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter/chapter_
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_bloc.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_event.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_state.dart';
-import 'package:minh_nguyet_truyen/app/presentaion/widgets/failed_widget.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/error_view.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
@@ -56,21 +56,21 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
     _loadedPage = widget.currentChapterPage;
     chapters = widget.defaultChapters;
     context.read<ChapterBloc>().add(
-      GetContentChapterEvent(chapterId: chapter.id, comic: widget.comic),
-    );
+          GetContentChapterEvent(chapterId: chapter.id, comic: widget.comic),
+        );
     if (widget.isClickFirstChapter && widget.currentChapterPage > 1) {
       context.read<ChapterPerPageBloc>().add(
-        GetChapterPerPageEvent(
-            widget.comic.id ?? '', widget.currentChapterPage - 1),
-      );
+            GetChapterPerPageEvent(
+                widget.comic.id ?? '', widget.currentChapterPage - 1),
+          );
     }
 
     if (widget.isClickLastChapter &&
         widget.currentChapterPage < widget.totalChapterPages) {
       context.read<ChapterPerPageBloc>().add(
-        GetChapterPerPageEvent(
-            widget.comic.id ?? '', widget.currentChapterPage + 1),
-      );
+            GetChapterPerPageEvent(
+                widget.comic.id ?? '', widget.currentChapterPage + 1),
+          );
     }
     if (widget.currentChapterPage < 0) {
       _hasMorePrev = false;
@@ -90,8 +90,8 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
 
   void _navigateToChapter(ChapterEntity newChapter) {
     context.read<ChapterBloc>().add(
-      GetContentChapterEvent(chapterId: newChapter.id, comic: widget.comic),
-    );
+          GetContentChapterEvent(chapterId: newChapter.id, comic: widget.comic),
+        );
     setState(() => chapter = newChapter);
     _scrollController.animateTo(
       0,
@@ -116,8 +116,8 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
       } else {
         setState(() => _isLoadingNextPage = true);
         context.read<ChapterPerPageBloc>().add(
-          GetChapterPerPageEvent(widget.comic.id ?? '', nextPage),
-        );
+              GetChapterPerPageEvent(widget.comic.id ?? '', nextPage),
+            );
       }
     }
   }
@@ -134,8 +134,8 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
       } else {
         setState(() => _isLoadingPrevPage = true);
         context.read<ChapterPerPageBloc>().add(
-          GetChapterPerPageEvent(widget.comic.id ?? '', prevPage),
-        );
+              GetChapterPerPageEvent(widget.comic.id ?? '', prevPage),
+            );
       }
     }
   }
@@ -297,7 +297,15 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
       );
     }
     if (state is ChapterFailed) {
-      return FailedWidet(error: state.error!);
+      return ErrorView(
+        message: state.error?.message,
+        onRetry: () {
+          context.read<ChapterBloc>().add(
+                GetContentChapterEvent(
+                    chapterId: chapter.id, comic: widget.comic),
+              );
+        },
+      );
     }
     return const LoadingWidget();
   }

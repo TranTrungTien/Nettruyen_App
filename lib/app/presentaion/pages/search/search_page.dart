@@ -5,7 +5,7 @@ import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_even
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_state.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/app_bar/app_bar.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/comic/item_comic_2.dart';
-import 'package:minh_nguyet_truyen/app/presentaion/widgets/failed_widget.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/error_view.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
 import 'package:minh_nguyet_truyen/core/constants/colors.dart';
@@ -182,7 +182,12 @@ class _SearchPageState extends State<SearchPage> {
                   return const LoadingWidget();
                 }
                 if (state is ComicFailed && _allComics.isEmpty) {
-                  return FailedWidet(error: state.error!);
+                  return ErrorView(
+                    message: state.error?.message,
+                    onRetry: () {
+                      _submitSearch(_textController.text);
+                    },
+                  );
                 }
                 if (_allComics.isEmpty) {
                   return const Center(

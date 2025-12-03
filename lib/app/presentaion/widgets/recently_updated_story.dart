@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/recent_update_comic_bloc.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_event.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_state.dart';
-import 'package:minh_nguyet_truyen/app/presentaion/widgets/failed_widget.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/genre.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/reload.dart';
 import 'package:minh_nguyet_truyen/config/routes/routes_name.dart';
 import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
@@ -128,14 +128,11 @@ class RecentUpdateListView extends StatelessWidget {
               );
             }
           } else if (state is ComicFailed) {
-            return FailedWidet(
-              error: state.error!,
-              onReset: () {
-                context
-                    .read<RecentUpdateComicsBloc>()
-                    .add(GetRecentUpdateComicsEvent());
-              },
-            );
+            return Reload(onRetry: () {
+              context
+                  .read<RecentUpdateComicsBloc>()
+                  .add(GetRecentUpdateComicsEvent());
+            });
           }
           return const LoadingWidget();
         }

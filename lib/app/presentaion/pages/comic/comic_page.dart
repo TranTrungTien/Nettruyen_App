@@ -5,7 +5,7 @@ import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_even
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_state.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/pages/comic/body.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/pages/comic/heading.dart';
-import 'package:minh_nguyet_truyen/app/presentaion/widgets/failed_widget.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/error_view.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 import 'package:minh_nguyet_truyen/core/utils/noti.dart';
@@ -63,12 +63,18 @@ class _ComicPageState extends State<ComicPage> {
         }
         if (state is ComicFailed) {
           return Scaffold(
-            appBar: AppBar(
-              backgroundColor: AppColors.backgroundLight,
-              title: const Text("Lỗi"),
-            ),
-            body: FailedWidet(error: state.error!),
-          );
+              appBar: AppBar(
+                backgroundColor: AppColors.backgroundLight,
+                title: Text(state.error?.message ?? 'Đã có lỗi xảy ra'),
+              ),
+              body: ErrorView(
+                message: state.error?.message,
+                onRetry: () {
+                  context
+                      .read<ComicByIdBloc>()
+                      .add(GetComicByIdEvent(comicId: widget.comicId));
+                },
+              ));
         }
         return Scaffold(
           appBar: AppBar(
