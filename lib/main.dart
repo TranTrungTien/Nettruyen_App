@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter/chapter_bloc.dart';
@@ -11,19 +12,30 @@ import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/sear
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/trending_comics_bloc.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_event.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/genre/genre_bloc.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/update_dialogs.dart';
 import 'package:minh_nguyet_truyen/config/routes/custome_route.dart';
 import 'package:minh_nguyet_truyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/firebase_options.dart';
+import 'package:minh_nguyet_truyen/services/update_service.dart';
 import 'package:minh_nguyet_truyen/setup.dart';
+import 'dart:developer';
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initlizeDependencies();
-  runApp(const MyApp());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await UpdateService.initialize();
+  final updateInfo = await UpdateService.checkUpdate();
+  runApp(MyApp(updateInfo: updateInfo));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key, required this.updateInfo});
+  final UpdateInfo updateInfo;
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -54,7 +66,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<ChapterPerPageBloc>(create: (context) => sl()),
       ],
       child: MaterialApp(
-        title: 'Comic free',
+        navigatorKey: navigatorKey,
+        title: 'Free Story',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           appBarTheme: const AppBarTheme(backgroundColor: AppColors.primary),
@@ -63,6 +76,42 @@ class MyApp extends StatelessWidget {
         ),
         onGenerateRoute: (settings) => AppRouter.generate(settings),
         initialRoute: "/",
+        builder: (context, child) {
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
+            final currentContext = navigatorKey.currentContext;
+            if (currentContext == null || !currentContext.mounted) return;
+            if (updateInfo.type == UpdateType.none) return;
+            if (updateInfo.type == UpdateType.force) {
+              showDialog(
+                context: currentContext,
+                barrierDismissible: false,
+                builder: (_) => UpdateDialog(
+                  title: updateInfo.title,
+                  message: updateInfo.message,
+                  isForce: updateInfo.type == UpdateType.force,
+                ),
+              );
+              return;
+            }
+
+            final navigator = Navigator.of(currentContext);
+            final currentRouteName = navigator.widget.pages.firstOrNull?.name
+                ?? ModalRoute.of(currentContext)?.settings.name;
+
+            if (currentRouteName == '/' || currentRouteName == null) {
+              showDialog(
+                context: currentContext,
+                builder: (_) => UpdateDialog(
+                  title: updateInfo.title,
+                  message: updateInfo.message,
+                  isForce: updateInfo.type == UpdateType.force,
+                ),
+              );
+            }
+          });
+
+          return child!;
+        },
       ),
     );
   }
