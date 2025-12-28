@@ -18,7 +18,6 @@ import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 import 'package:minh_nguyet_truyen/firebase_options.dart';
 import 'package:minh_nguyet_truyen/services/update_service.dart';
 import 'package:minh_nguyet_truyen/setup.dart';
-import 'dart:developer';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
