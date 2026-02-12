@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/image_custome/image_custome.dart';
@@ -8,8 +6,9 @@ import 'package:minh_nguyet_truyen/core/constants/api.dart';
 import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
 class ItemComic2 extends StatefulWidget {
-  ItemComic2({super.key, required this.comic});
-  ComicEntity comic;
+  final ComicEntity comic;
+
+  const ItemComic2({super.key, required this.comic});
 
   @override
   State<ItemComic2> createState() => _ItemComic2State();

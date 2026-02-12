@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:minh_nguyet_truyen/app/data/data_sources/remote/api_nettruyen_service.dart';
 import 'package:minh_nguyet_truyen/app/data/repository/repository_api.dart';
+import 'package:minh_nguyet_truyen/app/data/services/reading_progress_service.dart';
 import 'package:minh_nguyet_truyen/app/domain/models/genre.dart';
 import 'package:minh_nguyet_truyen/app/domain/repository/repository_api.dart';
 import 'package:minh_nguyet_truyen/app/domain/usecases/remote/get_chapter_by_comic_id_usecase.dart';
@@ -25,11 +26,13 @@ import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/reco
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/search_comic_bloc.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/trending_comics_bloc.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/genre/genre_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:minh_nguyet_truyen/app/data/services/bookmark_service.dart';
 
 final sl = GetIt.instance;
 
 Future<void> initlizeDependencies() async {
-  sl.registerLazySingleton<GenreEntity>(() => GenreEntity(
+  sl.registerLazySingleton<GenreEntity>(() => const GenreEntity(
       id: "all", name: "Tất cả", description: "Tất cả thể loại truyện tranh"));
 
   sl.registerLazySingleton<Dio>(() => Dio());
@@ -94,4 +97,14 @@ Future<void> initlizeDependencies() async {
   sl.registerFactory<SearchComicBloc>(() => SearchComicBloc(sl()));
 
   sl.registerFactory<TrendingComicsBloc>(() => TrendingComicsBloc(sl()));
+
+  // Shared Preferences
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerLazySingleton(() => sharedPreferences);
+
+  // Bookmark Service
+  sl.registerLazySingleton(() => BookmarkService(sl()));
+
+  // Reading Progress Service
+  sl.registerLazySingleton(() => ReadingProgressService(sl()));
 }

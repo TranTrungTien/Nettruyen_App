@@ -60,10 +60,12 @@ class _DrawerHomeState extends State<DrawerHome> {
                   isCommingSoonFeature: false,
                 ),
                 _menuItem(
-                    title: "Truyện mới",
-                    icon: Icons.book_outlined,
-                    index: 2,
-                    indexSelect: indexSelect),
+                  title: "Bookmark",
+                  icon: Icons.bookmark_border_outlined,
+                  index: 2,
+                  indexSelect: indexSelect,
+                  isCommingSoonFeature: false,
+                ),
                 _menuItem(
                     title: "Xếp hạng",
                     icon: Icons.hotel_class_outlined,

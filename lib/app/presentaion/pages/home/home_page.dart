@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/pages/bookmark/body_bookmark.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/pages/genres/body_genre_page.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/pages/home/body_home_page.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/pages/page_not_found.dart';
@@ -20,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   final _pages = const <Widget>[
     BodyHomePage(),
     BodyGenrePage(),
+    BookmarkPage(),
   ];
 
   @override

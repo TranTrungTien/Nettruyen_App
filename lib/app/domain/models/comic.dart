@@ -1,30 +1,28 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
 import 'package:minh_nguyet_truyen/app/domain/models/chapter.dart';
 import 'package:minh_nguyet_truyen/app/domain/models/genre.dart';
 
-// ignore: must_be_immutable
 class ComicEntity extends Equatable {
-  String? id;
-  String? title;
-  String? thumbnail;
-  String? description;
-  String? shortDescription;
-  bool? isTrending = false;
-  String? updatedAt;
-  String? authors;
-  String? status;
-  List<String>? otherNames;
-  String? totalViews;
-  String? followers;
-  List<ChapterEntity>? chapters;
-  List<GenreEntity>? genres;
-  ChapterEntity? latestChapter;
-  int? totalChapterPages;
-  int? totalChapters;
+  final String? id;
+  final String? title;
+  final String? thumbnail;
+  final String? description;
+  final String? authors;
+  final String? status;
+  final List<String>? otherNames;
+  final String? totalViews;
+  final String? followers;
+  final List<ChapterEntity>? chapters;
+  final List<GenreEntity>? genres;
+  final bool? isTrending;
+  final ChapterEntity? latestChapter;
+  final String? shortDescription;
+  final String? updatedAt;
+  final int? totalChapterPages;
+  final int? totalChapters;
 
-  ComicEntity(
+  const ComicEntity(
       {this.id,
       this.title,
       this.thumbnail,

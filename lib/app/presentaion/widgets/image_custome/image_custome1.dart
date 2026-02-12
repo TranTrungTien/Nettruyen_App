@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
-// ignore: must_be_immutable
 class ImageCustome extends StatelessWidget {
-  ImageCustome({super.key, this.url});
-  String? url;
+  final String? url;
+  
+  const ImageCustome({super.key, this.url});
 
   @override
   Widget build(BuildContext context) {

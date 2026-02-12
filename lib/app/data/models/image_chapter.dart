@@ -1,21 +1,19 @@
 import 'dart:convert';
-
 import 'package:minh_nguyet_truyen/app/domain/models/image_chapter.dart';
 
-// ignore: must_be_immutable
 class ImageChapterModel extends ImageChapterEntity {
-  ImageChapterModel({super.backup_src, super.page, super.src});
+  const ImageChapterModel({super.backupSrc, super.page, super.src});
 
   factory ImageChapterModel.fromEntity(ImageChapterEntity entity) {
     return ImageChapterModel(
-        backup_src: entity.backup_src, page: entity.page, src: entity.src);
+        backupSrc: entity.backupSrc, page: entity.page, src: entity.src);
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'page': page,
       'src': src,
-      'backup_src': backup_src,
+      'backupSrc': backupSrc,
     };
   }
 
@@ -23,7 +21,7 @@ class ImageChapterModel extends ImageChapterEntity {
     return ImageChapterModel(
       page: map['page'],
       src: map['src'],
-      backup_src: map['backup_src'],
+      backupSrc: map['backupSrc'],
     );
   }
 

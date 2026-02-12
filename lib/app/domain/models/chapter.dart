@@ -1,16 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:equatable/equatable.dart';
 
-// ignore: must_be_immutable
 class ChapterEntity extends Equatable {
-  String id;
-  String? name;
-  String? url;
-  int? chapterNumber;
-  DateTime? updatedAt;
+  final String id;
+  final String? name;
+  final String? url;
+  final int? chapterNumber;
+  final DateTime? updatedAt;
 
-  ChapterEntity({
+  const ChapterEntity({
     required this.id,
     this.name,
     this.url,
@@ -23,4 +20,9 @@ class ChapterEntity extends Equatable {
 
   @override
   bool get stringify => true;
+
+  @override
+  String toString() {
+    return 'Chapter(id: $id, name: $name)';
+  }
 }

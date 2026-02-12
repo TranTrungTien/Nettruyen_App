@@ -6,9 +6,8 @@ import 'package:minh_nguyet_truyen/app/domain/models/chapter.dart';
 import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
 import 'package:minh_nguyet_truyen/app/domain/models/genre.dart';
 
-// ignore: must_be_immutable
 class ComicModel extends ComicEntity {
-  ComicModel(
+  const ComicModel(
       {super.id,
       super.title,
       super.thumbnail,
@@ -45,7 +44,7 @@ class ComicModel extends ComicEntity {
         shortDescription: entity.shortDescription,
         updatedAt: entity.updatedAt,
         totalChapterPages: entity.totalChapterPages,
-        totalChapters: entity.totalChapterPages);
+        totalChapters: entity.totalChapters);
   }
 
   Map<String, dynamic> toMap() {

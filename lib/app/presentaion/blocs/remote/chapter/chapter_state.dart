@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
@@ -6,17 +5,15 @@ import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
 import 'package:minh_nguyet_truyen/app/domain/models/content_chapter.dart';
 
 class ChapterState extends Equatable {
-  ContentChapterEntity? contentChapter;
-  ComicEntity? comic;
-  DioException? error;
-  ChapterState({
+  final ContentChapterEntity? contentChapter;
+  final DioException? error;
+  const ChapterState({
     this.contentChapter,
-    this.comic,
     this.error,
   });
 
   @override
-  List<Object?> get props => [contentChapter, comic, error];
+  List<Object?> get props => [contentChapter, error];
 
   ChapterState copyWith({
     ContentChapterEntity? contentChapter,
@@ -25,20 +22,19 @@ class ChapterState extends Equatable {
   }) {
     return ChapterState(
       contentChapter: contentChapter ?? this.contentChapter,
-      comic: comic ?? this.comic,
       error: error ?? this.error,
     );
   }
 }
 
 class ChapterSuccessfull extends ChapterState {
-  ChapterSuccessfull({super.contentChapter, super.comic});
+  const ChapterSuccessfull({super.contentChapter});
 }
 
 class ChapterLoading extends ChapterState {
-  ChapterLoading();
+  const ChapterLoading();
 }
 
 class ChapterFailed extends ChapterState {
-  ChapterFailed({super.error});
+  const ChapterFailed({super.error});
 }

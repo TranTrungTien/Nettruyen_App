@@ -1,11 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-// ignore: must_be_immutable
 class GenreEntity extends Equatable {
-  String? id;
-  String? name;
-  String? description;
-  GenreEntity({
+  final String? id;
+  final String? name;
+  final String? description;
+  const GenreEntity({
     this.id,
     this.name,
     this.description,

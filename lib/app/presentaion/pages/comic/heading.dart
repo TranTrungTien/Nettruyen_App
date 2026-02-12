@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:minh_nguyet_truyen/app/data/services/reading_progress_service.dart';
 import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
+import 'package:minh_nguyet_truyen/app/domain/models/reading_progress.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/genre.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/image_custome/image_custome.dart';
 import 'package:minh_nguyet_truyen/config/routes/routes_name.dart';
 import 'package:minh_nguyet_truyen/core/constants/api.dart';
 import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 import 'package:minh_nguyet_truyen/core/utils/noti.dart';
+import 'package:minh_nguyet_truyen/setup.dart';
 
 class HeadingComic extends StatefulWidget {
   const HeadingComic({super.key, required this.comic});
@@ -17,6 +20,40 @@ class HeadingComic extends StatefulWidget {
 
 class _HeadingComicState extends State<HeadingComic> {
   bool isShowMore = false;
+  final _progressService = sl<ReadingProgressService>();
+  ReadingProgress? _currentProgress;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProgress();
+  }
+
+  Future<void> _loadProgress() async {
+    final progress = await _progressService.getProgress(widget.comic.id ?? '');
+    if (mounted) {
+      setState(() {
+        _currentProgress = progress;
+      });
+    }
+  }
+
+  void _navigateToChapter() {
+    Navigator.pushNamed(
+      context,
+      '${RoutesName.kComics}/${widget.comic.id}/${_currentProgress?.chapter.id}',
+      arguments: {
+        "comic": widget.comic,
+        "chapter": _currentProgress?.chapter,
+        "currentChapterPage": _currentProgress?.currentChapterPage,
+        "totalChapterPages": widget.comic.totalChapterPages,
+        "isClickFirstChapter": _currentProgress?.isFirstChapter,
+        "isClickLastChapter": _currentProgress?.isLastChapter,
+        "loadedFromLocal": true,
+        "defaultChapters": []
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,6 +158,18 @@ class _HeadingComicState extends State<HeadingComic> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 5),
+                    _currentProgress?.chapter.id != null
+                        ? Text(
+                            'Bạn đang đọc đến chương ${_currentProgress?.chapter.name ?? ''}',
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontSize: 15,
+                                color: AppColors.textSecondary),
+                          )
+                        : const SizedBox(),
                   ],
                 ),
               ),
@@ -184,6 +233,8 @@ class _HeadingComicState extends State<HeadingComic> {
             children: [
               // Đọc từ đầu (guard chapters)
               InkWell(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {
                   final chaps = widget.comic.chapters ?? [];
                   if (chaps.isNotEmpty) {
@@ -227,6 +278,8 @@ class _HeadingComicState extends State<HeadingComic> {
                 ),
               ),
               InkWell(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () => showFeatureComingSoon(context),
                 child: Container(
                   margin: const EdgeInsets.symmetric(vertical: 5),
@@ -256,17 +309,29 @@ class _HeadingComicState extends State<HeadingComic> {
               Visibility(
                 visible: true,
                 child: InkWell(
-                  onTap: () => showFeatureComingSoon(context),
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  onTap: _currentProgress?.chapter.id != null
+                      ? () {
+                          _navigateToChapter();
+                        }
+                      : null,
                   child: Container(
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 15),
                     decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: AppColors.secondary),
+                      border: Border.all(
+                          width: 1,
+                          color: _currentProgress?.chapter.id != null
+                              ? AppColors.secondary
+                              : AppColors.disabledBorder),
                       borderRadius: BorderRadius.circular(5),
-                      color: AppColors.secondary,
+                      color: _currentProgress?.chapter.id != null
+                          ? AppColors.secondary
+                          : AppColors.disabledBackground,
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
@@ -275,11 +340,15 @@ class _HeadingComicState extends State<HeadingComic> {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
-                            color: AppColors.textOnPrimary,
+                            color: _currentProgress?.chapter.id != null
+                                ? AppColors.textOnPrimary
+                                : AppColors.disabledText,
                           ),
                         ),
                         Icon(Icons.navigate_next,
-                            color: AppColors.textOnPrimary),
+                            color: _currentProgress?.chapter.id != null
+                                ? AppColors.textOnPrimary
+                                : AppColors.disabledText),
                       ],
                     ),
                   ),

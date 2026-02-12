@@ -3,9 +3,18 @@ import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
 import 'package:minh_nguyet_truyen/core/constants/constants.dart';
 import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 
-// ignore: must_be_immutable
 class ImageCustome2 extends StatefulWidget {
-  ImageCustome2({
+  final String? url;
+  final EdgeInsetsGeometry? margin;
+  final BorderRadiusGeometry? borderRadius;
+  final BoxBorder? border;
+  final Color? backgroundColor;
+  final double? width;
+  final double? height;
+  final BoxFit? fit;
+  final void Function(String error)? onError;
+
+  const ImageCustome2({
     super.key,
     this.url,
     this.backgroundColor,
@@ -17,15 +26,6 @@ class ImageCustome2 extends StatefulWidget {
     this.fit,
     this.onError,
   });
-  String? url;
-  EdgeInsetsGeometry? margin;
-  BorderRadiusGeometry? borderRadius;
-  BoxBorder? border;
-  Color? backgroundColor;
-  double? width;
-  double? height;
-  BoxFit? fit;
-  void Function(String error)? onError;
 
   @override
   State<ImageCustome2> createState() => _ImageCustome2State();

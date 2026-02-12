@@ -12,18 +12,17 @@ class ChapterBloc extends Bloc<ChapterEvent, ChapterState> {
   GetChapterByComicIdUsecase usecaseGetChapter;
   GetContentOneChapterUsecase usecaseGetContentChapter;
   ChapterBloc(this.usecaseGetChapter, this.usecaseGetContentChapter)
-      : super(ChapterState()) {
+      : super(const ChapterState()) {
     on<GetChapterEvent>(onGetChapterEvent);
     on<GetContentChapterEvent>(onGetContentChapterEvent);
   }
 
   FutureOr<void> onGetChapterEvent(
       GetChapterEvent event, Emitter<ChapterState> emit) async {
-    emit(ChapterLoading());
-    final dataState = await usecaseGetChapter.call(comicId: event.comic.id!);
+    emit(const ChapterLoading());
+    final dataState = await usecaseGetChapter.call(comicId: event.storyId);
     if (dataState is DataSuccess) {
       emit(ChapterSuccessfull(
-          comic: event.comic,
           contentChapter: ContentChapterEntity(chapters: dataState.data)));
     } else {
       emit(ChapterFailed(error: dataState.error));
@@ -32,12 +31,11 @@ class ChapterBloc extends Bloc<ChapterEvent, ChapterState> {
 
   FutureOr<void> onGetContentChapterEvent(
       GetContentChapterEvent event, Emitter<ChapterState> emit) async {
-    emit(ChapterLoading());
+    emit(const ChapterLoading());
     final dataState = await usecaseGetContentChapter.call(
-        comicId: event.comic.id!, chapterId: event.chapterId);
+        comicId: event.storyId, chapterId: event.chapterId);
     if (dataState is DataSuccess) {
-      emit(ChapterSuccessfull(
-          comic: event.comic, contentChapter: dataState.data));
+      emit(ChapterSuccessfull(contentChapter: dataState.data));
     } else {
       emit(ChapterFailed(error: dataState.error));
     }

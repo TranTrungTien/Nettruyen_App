@@ -20,7 +20,11 @@ class RecentUpdateListView extends StatelessWidget {
           if (state is ComicSuccesfull) {
             final comics = state.listComic?.comics ?? [];
             if (comics.isEmpty) {
-              return const SizedBox.shrink();
+              return Reload(onRetry: () {
+                context
+                    .read<RecentUpdateComicsBloc>()
+                    .add(GetRecentUpdateComicsEvent());
+              });
             } else {
               return ListView.separated(
                 shrinkWrap: true,

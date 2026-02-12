@@ -1,14 +1,12 @@
-import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
-
 abstract class ChapterEvent {}
 
 class GetChapterEvent extends ChapterEvent {
-  ComicEntity comic;
-  GetChapterEvent(this.comic);
+  final String storyId;
+  GetChapterEvent(this.storyId);
 }
 
 class GetContentChapterEvent extends ChapterEvent {
   String chapterId;
-  ComicEntity comic;
-  GetContentChapterEvent({required this.chapterId, required this.comic});
+  final String storyId;
+  GetContentChapterEvent({required this.chapterId, required this.storyId});
 }

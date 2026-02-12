@@ -1,11 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:minh_nguyet_truyen/app/domain/models/chapter.dart';
 
 class ChapterPerPageState extends Equatable {
-  DioException? error;
-  ChapterPerPageState({
+  final DioException? error;
+  const ChapterPerPageState({
     this.error,
   });
 
@@ -25,13 +24,13 @@ class ChapterPerPageState extends Equatable {
 class ChapterPerPageSuccessfull extends ChapterPerPageState {
   final List<ChapterEntity> chapters;
   final int page;
-  ChapterPerPageSuccessfull(this.chapters, this.page);
+  const ChapterPerPageSuccessfull(this.chapters, this.page);
 }
 
 class ChapterPerPageLoading extends ChapterPerPageState {
-  ChapterPerPageLoading();
+  const ChapterPerPageLoading();
 }
 
 class ChapterPerPageFailed extends ChapterPerPageState {
-  ChapterPerPageFailed({super.error});
+  const ChapterPerPageFailed({super.error});
 }

@@ -2,9 +2,8 @@ import 'dart:convert';
 
 import 'package:minh_nguyet_truyen/app/domain/models/genre.dart';
 
-// ignore: must_be_immutable
 class GenreModel extends GenreEntity {
-  GenreModel({super.id, super.name, super.description});
+  const GenreModel({super.id, super.name, super.description});
 
   factory GenreModel.fromEntity(GenreEntity entity) {
     return GenreModel(

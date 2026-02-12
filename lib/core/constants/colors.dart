@@ -25,4 +25,8 @@ class AppColors {
   static const Color danger = Color(0xFFD9534F); // Đỏ Đất (Đọc tiếp/Cảnh báo)
   static const Color hotTag =
       Color(0xFFFFB347); // Dùng lại Secondary cho Tag "HOT"
+
+  static const Color disabledBackground = Color(0xFFF2F2F2);
+  static const Color disabledBorder = Color(0xFFF2F2F2);
+  static const Color disabledText = Color(0xFFB0B0B0);
 }

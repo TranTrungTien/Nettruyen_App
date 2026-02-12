@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hidable/hidable.dart';
+import 'package:minh_nguyet_truyen/app/data/services/reading_progress_service.dart';
 import 'package:minh_nguyet_truyen/app/domain/models/chapter.dart';
-import 'package:minh_nguyet_truyen/app/domain/models/comic.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter/chapter_bloc.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter/chapter_event.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter/chapter_state.dart';
@@ -11,21 +11,26 @@ import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter_per_page
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/chapter_per_page/chapter_per_page_state.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/error_view.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
+import 'package:minh_nguyet_truyen/config/routes/routes_name.dart';
 import 'package:minh_nguyet_truyen/core/constants/colors.dart';
+import 'package:minh_nguyet_truyen/setup.dart';
 
 class ChapterComicPage extends StatefulWidget {
   const ChapterComicPage({
     super.key,
-    required this.comic,
+    required this.storyId,
+    required this.storyName,
     required this.chapter,
     required this.currentChapterPage,
     required this.isClickFirstChapter,
     required this.isClickLastChapter,
     required this.defaultChapters,
     required this.totalChapterPages,
+    this.loadedFromLocal = false,
   });
-
-  final ComicEntity comic;
+  final bool loadedFromLocal;
+  final String storyId;
+  final String storyName;
   final ChapterEntity chapter;
   final List<ChapterEntity> defaultChapters;
   final int currentChapterPage;
@@ -38,6 +43,8 @@ class ChapterComicPage extends StatefulWidget {
 }
 
 class _ChapterComicPageState extends State<ChapterComicPage> {
+  final _progressService = sl<ReadingProgressService>();
+
   final _scrollController = ScrollController();
 
   late ChapterEntity chapter;
@@ -55,23 +62,25 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
     chapter = widget.chapter;
     _loadedPage = widget.currentChapterPage;
     chapters = widget.defaultChapters;
+
+    _saveReadingProgress();
     context.read<ChapterBloc>().add(
-          GetContentChapterEvent(chapterId: chapter.id, comic: widget.comic),
+          GetContentChapterEvent(
+              chapterId: chapter.id, storyId: widget.storyId),
         );
     if (widget.isClickFirstChapter && widget.currentChapterPage > 1) {
-      context.read<ChapterPerPageBloc>().add(
-            GetChapterPerPageEvent(
-                widget.comic.id ?? '', widget.currentChapterPage - 1),
-          );
+      _loadChapters(widget.currentChapterPage - 1);
     }
 
     if (widget.isClickLastChapter &&
         widget.currentChapterPage < widget.totalChapterPages) {
-      context.read<ChapterPerPageBloc>().add(
-            GetChapterPerPageEvent(
-                widget.comic.id ?? '', widget.currentChapterPage + 1),
-          );
+      _loadChapters(widget.currentChapterPage + 1);
     }
+
+    if (widget.loadedFromLocal) {
+      _loadChapters(widget.currentChapterPage);
+    }
+
     if (widget.currentChapterPage < 0) {
       _hasMorePrev = false;
       _hasMoreNext = false;
@@ -88,9 +97,27 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
     super.dispose();
   }
 
+  Future<void> _saveReadingProgress() async {
+    await _progressService.saveProgress(
+        storyId: widget.storyId,
+        storyName: widget.storyName,
+        chapter: chapter,
+        currentChapterPage: widget.currentChapterPage,
+        totalChapterPages: widget.totalChapterPages,
+        isFirstChapter: widget.isClickFirstChapter,
+        isLastChapter: widget.isClickLastChapter);
+  }
+
+  void _loadChapters(int pageIndex) {
+    context.read<ChapterPerPageBloc>().add(
+          GetChapterPerPageEvent(widget.storyId, pageIndex),
+        );
+  }
+
   void _navigateToChapter(ChapterEntity newChapter) {
     context.read<ChapterBloc>().add(
-          GetContentChapterEvent(chapterId: newChapter.id, comic: widget.comic),
+          GetContentChapterEvent(
+              chapterId: newChapter.id, storyId: widget.storyId),
         );
     setState(() => chapter = newChapter);
     _scrollController.animateTo(
@@ -115,9 +142,7 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
         setState(() {});
       } else {
         setState(() => _isLoadingNextPage = true);
-        context.read<ChapterPerPageBloc>().add(
-              GetChapterPerPageEvent(widget.comic.id ?? '', nextPage),
-            );
+        _loadChapters(nextPage);
       }
     }
   }
@@ -133,9 +158,7 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
         setState(() {});
       } else {
         setState(() => _isLoadingPrevPage = true);
-        context.read<ChapterPerPageBloc>().add(
-              GetChapterPerPageEvent(widget.comic.id ?? '', prevPage),
-            );
+        _loadChapters(prevPage);
       }
     }
   }
@@ -184,17 +207,25 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
                   floating: true,
                   snap: true,
                   backgroundColor: AppColors.backgroundLight,
-                  title: ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(
-                      widget.comic.title ?? '',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    subtitle: Text(
-                      chapter.name ?? '',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                  title: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        '${RoutesName.kComics}/${widget.storyId}',
+                      );
+                    },
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(
+                        widget.storyName,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      subtitle: Text(
+                        chapter.name ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                 ),
@@ -203,12 +234,14 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
                 ),
               ],
             ),
-            bottomNavigationBar: Hidable(
-              controller: _scrollController,
-              child: Center(
-                child: _buildPrevAndNextButton(isLoadingChapter),
-              ),
-            ),
+            bottomNavigationBar: widget.totalChapterPages != -1
+                ? Hidable(
+                    controller: _scrollController,
+                    child: Center(
+                      child: _buildPrevAndNextButton(isLoadingChapter),
+                    ),
+                  )
+                : null,
           );
         },
       ),
@@ -224,6 +257,7 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
       final prevChapter = chapters[currentIndex - 1];
       _navigateToChapter(prevChapter);
       _maybeLoadPrevPage(currentIndex - 1);
+      _saveReadingProgress();
     }
 
     void _goNext() {
@@ -232,6 +266,7 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
       final nextChapter = chapters[currentIndex + 1];
       _navigateToChapter(nextChapter);
       _maybeLoadNextPage(currentIndex + 1);
+      _saveReadingProgress();
     }
 
     final bool hasPrev = currentIndex > 0 || _hasMorePrev;
@@ -291,7 +326,9 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
           children: [
             Text(content, style: const TextStyle(fontSize: 16, height: 1.8)),
             const SizedBox(height: 20),
-            _buildPrevAndNextButton(false),
+            widget.totalChapterPages != -1
+                ? _buildPrevAndNextButton(false)
+                : const SizedBox(),
           ],
         ),
       );
@@ -302,7 +339,7 @@ class _ChapterComicPageState extends State<ChapterComicPage> {
         onRetry: () {
           context.read<ChapterBloc>().add(
                 GetContentChapterEvent(
-                    chapterId: chapter.id, comic: widget.comic),
+                    chapterId: chapter.id, storyId: widget.storyId),
               );
         },
       );

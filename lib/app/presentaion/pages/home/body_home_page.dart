@@ -6,8 +6,10 @@ import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/reco
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/blocs/trending_comics_bloc.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_event.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_state.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/bookmarked_stories_section.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/comic/item_comic_1.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/footer.dart';
+import 'package:minh_nguyet_truyen/app/presentaion/widgets/recently_read_section.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/reload.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/story_grid.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/loading_widget.dart';
@@ -44,6 +46,8 @@ class _BodyHomePageState extends State<BodyHomePage> {
       child: Column(
         children: [
           _buildRecommendStory(context),
+          const RecentlyReadSection(),
+          const BookmarkedStoriesSection(),
           const RecentUpdateListView(),
           _ComicCategory<CompletedComicBloc>(
             title: "Truyện đã hoàn thành",
@@ -75,6 +79,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               separatorBuilder: (BuildContext context, int index) {
                 return const SizedBox(width: 10);
               },
@@ -153,7 +158,7 @@ class _ComicCategory<B extends Bloc<ComicEvent, ComicState>>
         final itemCount = length > maxItems ? maxItems : length;
 
         return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ListTile(
               contentPadding: const EdgeInsets.only(left: 10),

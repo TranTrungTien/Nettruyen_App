@@ -1,14 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:minh_nguyet_truyen/app/domain/models/chapter.dart';
 import 'package:minh_nguyet_truyen/app/domain/models/image_chapter.dart';
 
-// ignore: must_be_immutable
 class ContentChapterEntity {
-  List<ChapterEntity>? chapters;
-  String? content;
-  String? chapterName;
-  String? comicName;
+  final List<ChapterEntity>? chapters;
+  final String? content;
+  final String? chapterName;
+  final String? comicName;
   ContentChapterEntity({
     this.chapters,
     this.content,

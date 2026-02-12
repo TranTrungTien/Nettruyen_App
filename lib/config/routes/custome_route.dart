@@ -16,7 +16,6 @@ import 'package:minh_nguyet_truyen/config/routes/type_route.dart';
 class AppRouter {
   static Route<dynamic> generate(RouteSettings settings) {
     final name = settings.name ?? '';
-    debugPrint('route: $name, args: ${settings.arguments}');
 
     // Path-based: /comics/:slug or /comics/:slug/:chapterId
     if (name.startsWith(RoutesName.kComics)) {
@@ -32,7 +31,7 @@ class AppRouter {
         }
         if (seg.length == 3) {
           final args = (settings.arguments ?? {}) as Map<String, dynamic>;
-          final ComicEntity? comic = args['comic'] as ComicEntity?;
+          final ComicEntity? story = args['comic'] as ComicEntity?;
           final ChapterEntity? chapter = args['chapter'] as ChapterEntity?;
           final List<ChapterEntity> defaultChapters =
               (args['defaultChapters'] as List<dynamic>? ?? [])
@@ -45,18 +44,22 @@ class AppRouter {
               args['isClickFirstChapter'] as bool? ?? true;
           final bool isClickLastChapter =
               args['isClickLastChapter'] as bool? ?? false;
+          final bool loadedFromLocal =
+              args['loadedFromLocal'] as bool? ?? false;
 
-          if (comic != null && chapter != null) {
+          if (story != null && chapter != null) {
             return MaterialPageRoute(
               settings: settings,
               builder: (_) => ChapterComicPage(
-                comic: comic,
+                storyId: story.id ?? '',
+                storyName: story.title ?? '',
                 chapter: chapter,
                 currentChapterPage: currentChapterPage,
                 totalChapterPages: totalChapterPages,
                 isClickFirstChapter: isClickFirstChapter,
                 isClickLastChapter: isClickLastChapter,
                 defaultChapters: defaultChapters,
+                loadedFromLocal: loadedFromLocal,
               ),
             );
           }

@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
@@ -7,11 +6,11 @@ import 'package:minh_nguyet_truyen/app/domain/models/comic_list.dart';
 import 'package:minh_nguyet_truyen/app/domain/models/content_chapter.dart';
 
 class ComicState extends Equatable {
-  ComicListEntity? listComic;
-  ComicEntity? comic;
-  ContentChapterEntity? contentChapter;
-  DioException? error;
-  ComicState({
+  final ComicListEntity? listComic;
+  final ComicEntity? comic;
+  final ContentChapterEntity? contentChapter;
+  final DioException? error;
+  const ComicState({
     this.listComic,
     this.comic,
     this.contentChapter,
@@ -37,15 +36,15 @@ class ComicState extends Equatable {
 }
 
 class ComicLoading extends ComicState {
-  ComicLoading();
+  const ComicLoading();
 }
 
 class ComicSuccesfull extends ComicState {
-  ComicSuccesfull({super.listComic, super.comic, super.contentChapter});
+  const ComicSuccesfull({super.listComic, super.comic, super.contentChapter});
 }
 
 class ComicFailed extends ComicState {
-  ComicFailed({required DioException error}) : super(error: error);
+  const ComicFailed({required DioException error}) : super(error: error);
 }
 
 class ComicInitial extends ComicState {}
