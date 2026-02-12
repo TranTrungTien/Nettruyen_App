@@ -28,6 +28,9 @@ class IndexPage extends StatelessWidget {
           Visibility(
             visible: safeCurrent > 1,
             child: InkWell(
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               onTap: () => onValue(safeCurrent - 1),
               child: Container(
                 width: 30,
@@ -50,6 +53,9 @@ class IndexPage extends StatelessWidget {
                   final page = i + 1;
                   final isActive = page == safeCurrent;
                   return InkWell(
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () => onValue(page),
                     child: Container(
                       width: 30,
@@ -76,6 +82,9 @@ class IndexPage extends StatelessWidget {
           ),
           // Next
           InkWell(
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onTap: () => onValue(
                 safeCurrent + 1 > safeTotal ? safeTotal : safeCurrent + 1),
             child: Container(

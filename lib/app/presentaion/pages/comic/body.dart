@@ -101,6 +101,9 @@ class _BodyComicPageState extends State<BodyComicPage> {
                   itemBuilder: (context, index) {
                     final chapter = _chapters[index];
                     return InkWell(
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
                       onTap: () {
                         Navigator.pushNamed(
                           context,

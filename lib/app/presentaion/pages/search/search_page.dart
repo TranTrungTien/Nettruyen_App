@@ -122,6 +122,9 @@ class _SearchPageState extends State<SearchPage> {
                   color: Colors.transparent,
                   borderRadius: BorderRadius.circular(28),
                   child: InkWell(
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     borderRadius: BorderRadius.circular(28),
                     onTap: () => _submitSearch(_textController.text),
                     child: Container(

@@ -18,6 +18,9 @@ class _ItemComic1State extends State<ItemComic1> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {
         Navigator.pushNamed(context, '${RoutesName.kComics}/${widget.comic.id}',
             arguments: widget.comic.id);

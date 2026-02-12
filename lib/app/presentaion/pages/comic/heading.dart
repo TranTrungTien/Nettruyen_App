@@ -218,6 +218,9 @@ class _HeadingComicState extends State<HeadingComic> {
           ),
           if (widget.comic.description != '')
             InkWell(
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               onTap: () => setState(() => isShowMore = !isShowMore),
               child: Container(
                 padding: const EdgeInsets.all(5),
@@ -233,6 +236,7 @@ class _HeadingComicState extends State<HeadingComic> {
             children: [
               // Đọc từ đầu (guard chapters)
               InkWell(
+                hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 splashColor: Colors.transparent,
                 onTap: () {
@@ -278,6 +282,7 @@ class _HeadingComicState extends State<HeadingComic> {
                 ),
               ),
               InkWell(
+                hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 splashColor: Colors.transparent,
                 onTap: () => showFeatureComingSoon(context),
@@ -309,6 +314,7 @@ class _HeadingComicState extends State<HeadingComic> {
               Visibility(
                 visible: true,
                 child: InkWell(
+                  hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   onTap: _currentProgress?.chapter.id != null

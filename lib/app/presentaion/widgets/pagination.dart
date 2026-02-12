@@ -185,6 +185,9 @@ class _SmartPaginationState extends State<SmartPagination> {
   }) {
     final isEnabled = onTap != null;
     return InkWell(
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(8),
@@ -214,6 +217,9 @@ class _SmartPaginationState extends State<SmartPagination> {
     final isActive = widget.activePage == page;
 
     return InkWell(
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {
         if (!isActive) {
           widget.onPageChanged(page);
@@ -257,6 +263,9 @@ class _SmartPaginationState extends State<SmartPagination> {
   /// Builds the Go to Page input/button (retained the original implementation)
   Widget _buildGoToPage() {
     return InkWell(
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: _showGoToPageDialog,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),

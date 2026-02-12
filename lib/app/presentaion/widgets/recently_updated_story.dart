@@ -38,6 +38,9 @@ class RecentUpdateListView extends StatelessWidget {
                   Widget? genresWidget = Genres(genres: comic.genres ?? []);
 
                   return InkWell(
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
                       Navigator.pushNamed(
                         context,

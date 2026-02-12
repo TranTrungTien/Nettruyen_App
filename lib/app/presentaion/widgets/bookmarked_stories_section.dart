@@ -133,6 +133,7 @@ class _BookmarkedStoriesSectionState extends State<BookmarkedStoriesSection> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
+          hoverColor: Colors.transparent,
           highlightColor: Colors.transparent,
           splashColor: Colors.transparent,
           borderRadius: BorderRadius.circular(12),

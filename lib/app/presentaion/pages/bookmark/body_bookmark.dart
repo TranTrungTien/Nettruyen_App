@@ -486,6 +486,9 @@ class _BookmarkPageState extends State<BookmarkPage> {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             borderRadius: BorderRadius.circular(12),
             onTap: () {
               // Navigate to story detail

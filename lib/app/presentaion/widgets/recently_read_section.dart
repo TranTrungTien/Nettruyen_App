@@ -132,6 +132,9 @@ class _RecentlyReadSectionState extends State<RecentlyReadSection> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
           borderRadius: BorderRadius.circular(12),
           onTap: () {
             Navigator.pushNamed(
