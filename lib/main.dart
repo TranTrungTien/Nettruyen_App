@@ -14,6 +14,7 @@ import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/comic/comic_even
 import 'package:minh_nguyet_truyen/app/presentaion/blocs/remote/genre/genre_bloc.dart';
 import 'package:minh_nguyet_truyen/app/presentaion/widgets/update_dialogs.dart';
 import 'package:minh_nguyet_truyen/config/routes/custome_route.dart';
+import 'package:minh_nguyet_truyen/core/constants/api.dart';
 import 'package:minh_nguyet_truyen/core/constants/colors.dart';
 import 'package:minh_nguyet_truyen/firebase_options.dart';
 import 'package:minh_nguyet_truyen/services/update_service.dart';
@@ -27,6 +28,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await apiVersionService.initialize(); // Initialize ApiVersionService
   await UpdateService.initialize();
   final updateInfo = await UpdateService.checkUpdate();
   runApp(MyApp(updateInfo: updateInfo));
