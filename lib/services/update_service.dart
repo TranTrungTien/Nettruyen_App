@@ -40,11 +40,11 @@ class UpdateService {
 
       await _remoteConfig.fetchAndActivate();
 
-      final minRequired = _remoteConfig.getString('minimum_required_version').trim();
+      final minRequired =
+          _remoteConfig.getString('minimum_required_version').trim();
       final latest = _remoteConfig.getString('latest_version').trim();
       final compareMin = _compareVersions(currentVersion, minRequired);
       final compareLatest = _compareVersions(currentVersion, latest);
-
       if (compareMin < 0) {
         // Force update
         return UpdateInfo(
@@ -72,7 +72,11 @@ class UpdateService {
         );
       }
     } catch (e) {
-      return UpdateInfo(type: UpdateType.none, currentVersion: 'unknown', title: '', message: '');
+      return UpdateInfo(
+          type: UpdateType.none,
+          currentVersion: 'unknown',
+          title: '',
+          message: '');
     }
   }
 
@@ -91,18 +95,16 @@ class UpdateService {
 
   static Future<void> launchStore() async {
     String urlString;
-
     if (Platform.isAndroid) {
       urlString = _remoteConfig.getString('store_url_android').trim();
       if (urlString.isEmpty) {
-        final packageInfo = await PackageInfo.fromPlatform();
-        urlString = 'https://play.google.com/store/apps/details?id=${packageInfo.packageName}';
+        urlString =
+            'https://play.google.com/store/apps/details?id=com.minhnguyet.truyen';
       }
     } else {
       urlString = _remoteConfig.getString('store_url_ios').trim();
       if (urlString.isEmpty) return;
     }
-
     final uri = Uri.parse(urlString);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
