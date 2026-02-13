@@ -7,7 +7,7 @@ class ApiVersionService {
   ApiVersionService._internal();
 
   final _remoteConfig = FirebaseRemoteConfig.instance;
-  String _apiVersion = 'v2'; // Default version
+  String _apiVersion = 'v3'; // Default version
 
   String get apiVersion => _apiVersion;
 

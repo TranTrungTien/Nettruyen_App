@@ -105,7 +105,7 @@ class RecentUpdateListView extends StatelessWidget {
                                 Row(
                                   children: [
                                     Text(
-                                      "Chương: ${comic.totalChapters ?? 0} ",
+                                      "Chương: ${comic.latestChapter?.name ?? 0} ",
                                       style: const TextStyle(
                                         fontSize: 12,
                                         color: AppColors.primary,
